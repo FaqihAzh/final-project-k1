@@ -7,17 +7,18 @@ const Button = (props) => {
     props;
 
   const getButtonClass = () => {
+    const buttonClassName = "px-5 py-2 text-sm rounded-full text-white";
     const baseClasses = [
       `cursor-pointer ${className}`,
       props.isOrangeGradient &&
-        `hover:bg-darkOrange px-5 py-2 text-sm rounded-full bg-gradient-to-b from-paleOrange to-darkOrange text-white ${className}`,
+        `${buttonClassName} hover:!bg-gradient-to-b hover:!from-darkOrange hover:!to-darkOrange bg-gradient-to-b from-paleOrange to-darkOrange ${className}`,
       props.isGreenGradient &&
-        `hover:bg-seaGreen px-5 py-2 text-sm rounded-full bg-gradient-to-b from-turquoise to-seaGreen text-white ${className}`,
+        `${buttonClassName} hover:!bg-gradient-to-b hover:!from-seaGreen hover:!to-seaGreen bg-gradient-to-b from-turquoise to-seaGreen ${className}`,
       props.isRedGradient &&
-        `hover:bg-salmon px-5 py-2 text-sm rounded-full bg-gradient-to-b from-palePink to-salmon text-white ${className}`,
+        `${buttonClassName} hover:!bg-gradient-to-b hover:!from-salmon hover:!to-salmon bg-gradient-to-b from-palePink to-salmon ${className}`,
       props.isOutline &&
-        `px-5 py-2 text-sm rounded-full bg-transparent text-white border border-1 border-white ${className}`,
-      props.isBlock && `w-full${className}`,
+        `${buttonClassName} bg-transparent border border-1 border-white ${className}`,
+      props.isBlock && `w-full ${className}`,
     ];
 
     return baseClasses.filter(Boolean).join(" ");

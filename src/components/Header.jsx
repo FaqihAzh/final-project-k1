@@ -118,7 +118,7 @@ const Header = () => {
       {/* <div className={`fixed top-0 left-0 w-screen transition-opacity duration-500 ease-in-out ${showMenu ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
         <div className={`flex flex-col gap-4 bg-lightBlue rounded-b-2xl px-4 pt-24 pb-8 transform transition-transform duration-500 ease-in-out ${showMenu ? 'translate-y-0' : '-translate-y-full'}`}> */}
       <div
-        className={`md:hidden fixed bottom-0 left-0 w-screen transition-opacity duration-500 ease-in-out ${
+        className={`md:hidden fixed bottom-0 left-0 w-screen transition-opacity duration-500 ease-in-out z-50 ${
           showMenu
             ? "opacity-100 pointer-events-auto"
             : "opacity-0 pointer-events-none"

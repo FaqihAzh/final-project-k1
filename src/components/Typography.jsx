@@ -25,7 +25,7 @@ export const Heading = ({ variant, children, className, ...restProps }) => {
 };
 
 Heading.propTypes = {
-  variant: PropTypes.oneOf(["title", "subtitle", "paragraph"]),
+  variant: PropTypes.oneOf(["h1", "h2", "h3", "h4"]),
   className: PropTypes.string,
 };
 
@@ -49,6 +49,6 @@ export const Paragraph = ({ variant, children, className, ...restProps }) => {
 };
 
 Paragraph.propTypes = {
-  variant: PropTypes.oneOf(["small", "large", "italic", "normal"]),
+  variant: PropTypes.oneOf(["small", "large", "normal"]),
   className: PropTypes.string,
 };
