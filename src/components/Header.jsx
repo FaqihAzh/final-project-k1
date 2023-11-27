@@ -64,6 +64,8 @@ const Header = () => {
       <Button
         className="min-w-max border border-1 border-paleOrange"
         isOrangeGradient
+        type="link"
+        href="/register"
       >
         Sign Up
       </Button>
