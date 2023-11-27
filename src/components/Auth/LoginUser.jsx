@@ -71,7 +71,7 @@ const LoginUser = () => {
         <div className="flex-1 bg-white rounded-t-[3rem] lg:rounded-l-[3rem] shadow-[0px_2px_20px_#cbd1f5] flex justify-center items-start md:items-center pt-20 md:pt-0">
           <div className="flex flex-col justify-center items-center gap-4 w-full px-4 md:px-12 lg:px-32">
             <FadeIn delay={0.2} direction="down" fullWidth>
-              <Heading variant="h1">Sign in</Heading>
+              <Heading variant="h3" className="text-grey">Sign in</Heading>
             </FadeIn>
             <FadeIn delay={0.3} direction="down" fullWidth>
               {renderFormInput(
