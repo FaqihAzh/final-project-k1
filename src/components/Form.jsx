@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
+import { EyeIcon, EyeSlashIcon, CheckIcon } from "@heroicons/react/24/outline";
+import { Paragraph } from "./Typography";
 
 const FormInput = ({
   label,
@@ -11,7 +12,7 @@ const FormInput = ({
   name,
   className,
   maxLength,
-
+  isChecked,
 }) => {
   const [focused, setFocused] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -29,6 +30,42 @@ const FormInput = ({
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
+
+  if (type === "checkbox") {
+    return (
+      <div className="flex items-center">
+        <input
+          type="checkbox"
+          id={name}
+          checked={isChecked}
+          onChange={(e) => onChange(name, e.target.checked)}
+          className="hidden"
+        />
+        <label
+          htmlFor={name}
+          className="cursor-pointer flex items-center space-x-3 select-none"
+        >
+          <div
+            className={`${
+              isChecked
+                ? "bg-lightBlue border-lightBlue border-2"
+                : "bg-softGrey bg-opacity-50 border-softGrey border-2"
+            } p-1 rounded-lg border-solid flex items-center justify-center transition-all duration-300 `}
+          >
+            <CheckIcon
+              strokeWidth={3}
+              className={`w-3 h-3 ${
+                isChecked ? "text-white" : "text-transparent"
+              }`}
+            />
+          </div>
+          <Paragraph variant="small" className="text-lightGrey">
+            {label}
+          </Paragraph>
+        </label>
+      </div>
+    );
+  }
 
   return (
     <div className={`relative w-full ${focused && "mt-4"}`}>
