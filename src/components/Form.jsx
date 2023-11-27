@@ -9,6 +9,9 @@ const FormInput = ({
   onChange,
   text,
   name,
+  className,
+  maxLength,
+
 }) => {
   const [focused, setFocused] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -39,7 +42,7 @@ const FormInput = ({
       </label>
       <div className="relative">
         <input
-          className={`transition-all duration-300 appearance-none text-sm border rounded-full w-full py-3 px-5 text-${text} 
+          className={`${className} transition-all duration-300 appearance-none text-sm border rounded-full w-full py-3 px-5 text-${text} 
           leading-tight bg-transparent placeholder-${text} placeholder-opacity-70 
           outline-none focus:border-2 focus:border-darkOrange focus:shadow-outline`}
           type={showPassword ? "text" : type}
@@ -49,6 +52,7 @@ const FormInput = ({
           onFocus={handleFocus}
           onBlur={handleBlur}
           name={name}
+          maxLength={maxLength}
         />
         {type === "password" && (
           <button
