@@ -1,5 +1,9 @@
 import { BrowserRouter, Route, Routes, Outlet } from "react-router-dom";
 import UserLayout from "./Layout/UserLayout";
+import RegisterPage from "./pages/RegisterPage";
+import { AdminLoginPage } from "./pages/admin/AdminLoginPage";
+import { AdminDashboard } from "./pages/admin/AdminDashboard";
+import { AdminKelolaKelas } from "./pages/admin/AdminKelolaKelas";
 import UserAuthLayout from "./Layout/UserAuthLayout";
 import ColorPalettePage from "./pages/ColorPalettePage";
 import ResetPasswordPage from "./pages/Auth/ResetPasswordPage";
@@ -23,6 +27,14 @@ const App = () => {
           </Route>
 
           {/* Buat Layout Admin Nanti Disini */}
+          {/* admin */}
+          <Route path="/adminlogin" element={<AdminLoginPage />} />
+          <Route path="/admindashboard" element={<AdminDashboard />} />
+          <Route path="/adminkelolakelas" element={<AdminKelolaKelas />} />
+          {/* admin */}
+          <Route path="/register" element={<RegisterPage />} />
+       
+          {/* Buat yg gapake layout samsek bisa di taruh disini, ex: login, regist etc */}
 
           <Route element={<AuthLayoutWithOutlet />}>
             <Route path="/login" element={<LoginPage />} />
