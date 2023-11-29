@@ -5,6 +5,10 @@ import { Heading, Paragraph } from "../components/Typography";
 import Hero from "../components/Hero";
 import FormInput from "../components/Form";
 import RegisterUser from "../components/Auth/RegisterUser";
+import CourseCard from "../components/CourseCard";
+import Advantages from "../components/Advantages";
+import CategoryItem from "../components/CategoryItem";
+import SideFilter from "../components/SideFilter";
 
 const ColorPalettePage = () => {
   const colors = [
@@ -58,8 +62,9 @@ const ColorPalettePage = () => {
     <>
       {/* <Hero /> */}
       {/* <RegisterUser /> */}
-      <Hero />
-      <div className="min-h-screen w-screen bg-gray-500 pt-24 px-4 md:px-12 lg:px-24">
+      {/* <Hero /> */}
+      <Advantages />
+      {/* <div className="min-h-screen w-screen bg-gray-500 pt-24 px-4 md:px-12 lg:px-24">
         <div className="flex flex-wrap justify-center">
           {colors.map((color, index) => (
             <div
@@ -118,6 +123,56 @@ const ColorPalettePage = () => {
             type="text"
             text="white"
           />
+        </div>
+      </div> */}
+      {/* <div className="bg-white py-24 px-4 md:px-12 lg:px-24 flex flex-col md:flex-row justify-center gap-8 md:gap-4 w-screen">
+        <CourseCard />
+        <CourseCard />
+        <CourseCard />
+      </div> */}
+      {/* <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-4 md:px-12 lg:px-24 py-24 bg-softGrey">
+        <CategoryItem />
+        <CategoryItem />
+        <CategoryItem />
+        <CategoryItem />
+        <CategoryItem />
+        <CategoryItem />
+        <CategoryItem />
+        <CategoryItem />
+        <CategoryItem />
+        <CategoryItem />
+      </div> */}
+      <div className="bg-softGrey py-12 px-4 md:px-12 lg:px-24 flex flex-col md:flex-row justify-start gap-12 w-screen min-h-screen">
+        <div className="w-[25%]">
+          <SideFilter />
+        </div>
+        <div className="flex flex-col justify-start w-[75%] gap-4">
+          <div className="flex gap-4 w-full">
+            <Button className="text-white flex-1 bg-lightBlue py-3 px-5 rounded-full">
+              All
+            </Button>
+            <Button className="text-darkGrey flex-1 bg-white py-3 px-5 rounded-full">
+              Premium
+            </Button>
+            <Button className="text-darkGrey flex-1 bg-white py-3 px-5 rounded-full">
+              Free
+            </Button>
+          </div>
+          <div className="-mb-4">
+            <Paragraph variant="small" className="text-darkGrey font-medium">
+              Result for{" "}
+              <span className=" italic">
+                Top New, UI/UX Design, Advanced Level
+              </span>
+            </Paragraph>
+          </div>
+          <div className="grid grid-cols-3 gap-4 ">
+            <CourseCard />
+            <CourseCard />
+            <CourseCard />
+            <CourseCard />
+            <CourseCard />
+          </div>
         </div>
       </div>
     </>

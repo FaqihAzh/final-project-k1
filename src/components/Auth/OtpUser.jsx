@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import FadeIn from "../FadeIn";
 import { Heading, Paragraph } from "../Typography";
 import Button from "../Button";
-import Charakter from "../../assets/images/loginIllustration.png";
-import Header from "../Header";
+import loginIllustration from "../../assets/images/loginIllustration.png";
 import logo from "../../assets/images/darkLogo.svg";
 import FormInput from "../Form";
 
@@ -19,9 +18,6 @@ const OtpUser = () => {
 
   return (
     <>
-      <div className="block md:hidden">
-        <Header />
-      </div>
       <div className="grid grid-rows-1 grid-cols-1 md:grid-rows-2 lg:grid-cols-2 lg:grid-rows-1 w-screen h-screen bg-softGrey">
         <div className="hidden md:flex flex-1 flex-col justify-center lg:justify-end items-center gap-6">
           <FadeIn delay={0.4} direction="up">
@@ -45,7 +41,7 @@ const OtpUser = () => {
             className="hidden lg:flex justify-center"
           >
             <img
-              src={Charakter}
+              src={loginIllustration}
               alt="LoginIllustration"
               className="w-[50%] h-auto "
             />
@@ -54,10 +50,19 @@ const OtpUser = () => {
         <div className="flex-1 bg-white rounded-t-[3rem] lg:rounded-l-[3rem] shadow-[0px_2px_20px_#cbd1f5] flex justify-center items-start md:items-center pt-20 md:pt-0">
           <div className="flex flex-col justify-center items-center gap-4 w-full px-4 md:px-12 lg:px-32">
             <FadeIn delay={0.2} direction="down" fullWidth>
-              <Heading variant="h3" className="text-grey">OTP Input</Heading>
+              <Heading variant="h3" className="text-darkGrey">
+                OTP Input
+              </Heading>
             </FadeIn>
-            <FadeIn delay={0.4} direction="down" fullWidth className="text-center">
-              <Paragraph>Type the 6 digit code sent to the F*****@gmail.com</Paragraph>
+            <FadeIn
+              delay={0.4}
+              direction="down"
+              fullWidth
+              className="text-center"
+            >
+              <Paragraph variant="small" className="text-darkGrey">
+                Type the 6 digit code sent to the F*****@gmail.com
+              </Paragraph>
             </FadeIn>
             <FadeIn delay={0.3} direction="down" fullWidth>
               <FormInput
@@ -68,19 +73,26 @@ const OtpUser = () => {
                 onChange={handleInputChange}
                 type="text"
                 text="darkGrey"
-                className="!text-center !tracking-[2rem] focus:!caret-transparent pl-[3.3rem] !text-2xl placeholder:font-normal font-semibold"
+                className="!text-center !tracking-[2rem] focus:!caret-transparent pl-[3.3rem] !text-2xl placeholder:font-normal font-semibold placeholder:text-xl"
                 maxLength={6}
               />
             </FadeIn>
-            <FadeIn delay={0.4} direction="up" fullWidth className="flex justify-center">
-              <Paragraph>Resend OTP in 60 seconds</Paragraph>
+            <FadeIn
+              delay={0.4}
+              direction="up"
+              fullWidth
+              className="flex justify-center"
+            >
+              <Paragraph variant="small" className="text-darkGrey">
+                Resend OTP in 60 seconds
+              </Paragraph>
             </FadeIn>
             <FadeIn delay={0.3} direction="up" fullWidth>
               <Button
                 isBlock
-                className="px-5 py-3 bg-darkOrange text-white rounded-full !text-xl"
+                className="px-5 py-2 bg-darkOrange text-white rounded-full !text-xl"
               >
-                Sign in
+                Verify OTP
               </Button>
             </FadeIn>
           </div>
