@@ -9,6 +9,7 @@ const FormInput = ({
   onChange,
   text,
   name,
+  onKeyPress,
 }) => {
   const [focused, setFocused] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -20,6 +21,11 @@ const FormInput = ({
   const handleBlur = () => {
     if (!value) {
       setFocused(false);
+    }
+  };
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter" && onKeyPress) {
+      onKeyPress(e);
     }
   };
 
@@ -49,6 +55,7 @@ const FormInput = ({
           onFocus={handleFocus}
           onBlur={handleBlur}
           name={name}
+          onKeyPress={handleKeyPress}
         />
         {type === "password" && (
           <button

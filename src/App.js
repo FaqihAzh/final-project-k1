@@ -2,7 +2,9 @@ import { BrowserRouter, Route, Routes, Outlet } from "react-router-dom";
 import ColorPalettePage from "./pages/ColorPalettePage";
 import UserLayout from "./Layout/UserLayout";
 import RegisterPage from "./pages/RegisterPage";
-import { AdminLognPage } from "./pages/AdminLognPage";
+import { AdminLoginPage } from "./pages/admin/AdminLoginPage";
+import { AdminDashboard } from "./pages/admin/AdminDashboard";
+import { AdminKelolaKelas } from "./pages/admin/AdminKelolaKelas";
 
 const App = () => {
   return (
@@ -14,8 +16,13 @@ const App = () => {
             {/* Buat yang pake layout header footer biasa bisa di taruh disini routenya */}
           </Route>
           {/* Buat Layout Admin Nanti Disini */}
+          {/* admin */}
+          <Route path="/adminlogin" element={<AdminLoginPage />} />
+          <Route path="/admindashboard" element={<AdminDashboard />} />
+          <Route path="/adminkelolakelas" element={<AdminKelolaKelas />} />
+          {/* admin */}
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/adminlogin" element={<AdminLognPage />} />
+       
           {/* Buat yg gapake layout samsek bisa di taruh disini, ex: login, regist etc */}
         </Routes>
       </BrowserRouter>
