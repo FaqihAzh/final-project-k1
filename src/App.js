@@ -7,6 +7,9 @@ import RegisterPage from "./pages/Auth/RegisterPage";
 import ForgotPasswordPage from "./pages/Auth/ForgotPasswordPage";
 import LoginPage from "./pages/Auth/LoginPage";
 import OtpPage from "./pages/Auth/OtpPage";
+import PaymentSuccessPage from "./pages/PaymentSuccessPage";
+import NotificationPage from "./pages/NotificationPage";
+
 
 const App = () => {
   return (
@@ -15,6 +18,8 @@ const App = () => {
         <Routes>
           <Route element={<UserLayoutWithOutlet />}>
             <Route index element={<ColorPalettePage />} />
+            <Route path="/payment/success" element={<PaymentSuccessPage />} />
+            <Route path="/notification" element={<NotificationPage />} />
           </Route>
 
           {/* Buat Layout Admin Nanti Disini */}

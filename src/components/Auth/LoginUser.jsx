@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+// import { DotLottiePlayer } from "@dotlottie/react-player";
 import FormInput from "../Form";
+import Header from "../Header";
 import { Heading, Paragraph } from "../Typography";
 import Button from "../Button";
 import logo from "../../assets/images/darkLogo.svg";
 import FadeIn from "../FadeIn";
-import loginIllustration from "../../assets/images/loginIllustration.png";
+import Charakter from "../../assets/images/loginIllustration.png";
 
 const LoginUser = () => {
   const [formData, setFormData] = useState({
@@ -31,6 +33,9 @@ const LoginUser = () => {
 
   return (
     <>
+      <div className="block md:hidden">
+        <Header />
+      </div>
       <div className="grid grid-rows-1 grid-cols-1 md:grid-rows-2 lg:grid-cols-2 lg:grid-rows-1 w-screen h-screen bg-softGrey">
         <div className="hidden md:flex flex-1 flex-col justify-center lg:justify-end items-center gap-6">
           <FadeIn delay={0.4} direction="up">
@@ -58,7 +63,7 @@ const LoginUser = () => {
             className="hidden lg:flex justify-center"
           >
             <img
-              src={loginIllustration}
+              src={Charakter}
               alt="LoginIllustration"
               className="w-[50%] h-auto "
             />
@@ -67,7 +72,7 @@ const LoginUser = () => {
         <div className="flex-1 bg-white rounded-t-[3rem] lg:rounded-l-[3rem] shadow-[0px_2px_20px_#cbd1f5] flex justify-center items-start md:items-center pt-20 md:pt-0">
           <div className="flex flex-col justify-center items-center gap-4 w-full px-4 md:px-12 lg:px-32">
             <FadeIn delay={0.2} direction="down" fullWidth>
-              <Heading variant="h3" className="text-darkGrey">
+              <Heading variant="h3" className="text-grey">
                 Sign in
               </Heading>
             </FadeIn>
@@ -159,9 +164,9 @@ const LoginUser = () => {
                 <Button
                   type="link"
                   href="/register"
-                  className="text-darkOrange font-semibold"
+                  className="text-darkOrange"
                 >
-                  Create an Account!
+                  Create an Account
                 </Button>
               </Paragraph>
             </FadeIn>
