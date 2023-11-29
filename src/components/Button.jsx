@@ -3,8 +3,17 @@ import { Link } from "react-router-dom";
 import propTypes from "prop-types";
 
 const Button = (props) => {
-  const { type, onClick, href, target, isExternal, children, className } =
-    props;
+  const {
+    type,
+    onClick,
+    href,
+    target,
+    isExternal,
+    children,
+    className,
+    onMouseEnter,
+    onMouseLeave,
+  } = props;
 
   const getButtonClass = () => {
     const buttonClassName = "px-5 py-2 text-sm rounded-full text-white";
@@ -16,6 +25,8 @@ const Button = (props) => {
         `${buttonClassName} hover:!bg-gradient-to-b hover:!from-seaGreen hover:!to-seaGreen bg-gradient-to-b from-turquoise to-seaGreen ${className}`,
       props.isRedGradient &&
         `${buttonClassName} hover:!bg-gradient-to-b hover:!from-salmon hover:!to-salmon bg-gradient-to-b from-palePink to-salmon ${className}`,
+      props.isPurpleGradient &&
+        `${buttonClassName} hover:!bg-gradient-to-b hover:!from-[#6D3AE9] hover:!to-[#6D3AE9] bg-gradient-to-b from-[#A988F9] to-[#6D3AE9] ${className}`,
       props.isOutline &&
         `${buttonClassName} bg-transparent border border-1 border-white ${className}`,
       props.isBlock && `w-full ${className}`,
@@ -50,7 +61,13 @@ const Button = (props) => {
   }
 
   return (
-    <button className={getButtonClass()} onClick={onClickHandler} type="button">
+    <button
+      className={getButtonClass()}
+      onClick={onClickHandler}
+      type="button"
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
       {children}
     </button>
   );

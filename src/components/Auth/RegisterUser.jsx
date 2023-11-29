@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import FormInput from "../Form";
 import Button from "../Button";
-// import darkLogo from "../../assets/images/darkLogo.svg";
+import darkLogo from "../../assets/images/darkLogo.svg";
+import registIllustration from "../../assets/images/registIllustration.png";
 import { Heading, Paragraph } from "../Typography";
-import Header from "../Header";
 import FadeIn from "../FadeIn";
+import AuthHeader from "./AuthHeader";
 
 const RegisterUser = () => {
   const [formData, setFormData] = useState({
@@ -33,25 +34,45 @@ const RegisterUser = () => {
 
   return (
     <>
-      <div className="block md:hidden">
-        <Header />
-      </div>
-      <div className="flex flex-col md:flex-row w-screen h-screen bg-cloudWhite ">
-        <div className="hidden md:flex flex-col flex-1 h-full items-center justify-center text-center px-4 md:px-12 gap-4">
-          {/* <img src={darkLogo} alt="darkLogo" />
-          <Heading variant="h1" className="text-darkGrey">
-            Sign Up Now,
-            <span className="text-darkOrange ml-2">
-              Start Your Learning Journey.
-            </span>
-          </Heading>
-          <Paragraph className="text-center text-lightGrey">
-            Embark on a journey of knowledge by signing up today! Your learning
-            adventure begins with a simple registration.
-          </Paragraph> */}
+      <AuthHeader />
+      <div className="grid grid-rows-1 grid-cols-1 md:grid-rows-2 lg:grid-cols-2 lg:grid-rows-1 w-screen h-screen bg-softGrey ">
+        <div className="overflow-hidden flex-1 hidden md:flex flex-col h-full items-center text-center px-4 md:px-16">
+          <div className="flex flex-col items-center justify-center lg:justify-end text-center flex-1">
+            <FadeIn
+              delay={0.3}
+              direction="down"
+              fullWidth
+              className="flex justify-center"
+            >
+              <img src={darkLogo} alt="darkLogo" className="mb-4" />
+            </FadeIn>
+            <FadeIn delay={0.2} direction="down" fullWidth>
+              <Heading variant="h1" className="text-darkGrey z-20 mb-1">
+                Join
+                <span className="text-darkOrange mx-2 z-20">
+                  World's largest
+                </span>
+                learning platform today
+              </Heading>
+            </FadeIn>
+            <FadeIn delay={0.2} direction="up" fullWidth>
+              <Paragraph className="text-center text-lightGrey font-thin z-20">
+                Start learning by very easy registering for 100% free!
+              </Paragraph>
+            </FadeIn>
+          </div>
+          <div className="hidden lg:flex relative flex-1 w-1/2 lg:w-full h-full">
+            <FadeIn delay={0.3} direction="up" fullWidth>
+              <img
+                src={registIllustration}
+                alt="registIllustration"
+                className="z-10 absolute scale-110"
+              />
+            </FadeIn>
+          </div>
         </div>
-        <div className="flex-1 rounded-none md:rounded-bl-[3rem] md:rounded-tl-[3rem] bg-white shadow-lg h-full flex items-center">
-          <div className="flex w-full py-4 px-4 md:px-12 lg:px-32 flex-col gap-4">
+        <div className="flex-1 rounded-none md:rounded-bl-none md:rounded-tl-[3rem] md:rounded-tr-[3rem] lg:rounded-bl-[3rem] lg:rounded-tl-[3rem] lg:rounded-tr-none bg-white shadow-lg h-full flex pt-20 md:pt-0 items-start md:items-center">
+          <div className="flex w-full py-4 px-4 md:px-24 lg:px-32 flex-col gap-4">
             <FadeIn delay={0.2} direction="down" fullWidth>
               <Heading variant="h3" className="text-darkGrey">
                 Create Account
@@ -111,7 +132,11 @@ const RegisterUser = () => {
             <FadeIn delay={0.2} direction="up" fullWidth>
               <Paragraph variant="small" className="text-darkGrey text-center">
                 Already have an account?
-                <Button className="text-darkOrange font-semibold ml-1">
+                <Button
+                  type="link"
+                  href="/login"
+                  className="text-darkOrange font-semibold ml-1"
+                >
                   Let's Sign in!
                 </Button>
               </Paragraph>

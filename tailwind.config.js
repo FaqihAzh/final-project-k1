@@ -20,6 +20,7 @@ module.exports = {
         seaGreen: "#20B486",
         palePink: "#FFA4AF",
         salmon: "#EE455A",
+        softGrey: "#F1F2F8",
       },
       screens: {
         sm: "425px",
