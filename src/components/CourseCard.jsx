@@ -9,10 +9,14 @@ import {
 import Button from "./Button";
 
 const CourseCard = () => {
-  const [isMyClass, setIsMyClass] = useState(false);
+  const [isMyClass, setIsMyClass] = useState(true);
 
   return (
-    <div className="flex flex-col gap-2 pt-2 pl-2 pr-2 mt-4 rounded-xl bg-white w-full shadow-xl relative">
+    <div
+      className={`flex flex-col gap-2 ${
+        isMyClass ? "p-3" : "pt-3 pl-3 pr-3 mt-4"
+      } rounded-xl bg-white w-full shadow-xl relative`}
+    >
       <div className="w-full">
         <img
           src="https://picsum.photos/300/150"
@@ -48,8 +52,8 @@ const CourseCard = () => {
           </Paragraph>
         )}
         <span className="border-b w-full border-dotted border-lightGrey my-2"></span>
-        <div className="flex gap-4 flex-wrap mb-2">
-          <span className="flex gap-1 items-center ">
+        <div className="flex gap-x-4 gap-y-2 flex-wrap">
+          <span className="flex gap-1 items-center">
             <ClockIcon className="w-4 h-4 text-darkOrange" strokeWidth="2" />
             <Paragraph className="text-sm font-normal text-lightGrey">
               120 Menit
@@ -69,7 +73,7 @@ const CourseCard = () => {
           </span>
         </div>
         {isMyClass ? (
-          <div className="w-full flex outline outline-1 outline-softGrey rounded-full mb-2">
+          <div className="w-full flex outline outline-1 outline-softGrey rounded-full mt-2">
             <div className=" bg-darkOrange px-4 rounded-full w-9/12">
               <Paragraph className="text-xs font-normal text-white tracking-wide">
                 75%

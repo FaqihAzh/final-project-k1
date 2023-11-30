@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import FormInput from "./Form";
 import { Heading } from "./Typography";
 import Button from "./Button";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 
-const SideFilter = () => {
+const SideFilter = ({ onClick }) => {
   const [filters, setFilters] = useState({
     topNew: false,
     mostPopular: false,
@@ -17,6 +18,8 @@ const SideFilter = () => {
     intermediate: false,
     advanced: false,
   });
+
+  console.log(filters);
 
   const handleFilterChange = (name) => {
     setFilters({
@@ -34,7 +37,7 @@ const SideFilter = () => {
 
   return (
     <>
-      <div className="flex flex-col justify-center items-start px-8 py-6 gap-5 rounded-xl bg-white h-max w-full">
+      <div className="relative flex flex-col justify-center items-start px-8 py-6 gap-5 rounded-xl bg-white h-max w-full ">
         <div className="flex flex-col gap-3 justify-center items-start">
           <Heading className="text-darkGrey text-base font-semibold -mb-1">
             Filter
@@ -136,6 +139,10 @@ const SideFilter = () => {
             Clear
           </Button>
         </div>
+        <XMarkIcon
+          onClick={onClick}
+          className="flex lg:hidden absolute w-6 h-6 text-darkGrey top-4 right-4"
+        />
       </div>
     </>
   );

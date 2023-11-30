@@ -9,6 +9,8 @@ import CourseCard from "../components/CourseCard";
 import Advantages from "../components/Advantages";
 import CategoryItem from "../components/CategoryItem";
 import SideFilter from "../components/SideFilter";
+import TopFilter from "../components/TopFilter";
+import AllCoursePage from "./Course/AllCoursePage";
 
 const ColorPalettePage = () => {
   const colors = [
@@ -63,7 +65,7 @@ const ColorPalettePage = () => {
       {/* <Hero /> */}
       {/* <RegisterUser /> */}
       {/* <Hero /> */}
-      <Advantages />
+      {/* <Advantages /> */}
       {/* <div className="min-h-screen w-screen bg-gray-500 pt-24 px-4 md:px-12 lg:px-24">
         <div className="flex flex-wrap justify-center">
           {colors.map((color, index) => (
@@ -142,22 +144,12 @@ const ColorPalettePage = () => {
         <CategoryItem />
         <CategoryItem />
       </div> */}
-      <div className="bg-softGrey py-12 px-4 md:px-12 lg:px-24 flex flex-col md:flex-row justify-start gap-12 w-screen min-h-screen">
+      {/* <div className="pt-32 bg-softGrey py-12 px-4 md:px-12 lg:px-24 flex flex-col md:flex-row justify-start gap-12 w-screen min-h-screen">
         <div className="w-[25%]">
           <SideFilter />
         </div>
         <div className="flex flex-col justify-start w-[75%] gap-4">
-          <div className="flex gap-4 w-full">
-            <Button className="text-white flex-1 bg-lightBlue py-3 px-5 rounded-full">
-              All
-            </Button>
-            <Button className="text-darkGrey flex-1 bg-white py-3 px-5 rounded-full">
-              Premium
-            </Button>
-            <Button className="text-darkGrey flex-1 bg-white py-3 px-5 rounded-full">
-              Free
-            </Button>
-          </div>
+          <TopFilter buttonNames={["All", "Premium", "Free"]} />
           <div className="-mb-4">
             <Paragraph variant="small" className="text-darkGrey font-medium">
               Result for{" "}
@@ -174,6 +166,9 @@ const ColorPalettePage = () => {
             <CourseCard />
           </div>
         </div>
+      </div> */}
+      <div className="mt-8 bg-softGrey">
+        <AllCoursePage />
       </div>
     </>
   );

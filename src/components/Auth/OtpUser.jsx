@@ -5,15 +5,31 @@ import Button from "../Button";
 import loginIllustration from "../../assets/images/loginIllustration.png";
 import logo from "../../assets/images/darkLogo.svg";
 import FormInput from "../Form";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { authOtpUserAct } from "../../redux/actions/authActions/User/authOtpUser";
+import { EmailMasking } from "../../utils/constants/function";
 
 const OtpUser = () => {
+  const otpEmail = useSelector((store) => store.authUser.registerEmail);
   const [formData, setFormData] = useState({
+    email: otpEmail,
     otp: "",
   });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+  };
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleOtpUser = async () => {
+    const success = await dispatch(authOtpUserAct(formData));
+    if (success) {
+      navigate("/login");
+    }
   };
 
   return (
@@ -60,8 +76,14 @@ const OtpUser = () => {
               fullWidth
               className="text-center"
             >
-              <Paragraph variant="small" className="text-darkGrey">
-                Type the 6 digit code sent to the F*****@gmail.com
+              <Paragraph
+                variant="small"
+                className="text-darkGrey flex justify-center gap-1"
+              >
+                Type the 6 digit code sent to the
+                <span className="text-darkOrange">
+                  <EmailMasking email={otpEmail} />
+                </span>
               </Paragraph>
             </FadeIn>
             <FadeIn delay={0.3} direction="down" fullWidth>
@@ -89,6 +111,7 @@ const OtpUser = () => {
             </FadeIn>
             <FadeIn delay={0.3} direction="up" fullWidth>
               <Button
+                onClick={handleOtpUser}
                 isBlock
                 className="px-5 py-2 bg-darkOrange text-white rounded-full !text-xl"
               >

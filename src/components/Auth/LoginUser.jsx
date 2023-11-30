@@ -5,6 +5,9 @@ import Button from "../Button";
 import logo from "../../assets/images/darkLogo.svg";
 import FadeIn from "../FadeIn";
 import loginIllustration from "../../assets/images/loginIllustration.png";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { authLoginUserAct } from "../../redux/actions/authActions/User/authLoginUser";
 
 const LoginUser = () => {
   const [formData, setFormData] = useState({
@@ -15,6 +18,16 @@ const LoginUser = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+  };
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLoginUser = async () => {
+    const success = await dispatch(authLoginUserAct(formData));
+    if (success) {
+      navigate("/");
+    }
   };
 
   const renderFormInput = (placeholder, label, name, type, text) => (
@@ -101,6 +114,7 @@ const LoginUser = () => {
             </FadeIn>
             <FadeIn delay={0.3} direction="up" fullWidth>
               <Button
+                onClick={handleLoginUser}
                 isBlock
                 className="px-5 py-3 bg-darkOrange text-white rounded-full"
               >
