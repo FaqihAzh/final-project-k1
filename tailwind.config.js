@@ -1,5 +1,7 @@
+const withMT = require("@material-tailwind/react/utils/withMT");
+
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+module.exports = withMT({
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     fontFamily: {
@@ -20,6 +22,7 @@ module.exports = {
         seaGreen: "#20B486",
         palePink: "#FFA4AF",
         salmon: "#EE455A",
+        softGrey: "#F1F2F8",
       },
       screens: {
         sm: "425px",
@@ -29,4 +32,4 @@ module.exports = {
     },
   },
   plugins: [],
-};
+});
