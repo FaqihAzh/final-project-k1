@@ -1,6 +1,5 @@
 import { BrowserRouter, Route, Routes, Outlet } from "react-router-dom";
 import UserLayout from "./Layout/UserLayout";
-import RegisterPage from "./pages/RegisterPage";
 import { AdminLoginPage } from "./pages/admin/AdminLoginPage";
 import { AdminDashboard } from "./pages/admin/AdminDashboard";
 import { AdminKelolaKelas } from "./pages/admin/AdminKelolaKelas";
@@ -11,6 +10,13 @@ import RegisterPage from "./pages/Auth/RegisterPage";
 import ForgotPasswordPage from "./pages/Auth/ForgotPasswordPage";
 import LoginPage from "./pages/Auth/LoginPage";
 import OtpPage from "./pages/Auth/OtpPage";
+import PaymentSuccessPage from "./pages/PaymentSuccessPage";
+import NotificationPage from "./pages/NotificationPage";
+import PaymentPage from "./pages/PaymentPage";
+
+import CourseDetailsPage from "./pages/CourseDetailsPage";
+import CheckEmailPage from "./pages/CheckEmailPage";
+
 
 const App = () => {
   return (
@@ -19,6 +25,11 @@ const App = () => {
         <Routes>
           <Route element={<UserLayoutWithOutlet />}>
             <Route index element={<ColorPalettePage />} />
+            {/* Buat yang pake layout header footer biasa bisa di taruh disini routenya */}
+            <Route path="/payment" element={<PaymentPage />} />
+            <Route path="/payment/success" element={<PaymentSuccessPage />} />
+            <Route path="/notification" element={<NotificationPage />} />
+            <Route path="/course/detail" element={<CourseDetailsPage />} />
           </Route>
 
           {/* Buat Layout Admin Nanti Disini */}
@@ -37,6 +48,7 @@ const App = () => {
             <Route path="/otp" element={<OtpPage />} />
             <Route path="/reset/password" element={<ResetPasswordPage />} />
             <Route path="/forgot/password" element={<ForgotPasswordPage />} />
+            <Route path="/check/email" element={<CheckEmailPage />} />
           </Route>
         </Routes>
       </BrowserRouter>

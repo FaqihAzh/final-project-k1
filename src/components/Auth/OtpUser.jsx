@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import FadeIn from "../FadeIn";
 import { Heading, Paragraph } from "../Typography";
 import Button from "../Button";
-import loginIllustration from "../../assets/images/loginIllustration.png";
+import otpIllustration from "../../assets/images/otpIllustration.png";
 import logo from "../../assets/images/darkLogo.svg";
 import FormInput from "../Form";
 
@@ -41,9 +41,9 @@ const OtpUser = () => {
             className="hidden lg:flex justify-center"
           >
             <img
-              src={loginIllustration}
+              src={otpIllustration}
               alt="LoginIllustration"
-              className="w-[50%] h-auto "
+              className="w-[90%] h-auto "
             />
           </FadeIn>
         </div>
