@@ -31,7 +31,7 @@ const Button = (props) => {
       props.isSolidWhite &&
         `${buttonClassName} bg-white !text-darkGrey ${className}`,
       props.isOutline &&
-        `${buttonClassName} bg-transparent border border-1 border-white ${className}`,
+        `${buttonClassName} bg-transparent outline outline-1 outline-white flex-1 ${className}`,
       props.isBlock && `w-full ${className}`,
     ];
 

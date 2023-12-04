@@ -54,6 +54,8 @@ const Hero = () => {
             className="flex justify-center lg:justify-start"
           >
             <Button
+              type="link"
+              href="/all/course"
               isOrangeGradient
               className="w-fit mt-3 !px-5 !py-3 !text-base flex gap-2 items-center"
             >

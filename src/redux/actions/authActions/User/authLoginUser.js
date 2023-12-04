@@ -1,10 +1,10 @@
 import { toast } from "react-toastify";
-import { userLogin } from "../../../../services/authServices/User/userLogin";
 import { CookieKeys, CookieStorage } from "../../../../utils/constants/cookies";
 import {
   setIsVerifyUser,
   setToken,
 } from "../../../reducers/authSlice/User/authUserSlice";
+import { userLogin } from "../../../../services/auth/User/userLogin";
 
 export const authLoginUserAct = (input) => async (dispatch) => {
   return await userLogin(input)
@@ -12,11 +12,17 @@ export const authLoginUserAct = (input) => async (dispatch) => {
       CookieStorage.set(CookieKeys.AuthToken, result.data.data.token);
       dispatch(setToken(result.data.data.token));
       dispatch(setIsVerifyUser(result.data.data.isVerified));
-      toast.success(result.data.message);
+      toast(result.data.message, {
+        position: "bottom-center",
+        className: "custom-toast-success",
+      });
       return true;
     })
     .catch((err) => {
-      toast.error(err.response.data.message);
+      toast(err.response.data.error, {
+        position: toast.POSITION.BOTTOM_CENTER,
+        className: "custom-toast-error",
+      });
       return false;
     });
 };

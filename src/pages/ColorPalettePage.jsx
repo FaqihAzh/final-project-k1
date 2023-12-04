@@ -167,9 +167,6 @@ const ColorPalettePage = () => {
           </div>
         </div>
       </div> */}
-      <div className="mt-8 bg-softGrey">
-        <AllCoursePage />
-      </div>
     </>
   );
 };

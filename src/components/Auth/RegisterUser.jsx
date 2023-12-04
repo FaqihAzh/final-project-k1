@@ -33,7 +33,20 @@ const RegisterUser = () => {
     }
   };
 
-  const renderFormInput = (placeholder, label, name, type, text) => (
+  const handleEnterPress = (e) => {
+    if (e.key === "Enter") {
+      handleRegisterUser();
+    }
+  };
+
+  const renderFormInput = (
+    placeholder,
+    label,
+    name,
+    type,
+    text,
+    onKeyPress
+  ) => (
     <FormInput
       placeholder={placeholder}
       label={label}
@@ -42,6 +55,7 @@ const RegisterUser = () => {
       onChange={handleInputChange}
       type={type}
       text={text}
+      onKeyPress={onKeyPress}
     />
   );
 
@@ -124,7 +138,8 @@ const RegisterUser = () => {
                 "Password",
                 "password",
                 "password",
-                "darkGrey"
+                "darkGrey",
+                handleEnterPress
               )}
             </FadeIn>
             <FadeIn delay={0.3} direction="up" fullWidth>

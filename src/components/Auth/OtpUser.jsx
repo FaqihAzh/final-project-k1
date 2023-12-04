@@ -32,6 +32,12 @@ const OtpUser = () => {
     }
   };
 
+  const handleEnterPress = (e) => {
+    if (e.key === "Enter") {
+      handleOtpUser();
+    }
+  };
+
   return (
     <>
       <div className="grid grid-rows-1 grid-cols-1 md:grid-rows-2 lg:grid-cols-2 lg:grid-rows-1 w-screen h-screen bg-softGrey">
@@ -97,6 +103,7 @@ const OtpUser = () => {
                 text="darkGrey"
                 className="!text-center !tracking-[2rem] focus:!caret-transparent pl-[3.3rem] !text-2xl placeholder:font-normal font-semibold placeholder:text-xl"
                 maxLength={6}
+                onKeyPress={handleEnterPress}
               />
             </FadeIn>
             <FadeIn

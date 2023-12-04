@@ -17,7 +17,14 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
-        <ToastContainer />
+        <ToastContainer
+          closeButton={false}
+          autoClose={3000}
+          hideProgressBar
+          closeOnClick
+          draggable={false}
+          bodyClassName={() => "!py-1 !flex !justify-center !items-center"}
+        />
         <App />
       </QueryClientProvider>
     </Provider>

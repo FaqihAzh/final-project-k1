@@ -5,6 +5,7 @@ const initialState = {
   token: CookieStorage.get(CookieKeys.AuthToken) || undefined,
   isVerify: CookieStorage.get(CookieKeys.AuthToken) ? true : false,
   registerEmail: CookieStorage.get(CookieKeys.registerEmail) || "",
+  user: [],
 };
 
 const authUserSlice = createSlice({
@@ -20,11 +21,14 @@ const authUserSlice = createSlice({
     setRegisterEmail: (state, action) => {
       state.registerEmail = action.payload;
     },
+    setUser: (state, action) => {
+      state.user = action.payload;
+    },
   },
 });
 
 const authUserReducer = authUserSlice.reducer;
-export const { setToken, setIsVerifyUser, setRegisterEmail } =
+export const { setToken, setIsVerifyUser, setRegisterEmail, setUser } =
   authUserSlice.actions;
 
 export default authUserReducer;

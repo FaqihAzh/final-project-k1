@@ -13,10 +13,10 @@ const SearchInput = ({ text, border }) => {
           autoComplete="none"
           placeholder="Search Course"
           aria-label="Search Course"
-          className={`w-full pl-4 pr-10 py-2 font-normal text-sm bg-transparent text-${
+          className={`w-full pl-4 pr-10 py-2 font-normal text-sm text-ellipsis placeholder:text-ellipsis bg-transparent text-${
             text ? text : "white"
-          } placeholder-${
-            text ? text : "white"
+          } ${
+            text ? `placeholder-${text}` : `placeholder-white`
           } rounded-full focus:outline-none ${
             border ? border : "border"
           }  border-${text ? text : "white"}`}

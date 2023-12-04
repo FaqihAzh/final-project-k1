@@ -30,7 +30,20 @@ const LoginUser = () => {
     }
   };
 
-  const renderFormInput = (placeholder, label, name, type, text) => (
+  const handleEnterPress = (e) => {
+    if (e.key === "Enter") {
+      handleLoginUser();
+    }
+  };
+
+  const renderFormInput = (
+    placeholder,
+    label,
+    name,
+    type,
+    text,
+    onKeyPress
+  ) => (
     <FormInput
       placeholder={placeholder}
       label={label}
@@ -39,6 +52,7 @@ const LoginUser = () => {
       onChange={handleInputChange}
       type={type}
       text={text}
+      onKeyPress={onKeyPress}
     />
   );
 
@@ -77,7 +91,7 @@ const LoginUser = () => {
             />
           </FadeIn>
         </div>
-        <div className="flex-1 bg-white rounded-t-[3rem] lg:rounded-l-[3rem] shadow-[0px_2px_20px_#cbd1f5] flex justify-center items-start md:items-center pt-20 md:pt-0">
+        <div className="flex-1 bg-white rounded-t-[3rem] lg:rounded-l-[3rem] lg:rounded-tr-none shadow-[0px_2px_20px_#cbd1f5] flex justify-center items-start md:items-center pt-20 md:pt-0">
           <div className="flex flex-col justify-center items-center gap-4 w-full px-4 md:px-12 lg:px-32">
             <FadeIn delay={0.2} direction="down" fullWidth>
               <Heading variant="h3" className="text-darkGrey">
@@ -99,7 +113,8 @@ const LoginUser = () => {
                 "Password",
                 "password",
                 "password",
-                "darkGrey"
+                "darkGrey",
+                handleEnterPress
               )}
             </FadeIn>
             <FadeIn

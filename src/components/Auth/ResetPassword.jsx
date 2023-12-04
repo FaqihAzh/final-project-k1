@@ -1,23 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Heading, Paragraph } from "../Typography";
 import FadeIn from "../FadeIn";
 import Button from "../Button";
 import FormInput from "../Form";
 import darkLogo from "../../assets/images/darkLogo.svg";
 import resetIllustration from "../../assets/images/resetIllustration.png";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { authResetPasswordAct } from "../../redux/actions/authActions/User/authResetPassword";
 
 const ResetPassword = () => {
   const [formData, setFormData] = useState({
-    newPassword: "",
-    confirmPassword: "",
+    password: "",
+    confirm_password: "",
   });
+
+  const [resetToken, setResetToken] = useState("");
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const renderFormInput = (placeholder, label, name, type, text) => (
+  const renderFormInput = (
+    placeholder,
+    label,
+    name,
+    type,
+    text,
+    onKeyPress
+  ) => (
     <FormInput
       placeholder={placeholder}
       label={label}
@@ -26,8 +38,36 @@ const ResetPassword = () => {
       onChange={handleInputChange}
       type={type}
       text={text}
+      onKeyPress={onKeyPress}
     />
   );
+
+  const location = useLocation();
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const tokenValue = searchParams.get("token");
+
+    if (tokenValue) {
+      setResetToken(tokenValue);
+    }
+  }, [location.search]);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleResetPasswordUser = async () => {
+    const success = await dispatch(authResetPasswordAct(resetToken, formData));
+    if (success) {
+      navigate("/login");
+    }
+  };
+
+  const handleEnterPress = (e) => {
+    if (e.key === "Enter") {
+      handleResetPasswordUser();
+    }
+  };
 
   return (
     <>
@@ -43,7 +83,7 @@ const ResetPassword = () => {
               {renderFormInput(
                 "Enter your new password",
                 "New Password",
-                "newPassword",
+                "password",
                 "password",
                 "darkGrey"
               )}
@@ -52,13 +92,15 @@ const ResetPassword = () => {
               {renderFormInput(
                 "Reenter your new password",
                 "Confirm Password",
-                "confirmPassword",
+                "confirm_password",
                 "password",
-                "darkGrey"
+                "darkGrey",
+                handleEnterPress
               )}
             </FadeIn>
             <FadeIn delay={0.3} direction="up" fullWidth>
               <Button
+                onClick={handleResetPasswordUser}
                 isBlock
                 className="px-5 py-3 bg-darkOrange text-white rounded-full"
               >

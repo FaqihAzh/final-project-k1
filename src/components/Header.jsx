@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   BellAlertIcon,
   ListBulletIcon,
@@ -10,12 +10,30 @@ import {
 import Button from "./Button";
 import logo from "../assets/images/logo.svg";
 import SearchInput from "./SearchInput";
-
-// Header Belum dikasih link sama href
+import { CookieKeys, CookieStorage } from "../utils/constants/cookies";
+import { useUserGetData } from "../services/auth/User/userGetData";
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { LogOut } from "../redux/actions/authActions/User/authLoginUser";
 
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
-  const [isLogin, setIsLogin] = useState(false);
+
+  const token = CookieStorage.get(CookieKeys.AuthToken);
+  const isLogin = token ? true : false;
+
+  const { data } = useUserGetData();
+
+  const dispatch = useDispatch();
+
+  const handleLogoutUser = () => {
+    dispatch(LogOut());
+    toast("Logout Success", {
+      position: "bottom-center",
+      className: "custom-toast-success",
+    });
+    window.location.href = "/";
+  };
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -23,7 +41,11 @@ const Header = () => {
 
   const loggedInContent = (
     <>
-      <Button className="hover:text-paleOrange text-sm px-2 flex gap-2 min-w-max items-center text-white">
+      <Button
+        type="link"
+        href="/my/course"
+        className="hover:text-paleOrange text-sm px-2 flex gap-2 min-w-max items-center text-white"
+      >
         <ListBulletIcon className="w-6 h-6" />
         <span className="hidden lg:block">My Class</span>
       </Button>
@@ -33,14 +55,20 @@ const Header = () => {
       </Button>
       <Button className="hover:text-paleOrange text-sm py-2 px-4 rounded-full flex gap-2 min-w-max items-center text-white border border-1 border-white hover:border-darkOrange">
         <UserIcon className="w-6 h-6 " />
-        <span className="hidden lg:block">Username</span>
+        <span className="hidden lg:block">
+          {data ? data.user.nickname : "Username"}
+        </span>
       </Button>
     </>
   );
 
   const loggedInContentShowMenu = (
     <>
-      <Button className="hover:text-darkOrange text-sm  flex gap-2 min-w-max items-center text-white">
+      <Button
+        type="link"
+        href="/my/course"
+        className="hover:text-darkOrange text-sm  flex gap-2 min-w-max items-center text-white"
+      >
         <ListBulletIcon className="w-6 h-6" />
         <span>My Class</span>
       </Button>
@@ -50,19 +78,24 @@ const Header = () => {
       </Button>
       <Button className="hover:text-darkOrange text-sm rounded-full flex gap-2 min-w-max items-center text-white">
         <UserIcon className="w-6 h-6 " />
-        <span>Username</span>
+        <span>{data ? data.user.nickname : "Username"}</span>
       </Button>
     </>
   );
 
   const loggedOutContent = (
     <>
-      <Button className="min-w-max flex gap-1 items-center" isOutline>
+      <Button
+        type="link"
+        href="/login"
+        className="flex-1 min-w-max flex gap-1 items-center"
+        isOutline
+      >
         <LockClosedIcon className="w-5 h-5 text-white" />
         <span>Sign In</span>
       </Button>
       <Button
-        className="min-w-max border border-1 border-paleOrange"
+        className="min-w-max flex-1 flex justify-center items-center"
         isOrangeGradient
         type="link"
         href="/register"
@@ -74,10 +107,21 @@ const Header = () => {
 
   const loggedOutContentShowMenu = (
     <>
-      <Button className="flex-1" isOutline>
-        Sign In
+      <Button
+        type="link"
+        href="/login"
+        className="flex-1 min-w-max flex gap-1 items-center justify-center"
+        isOutline
+      >
+        <LockClosedIcon className="w-5 h-5 text-white" />
+        <span>Sign In</span>
       </Button>
-      <Button className="flex-1" isOrangeGradient>
+      <Button
+        isOrangeGradient
+        type="link"
+        href="/register"
+        className="flex-1 flex items-center justify-center"
+      >
         Sign Up
       </Button>
     </>
@@ -88,20 +132,23 @@ const Header = () => {
       <div className="fixed w-screen top-0 left-0 z-50 bg-lightBlue px-4 md:px-12 lg:px-24">
         <div className="flex items-center gap-4 py-4">
           <div className="flex-1 flex items-center gap-2">
-            <Button className="flex items-center md:min-w-max">
+            <Button
+              type="link"
+              href="/"
+              className="flex items-center md:min-w-max"
+            >
               <img src={logo} alt="CourseHub Logo" />
             </Button>
             {isLogin && (
               <div className="hidden lg:flex gap-2">
                 <div className="w-[1px] bg-white min-h-max mx-2"></div>
-                <SearchInput />
+                <SearchInput text="white" />
               </div>
             )}
           </div>
-          {/* {!isLogin && <div className="flex-1 hidden lg:flex"></div>} */}
           <div className="hidden flex-1 md:flex gap-2 justify-end">
             <div className={`${isLogin ? "flex lg:hidden" : "hidden md:flex"}`}>
-              <SearchInput />
+              <SearchInput text="white" />
               <div
                 className={`w-[1px] bg-white min-h-max ml-4 ${
                   isLogin ? " " : "mr-2"
@@ -117,8 +164,12 @@ const Header = () => {
           </div>
         </div>
       </div>
+
+      {/* Kalo mau header muncul dari atas */}
+
       {/* <div className={`fixed top-0 left-0 w-screen transition-opacity duration-500 ease-in-out ${showMenu ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
         <div className={`flex flex-col gap-4 bg-lightBlue rounded-b-2xl px-4 pt-24 pb-8 transform transition-transform duration-500 ease-in-out ${showMenu ? 'translate-y-0' : '-translate-y-full'}`}> */}
+
       <div
         className={`md:hidden fixed bottom-0 left-0 w-screen transition-opacity duration-500 ease-in-out z-50 ${
           showMenu
@@ -141,7 +192,11 @@ const Header = () => {
               <div className="flex flex-col gap-4 w-full">
                 {loggedInContentShowMenu}
                 <div className="flex flex-row items-center gap-2 w-full">
-                  <Button isRedGradient className="flex-1">
+                  <Button
+                    onClick={handleLogoutUser}
+                    isRedGradient
+                    className="flex-1"
+                  >
                     Sign Out
                   </Button>
                 </div>
