@@ -16,6 +16,15 @@ import {
   IsLogOutProtected,
   IsLoginProtected,
 } from "./components/Auth/Protected";
+import PaymentSuccessPage from "./pages/Course/PaymentSuccessPage";
+import NotificationPage from "./pages/NotificationPage";
+import PaymentPage from "./pages/Course/PaymentPage";
+
+import CourseDetailsPage from "./pages/Course/CourseDetailsPage";
+import CheckEmailPage from "./pages/Auth/CheckEmailPage";
+import Courses from "./components/Courses";
+import SearchResultsPage from "./pages/Course/SearchResultsPage";
+import ResetSuccessPage from "./pages/Auth/ResetSuccessPage";
 
 const App = () => {
   return (
@@ -32,7 +41,35 @@ const App = () => {
                 </IsLogOutProtected>
               }
             />
+            <Route
+              path="/payment"
+              element={
+                <IsLogOutProtected>
+                  <PaymentPage />
+                </IsLogOutProtected>
+              }
+            />
+            <Route
+              path="/payment/success"
+              element={
+                <IsLogOutProtected>
+                  <PaymentSuccessPage />
+                </IsLogOutProtected>
+              }
+            />
+            <Route
+              path="/course/detail/:id"
+              element={
+                <IsLogOutProtected>
+                  <CourseDetailsPage />
+                </IsLogOutProtected>
+              }
+            />
+
             <Route path="/all/course" element={<AllCoursePage />} />
+            <Route path="/course/category/:id" element={<Courses />} />
+            <Route path="/search-results" element={<SearchResultsPage />} />
+            <Route path="/notification" element={<NotificationPage />} />
           </Route>
 
           {/* admin */}
@@ -45,11 +82,16 @@ const App = () => {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/otp" element={<OtpPage />} />
+            <Route path="/forgot/password" element={<ForgotPasswordPage />} />
+            <Route path="/check/email" element={<CheckEmailPage />} />
             <Route
               path="/api/v1/auth/reset-password"
               element={<ResetPasswordPage />}
             />
-            <Route path="/forgot/password" element={<ForgotPasswordPage />} />
+            <Route
+              path="/reset/password/success"
+              element={<ResetSuccessPage />}
+            />
           </Route>
         </Routes>
       </BrowserRouter>

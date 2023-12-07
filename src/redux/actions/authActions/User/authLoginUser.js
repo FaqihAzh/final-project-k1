@@ -19,7 +19,7 @@ export const authLoginUserAct = (input) => async (dispatch) => {
       return true;
     })
     .catch((err) => {
-      toast(err.response.data.error, {
+      toast(err.response.data.err, {
         position: toast.POSITION.BOTTOM_CENTER,
         className: "custom-toast-error",
       });

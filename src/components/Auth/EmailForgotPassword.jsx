@@ -45,7 +45,7 @@ const EmailForgotPassword = () => {
   const handleForgotPasswordUser = async () => {
     const success = await dispatch(authForgotPasswordAct(formData));
     if (success) {
-      navigate("/login");
+      navigate("/check/email");
     }
   };
 

@@ -19,16 +19,23 @@ const levels = [
   { id: "advanced", name_levels: "Advanced" },
 ];
 
-const SideFilter = ({ onClick }) => {
-  const [filters, setFilters] = useState({});
+const SideFilter = ({ onClick, setFilteredCourses, priceFilter }) => {
+  const [filters, setFilters] = useState(() => {
+    const savedFilters = localStorage.getItem("savedFilters");
+    return savedFilters ? JSON.parse(savedFilters) : {};
+  });
 
   const categories = useSelector((store) => store.course.categories);
+  const courses = useSelector((store) => store.course.courses);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     getCategoriesData();
   }, []);
 
-  const dispatch = useDispatch();
+  useEffect(() => {
+    localStorage.setItem("savedFilters", JSON.stringify(filters));
+  }, [filters]);
 
   const getCategoriesData = () => {
     dispatch(courseCategoriesAct());
@@ -66,6 +73,62 @@ const SideFilter = ({ onClick }) => {
   const renderLevels = () => {
     return levels.map((level) => renderCheckbox(level.id, level.name_levels));
   };
+
+  const applyFilters = () => {
+    let filteredData = courses;
+
+    const { beginner, intermediate, advanced } = filters;
+
+    if (beginner || intermediate || advanced) {
+      filteredData = filteredData.filter((course) => {
+        return (
+          (beginner && course.level === "beginner") ||
+          (intermediate && course.level === "intermediate") ||
+          (advanced && course.level === "advanced")
+        );
+      });
+    }
+
+    const selectedCategories = categories.filter(
+      (category) => filters[category.id.toString()]
+    );
+
+    if (selectedCategories.length > 0) {
+      filteredData = filteredData.filter((course) =>
+        selectedCategories.some(
+          (category) => course.category_id === category.id
+        )
+      );
+    }
+
+    const { topNew, mostPopular, sale } = filters;
+
+    if (topNew || mostPopular || sale) {
+      if (topNew) {
+        const currentDate = new Date();
+        const oneWeekAgo = new Date();
+        oneWeekAgo.setDate(currentDate.getDate() - 7);
+
+        filteredData = filteredData.filter((course) => {
+          const courseCreatedAt = new Date(course.createdAt);
+          return courseCreatedAt >= oneWeekAgo;
+        });
+      }
+    }
+
+    if (priceFilter === "Free") {
+      filteredData = filteredData.filter((course) => course.price === 0);
+    } else if (priceFilter === "Premium") {
+      filteredData = filteredData.filter((course) => course.price !== 0);
+    }
+    // Buat yang lain
+
+    setFilteredCourses(filteredData);
+  };
+
+  useEffect(() => {
+    applyFilters();
+  }, [filters, categories, priceFilter]);
 
   return (
     <div className="shadow-none lg:shadow-md relative flex flex-col justify-center items-start px-8 py-6 gap-5 rounded-xl bg-white h-max w-full ">

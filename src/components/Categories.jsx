@@ -19,8 +19,8 @@ const Categories = () => {
   };
 
   return (
-    <div className="py-12 px-4 md:px-12 lg:px-24 flex flex-col gap-6 w-screen bg-softGrey">
-      <div className="flex flex-col mb-6">
+    <div className="pt-4 pb-12 px-4 md:px-12 lg:px-24 flex flex-col gap-6 w-screen bg-softGrey">
+      <div className="flex flex-col mb-4">
         <FadeIn delay={0.2} direction="up">
           <Heading
             variant="h1"
@@ -36,9 +36,15 @@ const Categories = () => {
           </Paragraph>
         </FadeIn>
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {categoriesData.map((category) => (
-          <CategoryItem key={category.id} category={category} />
+          <FadeIn
+            key={category.id}
+            delay={(category.id + 1) * 0.2}
+            direction="right"
+          >
+            <CategoryItem category={category} />
+          </FadeIn>
         ))}
       </div>
     </div>

@@ -59,7 +59,7 @@ const ResetPassword = () => {
   const handleResetPasswordUser = async () => {
     const success = await dispatch(authResetPasswordAct(resetToken, formData));
     if (success) {
-      navigate("/login");
+      navigate("/reset/password/success");
     }
   };
 

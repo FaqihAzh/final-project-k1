@@ -49,7 +49,11 @@ const Header = () => {
         <ListBulletIcon className="w-6 h-6" />
         <span className="hidden lg:block">My Class</span>
       </Button>
-      <Button className="hover:text-paleOrange text-sm px-2 flex gap-2 min-w-max items-center text-white">
+      <Button
+        type="link"
+        href="/notification"
+        className="hover:text-paleOrange text-sm px-2 flex gap-2 min-w-max items-center text-white"
+      >
         <BellAlertIcon className="w-6 h-6 " />
         <span className="hidden lg:block">Notifications</span>
       </Button>
@@ -72,7 +76,11 @@ const Header = () => {
         <ListBulletIcon className="w-6 h-6" />
         <span>My Class</span>
       </Button>
-      <Button className="hover:text-darkOrange text-sm  flex gap-2 min-w-max items-center text-white">
+      <Button
+        type="link"
+        href="/notification"
+        className="hover:text-darkOrange text-sm  flex gap-2 min-w-max items-center text-white"
+      >
         <BellAlertIcon className="w-6 h-6 " />
         <span>Notifications</span>
       </Button>

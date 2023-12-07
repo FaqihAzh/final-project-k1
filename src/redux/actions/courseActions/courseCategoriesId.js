@@ -1,9 +1,11 @@
 import { getCategoriesId } from "../../../services/course/getCategoriesId";
+import { updateCourses } from "../../reducers/courseSlice/courseSlice";
 
-export const courseCategoriesIdAct = (id) => async () => {
+export const courseCategoriesIdAct = (id) => async (dispatch) => {
   return await getCategoriesId(id)
     .then((result) => {
-      return result.data.data;
+      dispatch(updateCourses(result.data.data));
+      return result.data.message;
     })
     .catch((err) => {
       return err;

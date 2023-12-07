@@ -14,6 +14,7 @@ import SearchInput from "../../components/SearchInput";
 import { useDispatch, useSelector } from "react-redux";
 import { CookieKeys, CookieStorage } from "../../utils/constants/cookies";
 import { courseCoursesAct } from "../../redux/actions/courseActions/courseCourses";
+import Pagination from "../../components/Pagination";
 
 const AllCoursePage = () => {
   const [filterActive, setFilterActive] = useState(false);
@@ -22,7 +23,14 @@ const AllCoursePage = () => {
   const dataCourse = useSelector((store) => store.course.courses);
   const token = CookieStorage.get(CookieKeys.AuthToken);
 
+  const [filteredCourses, setFilteredCourses] = useState(dataCourse);
   const isLogin = token ? true : false;
+
+  const [priceFilter, setPriceFilter] = useState("All");
+
+  const filterByPrice = (priceType) => {
+    setPriceFilter(priceType);
+  };
 
   const handleFilter = () => {
     setFilterActive(!filterActive);
@@ -36,7 +44,7 @@ const AllCoursePage = () => {
 
   useEffect(() => {
     getCoursesData();
-  }, []);
+  }, [page, filteredCourses, priceFilter]);
 
   const dispatch = useDispatch();
 
@@ -96,7 +104,11 @@ const AllCoursePage = () => {
                 : "translate-x-full lg:translate-x-0"
             }`}
           >
-            <SideFilter onClick={handleFilter} dataCourse={dataCourse} />
+            <SideFilter
+              onClick={handleFilter}
+              setFilteredCourses={setFilteredCourses}
+              priceFilter={priceFilter}
+            />
           </div>
         </div>
         <div className="col-span-4 lg:col-span-3 flex flex-col gap-4">
@@ -121,20 +133,28 @@ const AllCoursePage = () => {
                   </Button>
                 )}
               </div>
-              <TopFilter buttonNames={["All", "Premium", "Free"]} />
+              <TopFilter
+                buttonNames={["All", "Premium", "Free"]}
+                setPriceFilter={filterByPrice}
+              />
             </div>
-            <Paragraph variant="small" className="text-darkGrey font-medium">
-              Result for{" "}
-              <span className=" italic underline">
-                Top New, UI/UX Design, Advanced Level
-              </span>
-            </Paragraph>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 ">
-            {dataCourse.map((course) => (
-              <CourseCard key={course.id} course={course} isMyClass={false} />
-            ))}
-          </div>
+          {filteredCourses.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+              {filteredCourses.map((course) => (
+                <CourseCard key={course.id} course={course} isMyClass={false} />
+              ))}
+            </div>
+          ) : (
+            <div className="justify-start items-center flex">
+              <Paragraph className="text-darkGrey capitalize">
+                Sorry, the course with that category is not available yet
+              </Paragraph>
+            </div>
+          )}
+          {filteredCourses.length >= 10 && (
+            <Pagination page={page} setPage={setPage} />
+          )}{" "}
         </div>
       </div>
     </div>

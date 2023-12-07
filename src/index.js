@@ -4,7 +4,12 @@ import ReactDOM from "react-dom/client";
 import "./assets/css/index.css";
 import App from "./App";
 
+import "swiper/css";
+import "swiper/css/grid";
+import "swiper/css/autoplay";
 import "react-toastify/dist/ReactToastify.css";
+
+import { ThemeProvider } from "@material-tailwind/react";
 
 import { ToastContainer } from "react-toastify";
 import { Provider } from "react-redux";

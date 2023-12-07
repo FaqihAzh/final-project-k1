@@ -9,6 +9,7 @@ import {
 import Button from "./Button";
 import { useDispatch } from "react-redux";
 import { courseDetailCourseAct } from "../redux/actions/courseActions/courseDetailCourse";
+import { formatRupiah } from "../utils/constants/function";
 
 const categoryMap = {
   1: "UI/UX Design",
@@ -52,6 +53,8 @@ const CourseCard = ({ isMyClass, course }) => {
     });
   }
 
+  const coursePrice = formatRupiah(detailCourse.price);
+
   return (
     <div
       className={`flex flex-col gap-2 ${
@@ -75,11 +78,9 @@ const CourseCard = ({ isMyClass, course }) => {
               {category}
             </Paragraph>
             <span className="flex items-center text-darkOrange">
-              <StarIcon className="w-4 h-4" />
-              <StarIcon className="w-4 h-4" />
-              <StarIcon className="w-4 h-4" />
-              <StarIcon className="w-4 h-4" />
-              <StarIcon className="w-4 h-4" />
+              {[...Array(detailCourse.ratings)].map((_, index) => (
+                <StarIcon key={index} className="w-4 h-4" />
+              ))}
             </span>
           </div>
           <div>
@@ -91,9 +92,7 @@ const CourseCard = ({ isMyClass, course }) => {
             </Paragraph>
             {isMyClass ? null : (
               <Paragraph className="font-medium text-darkOrange tracking-wide">
-                {type === "Premium"
-                  ? `Rp ${detailCourse.price},000`
-                  : `Rp ${detailCourse.price}`}
+                {coursePrice}
               </Paragraph>
             )}
           </div>
@@ -115,7 +114,7 @@ const CourseCard = ({ isMyClass, course }) => {
             </span>
             <span className="flex gap-1 items-center text-darkOrange">
               <ChartBarIcon className="w-4 h-4" strokeWidth="2" />
-              <Paragraph className="text-sm font-normal text-lightGrey">
+              <Paragraph className="text-sm font-normal text-lightGrey capitalize">
                 {detailCourse.level}
               </Paragraph>
             </span>
@@ -130,7 +129,11 @@ const CourseCard = ({ isMyClass, course }) => {
             </div>
           ) : (
             <div className="flex justify-center items center relative -bottom-4 -mt-2">
-              <Button className="bg-darkOrange px-5 py-2 text-base rounded-full text-white hover:scale-105">
+              <Button
+                type="link"
+                href={`/course/detail/${detailCourse.id}`}
+                className="bg-darkOrange px-5 py-2 text-base rounded-full text-white hover:scale-105"
+              >
                 Join Course
               </Button>
             </div>

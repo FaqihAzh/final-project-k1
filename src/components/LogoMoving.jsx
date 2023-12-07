@@ -110,8 +110,8 @@ const LogoMoving = () => {
   };
 
   return (
-    <div className="py-12 flex flex-col gap-6 h-auto w-screen bg-softGrey">
-      <div className="flex flex-col mb-6 px-4 md:px-12 lg:px-24">
+    <div className=" pb-16 flex flex-col gap-6 h-auto w-screen bg-softGrey">
+      <div className="flex flex-col mb-2 px-4 md:px-12 lg:px-24">
         <FadeIn delay={0.2} direction="up">
           <Heading
             variant="h1"

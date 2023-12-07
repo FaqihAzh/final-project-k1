@@ -18,7 +18,7 @@ export const authRegisterUserAct = (input) => async (dispatch) => {
       return true;
     })
     .catch((err) => {
-      toast(err.response.data.err, {
+      toast(err.response.data.error, {
         position: "bottom-center",
         className: "custom-toast-error",
       });

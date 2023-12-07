@@ -15,6 +15,10 @@ export const API_ENDPOINT = {
     return `/courses?page=${page}&limit=${limit}`;
   },
 
+  GET_SEARCH_COURSE: (searchQuery) => {
+    return `/courses?search=${searchQuery}`;
+  },
+
   GET_DETAIL_COURSE: (id) => {
     return `/courses/${id}`;
   },

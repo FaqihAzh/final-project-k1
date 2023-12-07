@@ -37,6 +37,8 @@ const CategoryItem = ({ category }) => {
       className={`relative py-3 px-4 flex justify-between items-center rounded-2xl bg-white w-full transition duration-500 ease-in-out ${hoverParent}`}
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
+      type="link"
+      href={`/course/category/${category.id}`}
     >
       <div className="flex gap-2 items-center">
         {iconComponent}

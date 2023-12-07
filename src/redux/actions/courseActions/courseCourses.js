@@ -5,7 +5,7 @@ export const courseCoursesAct = (page, limit) => async (dispatch) => {
   return await getCourses(page, limit)
     .then((result) => {
       dispatch(updateCourses(result.data.data.courses));
-      return true;
+      return result.data.data.courses;
     })
     .catch((err) => {
       return err;

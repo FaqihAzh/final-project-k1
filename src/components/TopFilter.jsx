@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import Button from "./Button";
 
-const TopFilter = ({ buttonNames }) => {
+const TopFilter = ({ buttonNames, setPriceFilter }) => {
   const [activeButton, setActiveButton] = useState("All");
 
   const handleClick = (buttonName) => {
     setActiveButton(buttonName);
+    setPriceFilter(buttonName);
   };
 
   if (!buttonNames || buttonNames.length === 0) {
