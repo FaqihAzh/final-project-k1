@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Heading, Paragraph } from "./Typography";
 import { StarIcon, PlayCircleIcon } from "@heroicons/react/24/solid";
 import {
@@ -7,8 +7,51 @@ import {
   ChartBarIcon,
 } from "@heroicons/react/24/outline";
 import Button from "./Button";
+import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
+import { courseDetailCourseAct } from "../redux/actions/courseActions/courseDetailCourse";
+
+const categoryMap = {
+  1: "UI/UX Design",
+  2: "Web Development",
+  3: "Android Development",
+  4: "Data Science",
+  5: "Business Intelligence",
+};
 
 const CourseDetails = () => {
+  const params = useParams();
+  const [detailCourse, setDetailCourse] = useState([]);
+
+  const categoryId = detailCourse.category_id;
+  const category = categoryMap[categoryId] || "Unknown Category";
+
+  useEffect(() => {
+    getDetailCourseData();
+  }, [params.id]);
+
+  const dispatch = useDispatch();
+
+  const getDetailCourseData = async () => {
+    const result = await dispatch(courseDetailCourseAct(params.id));
+    setDetailCourse(result);
+  };
+
+  let totalModules = 0;
+  let totalDuration = 0;
+
+  if (detailCourse && detailCourse.chapters) {
+    detailCourse.chapters.forEach((chapter) => {
+      if (chapter.modules) {
+        totalModules += chapter.modules.length;
+
+        chapter.modules.forEach((module) => {
+          totalDuration += module.duration || 0;
+        });
+      }
+    });
+  }
+
   return (
     <div className="w-full lg:w-3/5 flex flex-col gap-5">
       <div className="flex flex-col">
@@ -17,11 +60,9 @@ const CourseDetails = () => {
             UI/UX Design
           </Paragraph>
           <span className="flex items-center text-darkOrange">
-            <StarIcon className="w-4 h-4" />
-            <StarIcon className="w-4 h-4" />
-            <StarIcon className="w-4 h-4" />
-            <StarIcon className="w-4 h-4" />
-            <StarIcon className="w-4 h-4" />
+            {[...Array(detailCourse.ratings)].map((_, index) => (
+              <StarIcon key={index} className="w-4 h-4" />
+            ))}
           </span>
         </div>
         <Paragraph className="font-medium text-darkGrey tracking-wide">
@@ -34,13 +75,13 @@ const CourseDetails = () => {
           <span className="flex gap-1 items-center ">
             <ClockIcon className="w-4 h-4 text-darkOrange" strokeWidth="2" />
             <Paragraph className="text-sm font-normal text-lightGrey">
-              120 Menit
+              {totalDuration} Menit
             </Paragraph>
           </span>
           <span className="flex gap-1 items-center text-darkOrange">
             <BookOpenIcon className="w-4 h-4" strokeWidth="2" />
             <Paragraph className="text-sm font-normal text-lightGrey">
-              30 Modul
+              {totalModules} Modul
             </Paragraph>
           </span>
           <span className="flex gap-1 items-center text-darkOrange">

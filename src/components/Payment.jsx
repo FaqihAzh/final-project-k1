@@ -6,7 +6,6 @@ import {
 } from "@material-tailwind/react";
 import FormInput from "./Form";
 import { Heading, Paragraph } from "./Typography";
-import CourseCard from "./CourseCard";
 import Button from "./Button";
 import { StarIcon } from "@heroicons/react/24/solid";
 
@@ -108,7 +107,7 @@ export function Payment() {
                 " ",
                 "Card_Number",
                 "string",
-                "darkGrey",
+                "darkGrey"
               )}
             </div>
             <div className="w-2/3 md:w-1/2">

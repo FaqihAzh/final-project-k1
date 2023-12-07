@@ -36,7 +36,7 @@ const FadeIn = ({ children, delay, direction, fullWidth, className }) => {
           delay: delay,
           ease: [0.25, 0.25, 0.25, 0.75],
         }}
-        className={className}
+        className={`w-full h-full ${className}`}
       >
         {children}
       </motion.div>
