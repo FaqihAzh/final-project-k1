@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes, Outlet } from "react-router-dom";
 import UserLayout from "./Layout/UserLayout";
-import RegisterPage from "./pages/RegisterPage";
+// import RegisterPage from "./pages/RegisterPage";
 import { AdminLoginPage } from "./pages/admin/AdminLoginPage";
 import { AdminDashboard } from "./pages/admin/AdminDashboard";
 import { AdminKelolaKelas } from "./pages/admin/AdminKelolaKelas";
@@ -11,6 +11,8 @@ import RegisterPage from "./pages/Auth/RegisterPage";
 import ForgotPasswordPage from "./pages/Auth/ForgotPasswordPage";
 import LoginPage from "./pages/Auth/LoginPage";
 import OtpPage from "./pages/Auth/OtpPage";
+import { AccountPage } from "./pages/AccountPage";
+import { ModalDelete } from "./components/ModalDelete";
 
 const App = () => {
   return (
@@ -26,11 +28,15 @@ const App = () => {
           <Route path="/adminlogin" element={<AdminLoginPage />} />
           <Route path="/admindashboard" element={<AdminDashboard />} />
           <Route path="/adminkelolakelas" element={<AdminKelolaKelas />} />
+          <Route path="/adminkelolakelas/:id" element={<ModalDelete/>} />
+          {/* <Route path="/delete/:id" element={<ModalDelete/>}/> */}
+        
+
           {/* admin */}
           <Route path="/register" element={<RegisterPage />} />
        
           {/* Buat yg gapake layout samsek bisa di taruh disini, ex: login, regist etc */}
-
+          <Route path="/account" element={<AccountPage/>}/>
           <Route element={<AuthLayoutWithOutlet />}>
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />

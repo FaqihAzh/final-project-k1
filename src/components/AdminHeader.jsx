@@ -16,7 +16,7 @@ export const AdminHeader = () => {
     <h1>Hi, {fetchAdmin?.data?.user?.idAdmin}</h1>
     <div> <SearchInput/></div>
     </div>
-        <div className=' flex w-[85%] h-[7rem] justify-between'>
+        <div className=' flex w-[85%] h-[7rem] justify-between !mt-3'>
             <div className='bg-blue-500 w-[30%] rounded-2xl flex justify-center items-center '>  
             <div className='w-[80%] h-[80%] flex items-center space-x-6'>
             <div className='bg-white w-[20%] h-[60%] rounded-3xl flex items-center justify-center'>

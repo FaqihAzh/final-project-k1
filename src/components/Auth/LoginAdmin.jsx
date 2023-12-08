@@ -9,29 +9,6 @@ export const LoginAdmin = () => {
   const [inputid, setinputid] = useState("");
   const [InputPassword, setInputPassword] = useState("");
 
-  const options = {
-    method: "POST",
-    url: `${process.env.REACT_APP_SERVER}${API_ENDPOINT.ADMIN_LOGIN}`,
-    headers: {
-      "Content-Type": "application/json",
-      accept: "application/json",
-      Authorization: "Bearer",
-    },
-    data: {
-      idAdmin: inputid, // Gantilah dengan nilai sesuai kebutuhan Anda
-      password: InputPassword, // Gantilah dengan nilai sesuai kebutuhan Anda
-    },
-  };
-
-  const Loginn = async () => {
-    try {
-      const response = await axios.request(options);
-      console.log(response.data);
-    } catch (error) {
-      console.error("Error during login:", error);
-    }
-  };
-
   const { mutate: AdminLogin, isSuccess, isError } = UseAdminLogin();
 
   if (isSuccess) {
