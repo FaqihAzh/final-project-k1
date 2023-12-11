@@ -1,8 +1,8 @@
 import { toast } from "react-toastify";
-import { userOTP } from "../../../../services/auth/User/userOTP";
+import { userResendOtp } from "../../../../services/auth/User/userResendOTP";
 
-export const authOtpUserAct = (otp, token) => async () => {
-  return await userOTP(otp, token)
+export const authResendOtpAct = (input) => async (dispatch) => {
+  return await userResendOtp(input)
     .then((result) => {
       toast(result.data.message, {
         position: "bottom-center",
@@ -11,7 +11,7 @@ export const authOtpUserAct = (otp, token) => async () => {
       return true;
     })
     .catch((err) => {
-      toast(err.response.data.err, {
+      toast(err.response.data.message, {
         position: "bottom-center",
         className: "custom-toast-error",
       });

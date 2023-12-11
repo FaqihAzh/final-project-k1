@@ -25,6 +25,8 @@ import CheckEmailPage from "./pages/Auth/CheckEmailPage";
 import Courses from "./components/Courses";
 import SearchResultsPage from "./pages/Course/SearchResultsPage";
 import ResetSuccessPage from "./pages/Auth/ResetSuccessPage";
+import ActivateAccount from "./components/Auth/ActivateAccount";
+import ResendEmailCheck from "./components/Auth/ResendOtpCheck";
 
 const App = () => {
   return (
@@ -81,9 +83,11 @@ const App = () => {
           <Route element={<AuthLayoutWithOutlet />}>
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
-            <Route path="/otp" element={<OtpPage />} />
             <Route path="/forgot/password" element={<ForgotPasswordPage />} />
+            <Route path="/activate" element={<ActivateAccount />} />
             <Route path="/check/email" element={<CheckEmailPage />} />
+            <Route path="/check/otp/resend" element={<ResendEmailCheck />} />
+            <Route path="/verify-otp" element={<OtpPage />} />
             <Route
               path="/api/v1/auth/reset-password"
               element={<ResetPasswordPage />}

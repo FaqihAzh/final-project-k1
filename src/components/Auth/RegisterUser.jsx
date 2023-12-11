@@ -29,7 +29,7 @@ const RegisterUser = () => {
   const handleRegisterUser = async () => {
     const success = await dispatch(authRegisterUserAct(formData));
     if (success) {
-      navigate("/otp");
+      navigate("/check/email");
     }
   };
 
@@ -167,6 +167,18 @@ const RegisterUser = () => {
                   className="text-darkOrange font-semibold ml-1"
                 >
                   Let's Sign in!
+                </Button>
+              </Paragraph>
+            </FadeIn>
+            <FadeIn delay={0.2} direction="up" className="flex justify-center">
+              <Paragraph variant="small">
+                Not activated yet?{" "}
+                <Button
+                  type="link"
+                  href="/activate"
+                  className="text-darkOrange font-semibold"
+                >
+                  Activate now
                 </Button>
               </Paragraph>
             </FadeIn>

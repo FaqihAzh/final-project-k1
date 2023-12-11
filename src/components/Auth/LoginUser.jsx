@@ -192,9 +192,21 @@ const LoginUser = () => {
                 <Button
                   type="link"
                   href="/register"
-                  className="text-darkOrange"
+                  className="text-darkOrange font-semibold"
                 >
                   Create an Account
+                </Button>
+              </Paragraph>
+            </FadeIn>
+            <FadeIn delay={0.2} direction="up">
+              <Paragraph variant="small">
+                Not activated yet?{" "}
+                <Button
+                  type="link"
+                  href="/activate"
+                  className="text-darkOrange font-semibold"
+                >
+                  Activate now
                 </Button>
               </Paragraph>
             </FadeIn>

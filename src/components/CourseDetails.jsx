@@ -57,7 +57,7 @@ const CourseDetails = () => {
       <div className="flex flex-col">
         <div className="flex justify-between items-center">
           <Paragraph className="text-xs font-medium text-lightGrey tracking-wide">
-            UI/UX Design
+            {category}
           </Paragraph>
           <span className="flex items-center text-darkOrange">
             {[...Array(detailCourse.ratings)].map((_, index) => (
@@ -66,10 +66,10 @@ const CourseDetails = () => {
           </span>
         </div>
         <Paragraph className="font-medium text-darkGrey tracking-wide">
-          UI/UX Design for Beginners
+          {detailCourse.title}
         </Paragraph>
         <Paragraph className="text-xs font-normal text-lightGrey tracking-wide">
-          by Felicia Shue
+          {detailCourse.author}
         </Paragraph>
         <div className="flex gap-4 flex-wrap mb-2">
           <span className="flex gap-1 items-center ">
@@ -120,19 +120,7 @@ const CourseDetails = () => {
           About Course
         </Paragraph>
         <Paragraph className="text-xs font-normal text-lightGrey tracking-wide indent-6">
-          Design system adalah kumpulan komponen design, code, ataupun
-          dokumentasi yang dapat digunakan sebagai panduan utama yang
-          memunginkan designer serta developer memiliki lebih banyak kontrol
-          atas berbagai platform. Dengan hadirnya design system, dapat menjaga
-          konsistensi tampilan user interface dan meningkatkan user experience
-          menjadi lebih baik. Disisi bisnis, design system sangat berguna dalam
-          menghemat waktu dan biaya ketika mengembangkan suatu produk.
-          <br />
-          Bersama mentor XXX, kita akan mempelajari design system dari mulai
-          manfaat, alur kerja pembuatannya, tools yang digunakan, hingga pada
-          akhirnya, kita akan membuat MVP dari design system. Selain itu, mentor
-          juga akan menjelaskan berbagai resource yang dibutuhkan untuk mencari
-          inspirasi mengenai design system
+          {detailCourse.description}
         </Paragraph>
       </div>
       <div>

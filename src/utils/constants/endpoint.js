@@ -2,10 +2,14 @@ export const API_ENDPOINT = {
   USER_WHOAMI: "/auth/whoami",
   USER_LOGIN: "/auth/login",
   USER_REGISTER: "/auth/register",
-  USER_OTP: "/auth/verifyOTP",
   USER_FORGOT_PASSWORD: "/auth/forgotPassword",
+  USER_RESEND_OTP: "/auth/resend-otp",
 
   GET_CATEGORIES: "/categories",
+
+  USER_OTP: (otp, token) => {
+    return `/auth/verifyOTP?otp=${otp}&token=${token}`;
+  },
 
   GET_CATEGORIES_ID: (id) => {
     return `/categories/${id}`;
