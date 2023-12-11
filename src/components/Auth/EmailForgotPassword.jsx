@@ -5,6 +5,9 @@ import FadeIn from "../FadeIn";
 import Button from "../Button";
 import darkLogo from "../../assets/images/darkLogo.svg";
 import forgotIllustration from "../../assets/images/forgotIllustration.png";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { authForgotPasswordAct } from "../../redux/actions/authActions/User/authForgotPassword";
 
 const EmailForgotPassword = () => {
   const [formData, setFormData] = useState({
@@ -16,7 +19,14 @@ const EmailForgotPassword = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const renderFormInput = (placeholder, label, name, type, text) => (
+  const renderFormInput = (
+    placeholder,
+    label,
+    name,
+    type,
+    text,
+    onKeyPress
+  ) => (
     <FormInput
       placeholder={placeholder}
       label={label}
@@ -25,8 +35,25 @@ const EmailForgotPassword = () => {
       onChange={handleInputChange}
       type={type}
       text={text}
+      onKeyPress={onKeyPress}
     />
   );
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleForgotPasswordUser = async () => {
+    const success = await dispatch(authForgotPasswordAct(formData));
+    if (success) {
+      navigate("/check/email");
+    }
+  };
+
+  const handleEnterPress = (e) => {
+    if (e.key === "Enter") {
+      handleForgotPasswordUser();
+    }
+  };
 
   return (
     <>
@@ -44,8 +71,18 @@ const EmailForgotPassword = () => {
                 "Registered Email",
                 "email",
                 "email",
-                "darkGrey"
+                "darkGrey",
+                handleEnterPress
               )}
+            </FadeIn>
+            <FadeIn delay={0.3} direction="up" fullWidth>
+              <Button
+                onClick={handleForgotPasswordUser}
+                isBlock
+                className="px-5 py-3 bg-darkOrange text-white rounded-full"
+              >
+                Get Reset Password Link
+              </Button>
             </FadeIn>
             <FadeIn delay={0.3} direction="up" fullWidth className="-mt-1">
               <Paragraph className="text-xs text-center text-lightGrey">
@@ -62,13 +99,18 @@ const EmailForgotPassword = () => {
                 to that email.
               </Paragraph>
             </FadeIn>
-            <FadeIn delay={0.3} direction="up" fullWidth>
-              <Button
-                isBlock
-                className="px-5 py-3 bg-darkOrange text-white rounded-full"
-              >
-                Get Reset Password Link
-              </Button>
+
+            <FadeIn delay={0.4} direction="up" fullWidth>
+              <Paragraph variant="small" className="text-darkGrey text-center">
+                Remember now?
+                <Button
+                  type="link"
+                  href="/login"
+                  className="text-darkOrange font-semibold ml-1"
+                >
+                  Let's go back to login!
+                </Button>
+              </Paragraph>
             </FadeIn>
           </div>
         </div>

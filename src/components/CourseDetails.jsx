@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Heading, Paragraph } from "./Typography";
+import { Paragraph } from "./Typography";
 import { StarIcon, PlayCircleIcon } from "@heroicons/react/24/solid";
 import {
   ClockIcon,
@@ -8,93 +8,102 @@ import {
 } from "@heroicons/react/24/outline";
 import Button from "./Button";
 import { useParams } from "react-router-dom";
-import http from "../utils/constants/http";
-import { API_ENDPOINT } from "../utils/constants/endpoint";
 import ReactPlayer from "react-player";
+import { useDispatch, useSelector } from "react-redux";
+import { courseDetailCourseAct } from "../redux/actions/courseActions/courseDetailCourse";
 
-const CourseDetails = ({noVideo}) => {
-  const courseId = useParams();
-  const [courseDetail, setcourseDetail] = useState("");
-  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+const categoryMap = {
+  1: "UI/UX Design",
+  2: "Web Development",
+  3: "Android Development",
+  4: "Data Science",
+  5: "Business Intelligence",
+};
 
-  const getCourseDetail = async () => {
-    const response = await http.get(
-      API_ENDPOINT.COURSE_DETAIL(courseId.courseId)
-    );
-    setcourseDetail(response.data.data);
-  };
-  console.log(courseDetail, "datadata");
+const CourseDetails = () => {
+  const params = useParams();
+  const dispatch = useDispatch();
+  // const detailCourse = useSelector((store) => store.course.courses)
+  const [detailCourse, setDetailCourse] = useState([]);
+  const [currentModule, setCurrentModule] = useState(null);
+
+  const categoryId = detailCourse.category_id;
+  const category = categoryMap[categoryId] || "Unknown Category";
 
   useEffect(() => {
-    getCourseDetail();
-  }, [courseId.courseId]);
+    getDetailCourseData();
+  }, [params.id]);
 
-  const handlePlayClick = () => {
-    setIsVideoPlaying(true);
+  const getDetailCourseData = async () => {
+    const result = await dispatch(courseDetailCourseAct(params.id));
+    setDetailCourse(result);
   };
+
+  // const getDetailCourse = async () => {
+  //   await dispatch(courseDetailCourseAct(params.id))
+    
+  // }
+
+  // useEffect(()=> {
+  //   getDetailCourse()
+  // }, [params.id])
+
+  let totalModules = 0;
+  let totalDuration = 0;
+
+  if (detailCourse && detailCourse.chapters) {
+    detailCourse.chapters.forEach((chapter) => {
+      if (chapter.modules) {
+        totalModules += chapter.modules.length;
+
+        chapter.modules.forEach((module) => {
+          totalDuration += module.duration || 0;
+        });
+      }
+    });
+  }
+
+  const handlePlayIconClick = (module) => {
+    setCurrentModule(module);
+  };
+
 
   return (
     <div className="w-full lg:w-3/5 flex flex-col gap-5">
       <div className="flex flex-col">
         <div className="flex justify-between items-center">
           <Paragraph className="text-xs font-medium text-lightGrey tracking-wide">
-            {courseDetail.category_id}
+            {category}
           </Paragraph>
           <span className="flex items-center text-darkOrange">
-            {/* <StarIcon className="w-4 h-4" />
-            <StarIcon className="w-4 h-4" />
-            <StarIcon className="w-4 h-4" />
-            <StarIcon className="w-4 h-4" /> */}
-            <StarIcon className="w-4 h-4" />
-            {courseDetail.ratings}
+            {[...Array(detailCourse.ratings)].map((_, index) => (
+              <StarIcon key={index} className="w-4 h-4" />
+            ))}
           </span>
         </div>
         <Paragraph className="font-medium text-darkGrey tracking-wide">
-          {courseDetail.title}
+          {detailCourse.title}
         </Paragraph>
         <Paragraph className="text-xs font-normal text-lightGrey tracking-wide">
-          by {courseDetail.author}
+          by {detailCourse.author}
         </Paragraph>
         <div className="flex gap-4 flex-wrap mb-2">
           <span className="flex gap-1 items-center ">
             <ClockIcon className="w-4 h-4 text-darkOrange" strokeWidth="2" />
             <Paragraph className="text-sm font-normal text-lightGrey">
-              {courseDetail.chapters && courseDetail.chapters.length > 0
-                ? courseDetail.chapters.reduce(
-                    (totalDuration, chapter) =>
-                      totalDuration +
-                      (chapter.modules
-                        ? chapter.modules.reduce(
-                            (moduleDuration, module) =>
-                              moduleDuration +
-                              (module.duration ? module.duration : 0),
-                            0
-                          )
-                        : 0),
-                    0
-                  )
-                : 0}{" "}
-              Menit
+              {totalDuration} Menit
             </Paragraph>
           </span>
           <span className="flex gap-1 items-center text-darkOrange">
             <BookOpenIcon className="w-4 h-4" strokeWidth="2" />
             <Paragraph className="text-sm font-normal text-lightGrey">
-              {courseDetail.chapters && courseDetail.chapters.length > 0
-                ? courseDetail.chapters.reduce(
-                    (totalModules, chapter) =>
-                      totalModules +
-                      (chapter.modules ? chapter.modules.length : 0),
-                    0
-                  )
-                : 0}{" "}
-              Modul
+              {totalModules} Modul
             </Paragraph>
           </span>
           <span className="flex gap-1 items-center text-darkOrange">
             <ChartBarIcon className="w-4 h-4" strokeWidth="2" />
             <Paragraph className="text-sm font-normal text-lightGrey">
-              {courseDetail.level}
+              {detailCourse.level}
             </Paragraph>
           </span>
         </div>
@@ -110,23 +119,21 @@ const CourseDetails = ({noVideo}) => {
         </Button>
       </div>
       <div className="flex flex-col gap-4 ">
-        {isVideoPlaying ? (
-          <div className="h-[10rem] md:h-[20rem]" >
+        <div className="bg-darkGrey w-full h-[10rem] md:h-[20rem] rounded-xl flex justify-center items-center">
+        {currentModule ? (
             <ReactPlayer
-              url={courseDetail.chapters[0].modules[0].url}
-              controls={true}
+              url={currentModule.url}
+              controls
               width="100%"
               height="100%"
             />
-          </div>
-        ) : (
-          <div
-            className="bg-darkGrey h-[10rem] md:h-[20rem] rounded-xl flex justify-center items-center"
-            onClick={handlePlayClick}
-          >
-            <PlayCircleIcon className="w-16 h-16 text-darkOrange" />
-          </div>
-        )}
+          ) : (
+            <PlayCircleIcon
+              className="w-16 h-16 text-darkOrange cursor-pointer"
+              onClick={() => handlePlayIconClick(detailCourse.chapters[0]?.modules[0])}
+            />
+          )}
+        </div>
         <div className="flex flex-row justify-end gap-4">
           <Button className="bg-darkOrange px-5 py-2 text-base rounded-full text-white hover:scale-105">
             Previous
@@ -141,7 +148,7 @@ const CourseDetails = ({noVideo}) => {
           About Course
         </Paragraph>
         <Paragraph className="text-xs font-normal text-lightGrey tracking-wide indent-6">
-          {courseDetail.description}
+          {detailCourse.description}
         </Paragraph>
       </div>
       <div>
@@ -149,8 +156,8 @@ const CourseDetails = ({noVideo}) => {
           Requirements
         </Paragraph>
         <div className="flex gap-2 mt-2">
-          {courseDetail && courseDetail.requirements ? (
-            courseDetail.requirements.map((requirement, index) => (
+          {detailCourse && detailCourse.requirements ? (
+            detailCourse.requirements.map((requirement, index) => (
               <span
                 key={index}
                 className="bg-brightBlue text-cloudWhite p-3 rounded-full"
@@ -162,10 +169,9 @@ const CourseDetails = ({noVideo}) => {
             <p>No requirements available</p>
           )}
         </div>
-      </div>
+        </div>
     </div>
   );
 };
 
 export default CourseDetails;
-

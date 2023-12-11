@@ -1,12 +1,14 @@
 import React, { useState } from "react";
-// import { DotLottiePlayer } from "@dotlottie/react-player";
 import FormInput from "../Form";
 import Header from "../Header";
 import { Heading, Paragraph } from "../Typography";
 import Button from "../Button";
 import logo from "../../assets/images/darkLogo.svg";
 import FadeIn from "../FadeIn";
-import Charakter from "../../assets/images/loginIllustration.png";
+import loginIllustration from "../../assets/images/loginIllustration.png";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { authLoginUserAct } from "../../redux/actions/authActions/User/authLoginUser";
 
 const LoginUser = () => {
   const [formData, setFormData] = useState({
@@ -19,7 +21,30 @@ const LoginUser = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const renderFormInput = (placeholder, label, name, type, text) => (
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLoginUser = async () => {
+    const success = await dispatch(authLoginUserAct(formData));
+    if (success) {
+      navigate("/");
+    }
+  };
+
+  const handleEnterPress = (e) => {
+    if (e.key === "Enter") {
+      handleLoginUser();
+    }
+  };
+
+  const renderFormInput = (
+    placeholder,
+    label,
+    name,
+    type,
+    text,
+    onKeyPress
+  ) => (
     <FormInput
       placeholder={placeholder}
       label={label}
@@ -28,6 +53,7 @@ const LoginUser = () => {
       onChange={handleInputChange}
       type={type}
       text={text}
+      onKeyPress={onKeyPress}
     />
   );
 
@@ -63,13 +89,13 @@ const LoginUser = () => {
             className="hidden lg:flex justify-center"
           >
             <img
-              src={Charakter}
+              src={loginIllustration}
               alt="LoginIllustration"
               className="w-[50%] h-auto "
             />
           </FadeIn>
         </div>
-        <div className="flex-1 bg-white rounded-t-[3rem] lg:rounded-l-[3rem] shadow-[0px_2px_20px_#cbd1f5] flex justify-center items-start md:items-center pt-20 md:pt-0">
+        <div className="flex-1 bg-white rounded-t-[3rem] lg:rounded-l-[3rem] lg:rounded-tr-none shadow-[0px_2px_20px_#cbd1f5] flex justify-center items-start md:items-center pt-20 md:pt-0">
           <div className="flex flex-col justify-center items-center gap-4 w-full px-4 md:px-12 lg:px-32">
             <FadeIn delay={0.2} direction="down" fullWidth>
               <Heading variant="h3" className="text-grey">
@@ -91,7 +117,8 @@ const LoginUser = () => {
                 "Password",
                 "password",
                 "password",
-                "darkGrey"
+                "darkGrey",
+                handleEnterPress
               )}
             </FadeIn>
             <FadeIn
@@ -106,6 +133,7 @@ const LoginUser = () => {
             </FadeIn>
             <FadeIn delay={0.3} direction="up" fullWidth>
               <Button
+                onClick={handleLoginUser}
                 isBlock
                 className="px-5 py-3 bg-darkOrange text-white rounded-full"
               >
