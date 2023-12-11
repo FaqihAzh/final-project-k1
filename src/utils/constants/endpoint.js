@@ -27,6 +27,13 @@ export const API_ENDPOINT = {
     return `/auth/reset-password?token=${token}`;
   },
 
+  GET_PROMO: "/promo",
+
+  GET_DETAIL_PROMO: (id) => {
+    return `/promo/${id}`
+  },
+
+
   ADMIN_LOGIN: "/auth/admin/login",
   GET_ADMIN: "/auth/admin/whoami",
 };
