@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { UsepostDataCourses } from "../services/admin/post-courses";
+
 import {BackspaceIcon} from "@heroicons/react/24/outline"
 import {PlusCircleIcon} from "@heroicons/react/24/outline"
 import {XMarkIcon} from "@heroicons/react/24/outline"
+import { UsepostDataCourses } from "../services/admin/post-courses";
 
 
 export const ModalAddCourse = ({ setOpenModal }) => {
@@ -12,8 +13,8 @@ export const ModalAddCourse = ({ setOpenModal }) => {
   const [image, setImage] = useState("");
   const [price, setPrice] = useState(0);
   const [author, setAuthor] = useState("");
-  const [level, setLevel] = useState("");
-  const [category_id, setCategoryId] = useState();
+  const [level, setLevel] = useState("beginner");
+  const [category_id, setCategoryId] = useState(1);
   const [requirements, setrequirements] = useState([]);
   const [InputRequirment, setInputRequirment] = useState("");
   const [chapters, setChapters] = useState([]);
@@ -23,17 +24,6 @@ export const ModalAddCourse = ({ setOpenModal }) => {
   const [inputModuleDuration, setInputModuleDuration] = useState("");
   const [inputModuleUrl, setInputModuleUrl] = useState("");
   const [selectedChapterIndex, setSelectedChapterIndex] = useState(0);
-  //   {
-  //     name: 'Chapter 1',
-  //     modules: [
-  //       {
-  //         title: 'Module 1',
-  //         duration: 80,
-  //         url: 'https://youtu.be/kWT1uGvhWp8?feature=shared'
-  //       }
-  //     ]
-  //   }
-  // ]);
 
   const addChapter = () => {
     if (inputChapterName.trim() !== "") {
@@ -166,7 +156,7 @@ export const ModalAddCourse = ({ setOpenModal }) => {
             <div className="flex flex-col ">
               <label className="text-sm font-semibold">Nama Kelas</label>
               <input
-               className="rounded-lg border-gray-300"
+               className="rounded-lg border p-2 border-gray-300 "
                 onChange={handleInput}
                 placeholder="title"
                 id="title"
@@ -176,7 +166,7 @@ export const ModalAddCourse = ({ setOpenModal }) => {
             <div className="flex flex-col">
               <label className="text-sm font-semibold">description</label>
               <input
-               className="rounded-lg border-gray-300"
+               className="rounded-lg border p-2 border-gray-300"
                 onChange={handleInput}
                 placeholder="description"
                 id="description"
@@ -186,7 +176,7 @@ export const ModalAddCourse = ({ setOpenModal }) => {
             <div className="flex flex-col">
               <label className="text-sm font-semibold"> Image</label>
               <input
-               className="rounded-lg border-gray-300"
+               className="rounded-lg border p-2 border-gray-300"
                 onChange={handleInput}
                 placeholder="image"
                 id="image"
@@ -196,7 +186,7 @@ export const ModalAddCourse = ({ setOpenModal }) => {
             <div className="flex flex-col">
               <label className="text-sm font-semibold">Harga</label>
               <input
-               className="rounded-lg border-gray-300"
+               className="rounded-lg border p-2 border-gray-300"
                 onChange={handleInput}
                 placeholder="price"
                 id="price"
@@ -206,7 +196,7 @@ export const ModalAddCourse = ({ setOpenModal }) => {
             <div className="flex flex-col">
               <label className="text-sm font-semibold">author</label>
               <input
-               className="rounded-lg border-gray-300"
+               className="rounded-lg border p-2 border-gray-300"
                 onChange={handleInput}
                 placeholder="author"
                 id="author"
@@ -216,7 +206,7 @@ export const ModalAddCourse = ({ setOpenModal }) => {
           <div className="flex  justify-between">
           <div className="flex flex-col">
               <label className="text-sm font-semibold"> level</label>
-              <select className="w-[10rem] border-gray-300"
+              <select className="w-[10rem] border p-2 border-gray-300"
                 value={level}
                 onChange={(e) => setLevel(e.target.value)}
               >
@@ -227,7 +217,7 @@ export const ModalAddCourse = ({ setOpenModal }) => {
             </div>
             <div className="flex flex-col ">
               <h2 className="font-semibold text-sm">Category</h2>
-              <select className="w-[10rem] border-gray-300"
+              <select className="w-[10rem] border p-2 border-gray-300"
                 value={category_id}
                 onChange={(e) => setCategoryId(parseInt(e.target.value))}
               >
@@ -253,7 +243,7 @@ export const ModalAddCourse = ({ setOpenModal }) => {
                 ))}
               <div className=" flex space-x-2">
                 <input
-                 className="rounded-lg border-gray-300"
+                 className="rounded-lg  border p-2 border-gray-300"
                   type="text"
                   value={InputRequirment}
                   onChange={(e) => setInputRequirment(e.target.value)}
@@ -308,7 +298,7 @@ export const ModalAddCourse = ({ setOpenModal }) => {
               <div className="flex mt-4 flex-col  ">
               <label className="text-sm font-semibold">Chapter Name: </label>
               <input
-               className="rounded-lg border-gray-300 "
+               className="rounded-lg border p-2 border-gray-300 "
                 type="text"
                 value={inputChapterName}
                 onChange={(e) => setInputChapterName(e.target.value)}
@@ -336,7 +326,7 @@ export const ModalAddCourse = ({ setOpenModal }) => {
 
               <label className="text-sm font-semibold">Module Title: </label>
               <input
-               className="rounded-lg border-gray-300"
+               className="rounded-lg border p-2 border-gray-300"
                 type="text"
                 value={inputModuleTitle}
                 onChange={(e) => setInputModuleTitle(e.target.value)}
@@ -344,7 +334,7 @@ export const ModalAddCourse = ({ setOpenModal }) => {
 
               <label className="text-sm font-semibold">Module Duration: </label>
               <input
-               className="rounded-lg border-gray-300"
+               className="rounded-lg border p-2 border-gray-300"
                 type="number"
                 value={inputModuleDuration}
                 onChange={(e) => setInputModuleDuration(e.target.value)}
@@ -352,7 +342,7 @@ export const ModalAddCourse = ({ setOpenModal }) => {
 
               <label className="text-sm font-semibold">Module URL: </label>
               <input
-               className="rounded-lg border-gray-300"
+               className="rounded-lg border p-2 border-gray-300"
                 type="text"
                 value={inputModuleUrl}
                 onChange={(e) => setInputModuleUrl(e.target.value)}

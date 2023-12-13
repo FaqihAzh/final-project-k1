@@ -1,10 +1,12 @@
 import React from 'react';
-import { useDeleteCourse } from '../services/admin/delete-course';
+import { DeleteCourseAct } from '../redux/actions/Admin/DeleteCourse';
+import { useDispatch } from 'react-redux';
 
-export const ModalDelete = ({ setDeleteModal, id}) => {
-
-  const {data: deleteCourse } = useDeleteCourse()
-
+export const ModalDelete = ({ setDeleteModal, idCourse}) => {
+  const dispatch = useDispatch()
+  const handleDelete = () => {
+    dispatch(DeleteCourseAct(idCourse))
+  }
   // const hapusCourse()
   const handleCancel = () => {
  
@@ -12,11 +14,12 @@ export const ModalDelete = ({ setDeleteModal, id}) => {
   };
 
   const handleContinue = () => {
-
+    handleDelete()
     setDeleteModal(false);
+    window.location.reload();
   };
 
-  console.log(id, 'id')
+  
 
   return (
     <div className="fixed inset-0 overflow-y-auto flex items-center justify-center">
@@ -54,7 +57,7 @@ export const ModalDelete = ({ setDeleteModal, id}) => {
           </button>
         </div>
       </div>
-      <h2>{id}ss</h2>
+    
     </div>
   );
 };

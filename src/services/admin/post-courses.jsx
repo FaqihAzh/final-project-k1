@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
-import { API_ENDPOINT } from "../../utils/constants/endpoint"
-import http from "../../utils/constants/http"
+import { API_ENDPOINT } from "../../utils/constants/endpoint";
+import http from "../../utils/constants/http";
+
 
 
 
@@ -21,18 +22,21 @@ const UsepostDataCourses = () =>{
 export {postDataCourses, UsepostDataCourses}
 
 
+const updateCourse = async (input, id) => {
+    return await http.put(`${API_ENDPOINT.UPDATE_COURSES}${id}`, input).then((result) => {
+      console.log(result, "dataUpdate");
+      alert("berhasil");
+    }).catch((err) => {
+      console.log(err, "ini eror update");
+      alert("Gagal Cuy");
+    });
+  };
+  
+  const useUpdateCourse = () => {
+    return useMutation(updateCourse);
+  };
+  export { useUpdateCourse };
 
 
 
-// const fetchDataCourses = async ({queryKey}) => {
-//     const [_key, _params] = queryKey;
-//     const { data } = await http.get(_key, { params : _params})
-//     console.log(data , "data Courses")
-//     return data
-// }
 
-// const useFetchDataCourses = (options) => {
-//     return useQuery([API_ENDPOINT.GET_ALL_COURSE, options], fetchDataCourses);
-//   };
-
-// export {fetchDataCourses, useFetchDataCourses}

@@ -1,23 +1,40 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useFetchDataCourses } from "../services/admin/get-courses";
 import { ModalAddCourse } from "./ModalAddCourse ";
 import { ModalDelete } from "./ModalDelete";
 import {ForwardIcon} from "@heroicons/react/24/outline"
 import {BackwardIcon} from "@heroicons/react/24/outline"
+import { useDispatch } from "react-redux";
+import { DeleteCourseAct } from "../redux/actions/Admin/DeleteCourse";
+import { ModalUpdate } from "./ModalUpdate";
+import { UpdateCourseACT } from "../redux/actions/Admin/UpdateCourse";
 
 export const TableAdminKelolaKelas = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalDelete, setmodalDelete] = useState(false);
+  const [modalUpdate, setmodalUpdate] = useState(false)
   const [idCorse, setidCorse] = useState()
   const [Page, setPage] = useState(1);
+  const dispatch = useDispatch()
   const { data: fetchData } = useFetchDataCourses({
     page: Page,
     limit: 10,
   });
 
+
+
+  const handleDelete = () => {
+    dispatch(DeleteCourseAct(datarender.id))
+  }
+  
+  
+
+  
   console.log(fetchData?.data?.courses, "inidata");
   const datarender = fetchData?.data?.courses;
+  
 
+  console.log(idCorse, "id")
   return (
     <div className="">
       <div className=" my-1 flex justify-between items-center px-[2rem]">
@@ -61,18 +78,23 @@ export const TableAdminKelolaKelas = () => {
                 <td className="py-2 px-4 border-b">{value.price}</td>
                 <td className="py-2 px-4 border-b">{value.ratings}</td>
                 <td className="py-2 px-4 border-b space-x-3 flex">
-                  <button className="font-medium text-cyan-600 hover:underline dark:text-cyan-500">
+                  <button className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"
+                  onClick={()=> {
+                   dispatch(UpdateCourseACT(value.id))
+                    setidCorse(parseInt(value.id))
+                    setmodalUpdate(true)
+                  }}
+                  >
                     Ubah
                   </button>
                   <button 
                    onClick=
-                   {() => {
+                   { () =>{
                      setmodalDelete(true);
                      setidCorse(parseInt(value.id))
-                   }}
-            
+                   }
+                   }
                   className="font-medium text-cyan-600 hover:underline dark:text-cyan-500">
-                   
                     Hapus
                   </button>
                 </td>
@@ -80,7 +102,8 @@ export const TableAdminKelolaKelas = () => {
             ))}
           </tbody>
         </table>
-            {modalDelete && <ModalDelete setDeleteModal={setmodalDelete} id={idCorse} />}
+            {modalDelete && <ModalDelete setDeleteModal={setmodalDelete}  idCourse={idCorse} Delete={handleDelete}/>}
+            {modalUpdate && <ModalUpdate setUpdateModal={setmodalUpdate}  idCourse={idCorse}/>}
       </div>
       <div className=" flex justify-center items-center space-x-10">
         <button  onClick={() => {Page > 1 && setPage(Page -1)}}><BackwardIcon className="w-[2rem]"/></button>

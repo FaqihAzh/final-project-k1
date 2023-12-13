@@ -29,6 +29,13 @@ export const SideBar = () => {
       >
         <NavLink className='w-full h-full flex justify-center items-center' to="/adminkelolakelas">Kelola Kelas</NavLink>
       </div>
+      <div
+        className={` flex items-center justify-center h-[2rem] hover:bg-[#FFC27A] ${
+          location.pathname === "/adminpromo" && "bg-[#FFC27A]"
+        }`}
+      >
+        <NavLink className='w-full h-full flex justify-center items-center' to="/adminpromo">Promo</NavLink>
+      </div>
       <div onClick={handleLogout}
         className={` flex items-center justify-center h-[2rem]  hover:bg-[#FFC27A]`}
       >

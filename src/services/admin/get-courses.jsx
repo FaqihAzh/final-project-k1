@@ -15,3 +15,4 @@ const useFetchDataCourses = (options) => {
   };
 
 export {fetchDataCourses, useFetchDataCourses}
+

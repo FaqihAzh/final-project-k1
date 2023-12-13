@@ -6,7 +6,7 @@ export const AdminKelolaKelas = () => {
   return (
     <AdminLayout>
         <div className=''>
-        <TableAdminKelolaKelas/>
+        <TableAdminKelolaKelas/>  
         </div>
     </AdminLayout>
   )

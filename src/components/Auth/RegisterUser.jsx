@@ -6,12 +6,15 @@ import registIllustration from "../../assets/images/registIllustration.png";
 import { Heading, Paragraph } from "../Typography";
 import FadeIn from "../FadeIn";
 import AuthHeader from "./AuthHeader";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { authRegisterUserAct } from "../../redux/actions/authActions/User/authRegisterUser";
 
 const RegisterUser = () => {
   const [formData, setFormData] = useState({
-    name: "",
+    nickname: "",
     email: "",
-    hp: "",
+    phone_number: "",
     password: "",
   });
 
@@ -20,7 +23,30 @@ const RegisterUser = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const renderFormInput = (placeholder, label, name, type, text) => (
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleRegisterUser = async () => {
+    const success = await dispatch(authRegisterUserAct(formData));
+    if (success) {
+      navigate("/otp");
+    }
+  };
+
+  const handleEnterPress = (e) => {
+    if (e.key === "Enter") {
+      handleRegisterUser();
+    }
+  };
+
+  const renderFormInput = (
+    placeholder,
+    label,
+    name,
+    type,
+    text,
+    onKeyPress
+  ) => (
     <FormInput
       placeholder={placeholder}
       label={label}
@@ -29,6 +55,7 @@ const RegisterUser = () => {
       onChange={handleInputChange}
       type={type}
       text={text}
+      onKeyPress={onKeyPress}
     />
   );
 
@@ -80,9 +107,9 @@ const RegisterUser = () => {
             </FadeIn>
             <FadeIn delay={0.2} direction="down" fullWidth>
               {renderFormInput(
-                "Enter your full name",
-                "Name",
-                "name",
+                "Enter your username",
+                "Username",
+                "nickname",
                 "text",
                 "darkGrey"
               )}
@@ -100,7 +127,7 @@ const RegisterUser = () => {
               {renderFormInput(
                 "Enter your phone number",
                 "Phone Number",
-                "hp",
+                "phone_number",
                 "text",
                 "darkGrey"
               )}
@@ -111,11 +138,13 @@ const RegisterUser = () => {
                 "Password",
                 "password",
                 "password",
-                "darkGrey"
+                "darkGrey",
+                handleEnterPress
               )}
             </FadeIn>
             <FadeIn delay={0.3} direction="up" fullWidth>
               <Button
+                onClick={handleRegisterUser}
                 isBlock
                 className="px-5 py-3 bg-darkOrange text-white rounded-full"
               >

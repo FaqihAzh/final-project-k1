@@ -1,17 +1,14 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+
 import http from "../../utils/constants/http";
 import { API_ENDPOINT } from "../../utils/constants/endpoint";
 
 
-const deleteCourse = async ({queryKey}) => {
-  const [_key, _params] = queryKey;
-  const { data } = await http.delete(_key, { params : _params})
-  console.log(data , "Delete Berhasil ")
-  return data
+ export const deleteCourse = async (id) => {
+  return await http.delete(API_ENDPOINT.DELETE_COURSE(id))
+ 
+}
+
+export const updateCourse = async (id, input) =>{
+  return await http.put(API_ENDPOINT.UPDATE_COURSES(id),input) 
 }
   
-  const useDeleteCourse = (options) => {
-    return useQuery([API_ENDPOINT.DELETE_COURSE, options], deleteCourse);
-  };
-  
-  export { useDeleteCourse };

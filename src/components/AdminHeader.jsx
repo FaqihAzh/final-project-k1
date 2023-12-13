@@ -5,15 +5,15 @@ import { useGetDataAdmin } from '../services/auth/get-admin';
 
 export const AdminHeader = () => {
 
-   const { data: fetchAdmin } = useGetDataAdmin({})
-   console.log('Fetch Admin Data:', fetchAdmin);  // Ta
+   // const { data: fetchAdmin } = useGetDataAdmin({})
+   // console.log('Fetch Admin Data:', fetchAdmin);  
  
 
 
   return (
     <div className='space-y-10 flex flex-col items-center mb-5' >
     <div className='bg-cyan-200 w-full h-[7rem] flex justify-between px-5 items-center'>
-    <h1>Hi, {fetchAdmin?.data?.user?.idAdmin}</h1>
+    {/* <h1>Hi, {fetchAdmin?.data?.user?.idAdmin}</h1> */}
     <div> <SearchInput/></div>
     </div>
         <div className=' flex w-[85%] h-[7rem] justify-between !mt-3'>
