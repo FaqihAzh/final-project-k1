@@ -38,6 +38,12 @@ export const API_ENDPOINT = {
   UPDATE_COURSES : (id) =>{
     return `/courses/${id}`
   },
+  GET_PROMO: "/promo",
+
+  GET_DETAIL_PROMO: (id) => {
+    return `/promo/${id}`
+  },
+
 
   ADMIN_LOGIN: "/auth/admin/login",
   GET_ADMIN: "/auth/admin/whoami",

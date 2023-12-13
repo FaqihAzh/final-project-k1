@@ -53,7 +53,7 @@ const CourseCard = ({ isMyClass, course }) => {
     });
   }
 
-  const coursePrice = formatRupiah(detailCourse.price);
+  const coursePrice = formatRupiah(detailCourse?.price);
 
   return (
     <div
@@ -78,17 +78,17 @@ const CourseCard = ({ isMyClass, course }) => {
               {category}
             </Paragraph>
             <span className="flex items-center text-darkOrange">
-              {[...Array(detailCourse.ratings)].map((_, index) => (
+              {[...Array(detailCourse?.ratings)].map((_, index) => (
                 <StarIcon key={index} className="w-4 h-4" />
               ))}
             </span>
           </div>
           <div>
             <Paragraph className="font-medium text-darkGrey tracking-wide capitalize">
-              {detailCourse.title}
+              {detailCourse?.title}
             </Paragraph>
             <Paragraph className="text-xs font-normal text-lightGrey tracking-wide">
-              by <span className="capitalize">{detailCourse.author}</span>
+              by <span className="capitalize">{detailCourse?.author}</span>
             </Paragraph>
             {isMyClass ? null : (
               <Paragraph className="font-medium text-darkOrange tracking-wide">
@@ -115,7 +115,7 @@ const CourseCard = ({ isMyClass, course }) => {
             <span className="flex gap-1 items-center text-darkOrange">
               <ChartBarIcon className="w-4 h-4" strokeWidth="2" />
               <Paragraph className="text-sm font-normal text-lightGrey capitalize">
-                {detailCourse.level}
+                {detailCourse?.level}
               </Paragraph>
             </span>
           </div>
@@ -131,7 +131,7 @@ const CourseCard = ({ isMyClass, course }) => {
             <div className="flex justify-center items center relative -bottom-4 -mt-2">
               <Button
                 type="link"
-                href={`/course/detail/${detailCourse.id}`}
+                href={`/course/detail/${detailCourse?.id}`}
                 className="bg-darkOrange px-5 py-2 text-base rounded-full text-white hover:scale-105"
               >
                 Join Course

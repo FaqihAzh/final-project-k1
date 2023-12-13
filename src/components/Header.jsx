@@ -60,7 +60,7 @@ const Header = () => {
       <Button className="hover:text-paleOrange text-sm py-2 px-4 rounded-full flex gap-2 min-w-max items-center text-white border border-1 border-white hover:border-darkOrange">
         <UserIcon className="w-6 h-6 " />
         <span className="hidden lg:block">
-          {data ? data.user.nickname : "Username"}
+          {data ? data.nickname : "Username"}
         </span>
       </Button>
     </>
@@ -86,7 +86,7 @@ const Header = () => {
       </Button>
       <Button className="hover:text-darkOrange text-sm rounded-full flex gap-2 min-w-max items-center text-white">
         <UserIcon className="w-6 h-6 " />
-        <span>{data ? data.user.nickname : "Username"}</span>
+        <span>{data ? data.nickname : "Username"}</span>
       </Button>
     </>
   );

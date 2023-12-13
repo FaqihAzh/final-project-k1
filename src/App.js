@@ -47,7 +47,7 @@ const App = () => {
               }
             />
             <Route
-              path="/payment"
+              path="/payment/:id"
               element={
                 <IsLogOutProtected>
                   <PaymentPage />

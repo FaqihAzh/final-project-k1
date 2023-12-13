@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Heading, Paragraph } from "./Typography";
+import { Paragraph } from "./Typography";
 import { StarIcon, PlayCircleIcon } from "@heroicons/react/24/solid";
 import {
   ClockIcon,
@@ -7,8 +7,9 @@ import {
   ChartBarIcon,
 } from "@heroicons/react/24/outline";
 import Button from "./Button";
-import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+import ReactPlayer from "react-player";
+import { useDispatch, useSelector } from "react-redux";
 import { courseDetailCourseAct } from "../redux/actions/courseActions/courseDetailCourse";
 
 const categoryMap = {
@@ -21,7 +22,10 @@ const categoryMap = {
 
 const CourseDetails = () => {
   const params = useParams();
+  const dispatch = useDispatch();
+  // const detailCourse = useSelector((store) => store.course.courses)
   const [detailCourse, setDetailCourse] = useState([]);
+  const [currentModule, setCurrentModule] = useState(null);
 
   const categoryId = detailCourse.category_id;
   const category = categoryMap[categoryId] || "Unknown Category";
@@ -30,12 +34,19 @@ const CourseDetails = () => {
     getDetailCourseData();
   }, [params.id]);
 
-  const dispatch = useDispatch();
-
   const getDetailCourseData = async () => {
     const result = await dispatch(courseDetailCourseAct(params.id));
     setDetailCourse(result);
   };
+
+  // const getDetailCourse = async () => {
+  //   await dispatch(courseDetailCourseAct(params.id))
+    
+  // }
+
+  // useEffect(()=> {
+  //   getDetailCourse()
+  // }, [params.id])
 
   let totalModules = 0;
   let totalDuration = 0;
@@ -52,12 +63,17 @@ const CourseDetails = () => {
     });
   }
 
+  const handlePlayIconClick = (module) => {
+    setCurrentModule(module);
+  };
+
+
   return (
     <div className="w-full lg:w-3/5 flex flex-col gap-5">
       <div className="flex flex-col">
         <div className="flex justify-between items-center">
           <Paragraph className="text-xs font-medium text-lightGrey tracking-wide">
-            UI/UX Design
+            {category}
           </Paragraph>
           <span className="flex items-center text-darkOrange">
             {[...Array(detailCourse.ratings)].map((_, index) => (
@@ -66,10 +82,10 @@ const CourseDetails = () => {
           </span>
         </div>
         <Paragraph className="font-medium text-darkGrey tracking-wide">
-          UI/UX Design for Beginners
+          {detailCourse.title}
         </Paragraph>
         <Paragraph className="text-xs font-normal text-lightGrey tracking-wide">
-          by Felicia Shue
+          by {detailCourse.author}
         </Paragraph>
         <div className="flex gap-4 flex-wrap mb-2">
           <span className="flex gap-1 items-center ">
@@ -87,24 +103,36 @@ const CourseDetails = () => {
           <span className="flex gap-1 items-center text-darkOrange">
             <ChartBarIcon className="w-4 h-4" strokeWidth="2" />
             <Paragraph className="text-sm font-normal text-lightGrey">
-              Intermediate
+              {detailCourse.level}
             </Paragraph>
           </span>
         </div>
         <Button
-          isGreenGradient
+          isOrangeGradient
           type="link"
           href="https://t.me/+jNP5OgpdfoplZDVl"
           isExternal
           target="_blank"
-          className="w-full md:w-1/2 h-auto text-center"
+          className="w-full md:w-1/2 text-center hover:scale-105 "
         >
           Join grup Telegram
         </Button>
       </div>
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 ">
         <div className="bg-darkGrey w-full h-[10rem] md:h-[20rem] rounded-xl flex justify-center items-center">
-          <PlayCircleIcon className="w-16 h-16 text-darkOrange"></PlayCircleIcon>
+        {currentModule ? (
+            <ReactPlayer
+              url={currentModule.url}
+              controls
+              width="100%"
+              height="100%"
+            />
+          ) : (
+            <PlayCircleIcon
+              className="w-16 h-16 text-darkOrange cursor-pointer"
+              onClick={() => handlePlayIconClick(detailCourse.chapters[0]?.modules[0])}
+            />
+          )}
         </div>
         <div className="flex flex-row justify-end gap-4">
           <Button className="bg-darkOrange px-5 py-2 text-base rounded-full text-white hover:scale-105">
@@ -120,19 +148,7 @@ const CourseDetails = () => {
           About Course
         </Paragraph>
         <Paragraph className="text-xs font-normal text-lightGrey tracking-wide indent-6">
-          Design system adalah kumpulan komponen design, code, ataupun
-          dokumentasi yang dapat digunakan sebagai panduan utama yang
-          memunginkan designer serta developer memiliki lebih banyak kontrol
-          atas berbagai platform. Dengan hadirnya design system, dapat menjaga
-          konsistensi tampilan user interface dan meningkatkan user experience
-          menjadi lebih baik. Disisi bisnis, design system sangat berguna dalam
-          menghemat waktu dan biaya ketika mengembangkan suatu produk.
-          <br />
-          Bersama mentor XXX, kita akan mempelajari design system dari mulai
-          manfaat, alur kerja pembuatannya, tools yang digunakan, hingga pada
-          akhirnya, kita akan membuat MVP dari design system. Selain itu, mentor
-          juga akan menjelaskan berbagai resource yang dibutuhkan untuk mencari
-          inspirasi mengenai design system
+          {detailCourse.description}
         </Paragraph>
       </div>
       <div>
@@ -140,14 +156,20 @@ const CourseDetails = () => {
           Requirements
         </Paragraph>
         <div className="flex gap-2 mt-2">
-          <span className="bg-brightBlue text-cloudWhite p-3 rounded-full">
-            React Dasar
-          </span>
-          <span className="bg-brightBlue text-cloudWhite p-3 rounded-full">
-            Express
-          </span>
+          {detailCourse && detailCourse.requirements ? (
+            detailCourse.requirements.map((requirement, index) => (
+              <span
+                key={index}
+                className="bg-brightBlue text-cloudWhite p-3 rounded-full"
+              >
+                {requirement}
+              </span>
+            ))
+          ) : (
+            <p>No requirements available</p>
+          )}
         </div>
-      </div>
+        </div>
     </div>
   );
 };
