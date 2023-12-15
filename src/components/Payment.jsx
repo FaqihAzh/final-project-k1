@@ -46,8 +46,8 @@ export function Payment() {
             courseCheckoutNotifAct({
               order_id: result.order_id,
               transaction_status: result.transaction_status,
-              // payment_type: result.payment_type,
-              // transaction_time: result.transaction_time,
+              payment_type: result.payment_type,
+              transaction_time: result.transaction_time,
             })
           );
         },
@@ -57,8 +57,8 @@ export function Payment() {
             courseCheckoutNotifAct({
               order_id: result.order_id,
               transaction_status: result.transaction_status,
-              // payment_type: result.payment_type,
-              // transaction_time: result.transaction_time,
+              payment_type: result.payment_type,
+              transaction_time: result.transaction_time,
             })
           );
         },
@@ -68,8 +68,8 @@ export function Payment() {
             courseCheckoutNotifAct({
               order_id: result.order_id,
               transaction_status: result.transaction_status,
-              // payment_type: result.payment_type,
-              // transaction_time: result.transaction_time,
+              payment_type: result.payment_type,
+              transaction_time: result.transaction_time,
             })
           );
         },
