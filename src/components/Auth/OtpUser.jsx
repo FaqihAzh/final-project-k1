@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FadeIn from "../FadeIn";
 import { Heading, Paragraph } from "../Typography";
 import Button from "../Button";
@@ -6,35 +6,46 @@ import otpIllustration from "../../assets/images/otpIllustration.png";
 import logo from "../../assets/images/darkLogo.svg";
 import FormInput from "../Form";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { authOtpUserAct } from "../../redux/actions/authActions/User/authOtpUser";
 import { EmailMasking } from "../../utils/constants/function";
 
 const OtpUser = () => {
-  const otpEmail = useSelector((store) => store.authUser.registerEmail);
-  const [formData, setFormData] = useState({
-    email: otpEmail,
-    otp: "",
-  });
+  // const otpEmail = useSelector((store) => store.authUser.registerEmail);
+  // const [formData, setFormData] = useState({
+  //   email: otpEmail,
+  //   otp: "",
+  // });
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+  // const handleInputChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setFormData({ ...formData, [name]: value });
+  // };
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const [otp, setOtp] = useState("");
+  const [token, setToken] = useState("");
+
+  console.log(otp, token, "Data OTP");
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const otpValue = searchParams.get("otp");
+    const tokenValue = searchParams.get("token");
+
+    if (tokenValue) {
+      setOtp(otpValue);
+      setToken(tokenValue);
+    }
+  }, [location.search]);
 
   const handleOtpUser = async () => {
-    const success = await dispatch(authOtpUserAct(formData));
+    const success = await dispatch(authOtpUserAct(otp, token));
     if (success) {
       navigate("/login");
-    }
-  };
-
-  const handleEnterPress = (e) => {
-    if (e.key === "Enter") {
-      handleOtpUser();
     }
   };
 
@@ -73,57 +84,30 @@ const OtpUser = () => {
           <div className="flex flex-col justify-center items-center gap-4 w-full px-4 md:px-12 lg:px-32">
             <FadeIn delay={0.2} direction="down" fullWidth>
               <Heading variant="h3" className="text-darkGrey">
-                OTP Input
+                Account Activated
               </Heading>
             </FadeIn>
-            <FadeIn
-              delay={0.4}
-              direction="down"
-              fullWidth
-              className="text-center"
-            >
-              <Paragraph
-                variant="small"
-                className="text-darkGrey flex justify-center gap-1"
-              >
-                Type the 6 digit code sent to the
-                <span className="text-darkOrange">
-                  <EmailMasking email={otpEmail} />
-                </span>
-              </Paragraph>
-            </FadeIn>
+
             <FadeIn delay={0.3} direction="down" fullWidth>
-              <FormInput
-                placeholder="OTP"
-                label=" "
-                name="otp"
-                value={formData.otp}
-                onChange={handleInputChange}
-                type="text"
-                text="darkGrey"
-                className="!text-center !tracking-[2rem] focus:!caret-transparent pl-[3.3rem] !text-2xl placeholder:font-normal font-semibold placeholder:text-xl"
-                maxLength={6}
-                onKeyPress={handleEnterPress}
-              />
-            </FadeIn>
-            <FadeIn
-              delay={0.4}
-              direction="up"
-              fullWidth
-              className="flex justify-center"
-            >
-              <Paragraph variant="small" className="text-darkGrey">
-                Resend OTP in 60 seconds
-              </Paragraph>
-            </FadeIn>
-            <FadeIn delay={0.3} direction="up" fullWidth>
               <Button
                 onClick={handleOtpUser}
                 isBlock
                 className="px-5 py-2 bg-darkOrange text-white rounded-full !text-xl"
               >
-                Verify OTP
+                Verify Account
               </Button>
+            </FadeIn>
+            <FadeIn
+              delay={0.2}
+              direction="down"
+              fullWidth
+              className="text-center"
+            >
+              <Paragraph className="text-xs text-center text-lightGrey">
+                By click Verify Account you have agreed to CourseHub's
+                <span className="text-darkOrange"> Terms & Condition</span> and
+                <span className="text-darkOrange"> Privacy Policy.</span>
+              </Paragraph>
             </FadeIn>
           </div>
         </div>

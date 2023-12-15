@@ -12,7 +12,7 @@ import Button from "../../components/Button";
 import SideFilter from "../../components/SideFilter";
 import SearchInput from "../../components/SearchInput";
 import { useDispatch, useSelector } from "react-redux";
-import { courseCoursesAct } from "../../redux/actions/courseActions/courseCourses";
+import { courseCoursesMeAct } from "../../redux/actions/courseActions/courseCourses";
 import Pagination from "../../components/Pagination";
 
 const MyCoursePage = () => {
@@ -36,16 +36,15 @@ const MyCoursePage = () => {
     setShowDropdown(!showDropdown);
   };
 
+  const dispatch = useDispatch();
   const [page, setPage] = useState(1);
 
   useEffect(() => {
     getCoursesData();
-  }, [page, filteredCourses, priceFilter]);
+  }, [dispatch, filteredCourses, priceFilter]);
 
-  const dispatch = useDispatch();
-
-  const getCoursesData = () => {
-    dispatch(courseCoursesAct(page, 10));
+  const getCoursesData = async () => {
+    await dispatch(courseCoursesMeAct());
   };
 
   return (
@@ -100,7 +99,6 @@ const MyCoursePage = () => {
           >
             <SideFilter
               onClick={handleFilter}
-              dataCourse={dataCourse}
               setFilteredCourses={setFilteredCourses}
               priceFilter={priceFilter}
             />

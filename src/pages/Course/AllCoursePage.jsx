@@ -48,8 +48,8 @@ const AllCoursePage = () => {
 
   const dispatch = useDispatch();
 
-  const getCoursesData = () => {
-    dispatch(courseCoursesAct(page, 10));
+  const getCoursesData = async () => {
+    await dispatch(courseCoursesAct(page, 10));
   };
 
   return (

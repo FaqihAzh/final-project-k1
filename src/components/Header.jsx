@@ -96,14 +96,14 @@ const Header = () => {
       <Button
         type="link"
         href="/login"
-        className="flex-1 min-w-max flex gap-1 items-center"
+        className="flex-1 flex gap-1 items-center !min-w-max md:!max-w-fit"
         isOutline
       >
         <LockClosedIcon className="w-5 h-5 text-white" />
         <span>Sign In</span>
       </Button>
       <Button
-        className="min-w-max flex-1 flex justify-center items-center"
+        className="!outline !outline-1 !outline-paleOrange flex-1 flex justify-center items-center !min-w-max md:!max-w-fit"
         isOrangeGradient
         type="link"
         href="/register"
@@ -118,7 +118,7 @@ const Header = () => {
       <Button
         type="link"
         href="/login"
-        className="flex-1 min-w-max flex gap-1 items-center justify-center"
+        className="flex-1 flex gap-1 items-center justify-center !min-w-max md:!max-w-fit"
         isOutline
       >
         <LockClosedIcon className="w-5 h-5 text-white" />
@@ -128,7 +128,7 @@ const Header = () => {
         isOrangeGradient
         type="link"
         href="/register"
-        className="flex-1 flex items-center justify-center"
+        className="!outline !outline-1 !outline-paleOrange flex-1 flex items-center justify-center !min-w-max md:!max-w-fit"
       >
         Sign Up
       </Button>

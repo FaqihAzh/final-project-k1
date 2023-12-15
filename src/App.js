@@ -28,6 +28,8 @@ import CheckEmailPage from "./pages/Auth/CheckEmailPage";
 import Courses from "./components/Courses";
 import SearchResultsPage from "./pages/Course/SearchResultsPage";
 import ResetSuccessPage from "./pages/Auth/ResetSuccessPage";
+import ActivateAccount from "./components/Auth/ActivateAccount";
+import ResendEmailCheck from "./components/Auth/ResendOtpCheck";
 import LoginPage from "./pages/Auth/LoginPage";
 import { AdminPromo } from "./pages/admin/AdminPromo";
 
@@ -55,7 +57,7 @@ const App = () => {
               }
             />
             <Route
-              path="/payment/success"
+              path="/payment/success/:id"
               element={
                 <IsLogOutProtected>
                   <PaymentSuccessPage />
@@ -65,9 +67,9 @@ const App = () => {
             <Route
               path="/course/detail/:id"
               element={
-                <IsLogOutProtected>
-                  <CourseDetailsPage />
-                </IsLogOutProtected>
+                // <IsLogOutProtected>
+                <CourseDetailsPage />
+                // </IsLogOutProtected>
               }
             />
 
@@ -82,22 +84,23 @@ const App = () => {
           <Route path="/admindashboard" element={<AdminDashboard />} />
           <Route path="/adminkelolakelas" element={<AdminKelolaKelas />} />
           <Route path="/adminpromo" element={<AdminPromo />} />
-        
+
           {/* <Route path="/delete/:id" element={<ModalDelete/>}/> */}
-        
 
           {/* admin */}
           <Route path="/register" element={<RegisterPage />} />
-       
+
           {/* Buat yg gapake layout samsek bisa di taruh disini, ex: login, regist etc */}
-          <Route path="/account" element={<AccountPage/>}/>
+          <Route path="/account" element={<AccountPage />} />
 
           <Route element={<AuthLayoutWithOutlet />}>
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
-            <Route path="/otp" element={<OtpPage />} />
             <Route path="/forgot/password" element={<ForgotPasswordPage />} />
+            <Route path="/activate" element={<ActivateAccount />} />
             <Route path="/check/email" element={<CheckEmailPage />} />
+            <Route path="/check/otp/resend" element={<ResendEmailCheck />} />
+            <Route path="/verify-otp" element={<OtpPage />} />
             <Route
               path="/api/v1/auth/reset-password"
               element={<ResetPasswordPage />}

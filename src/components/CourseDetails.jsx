@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Paragraph } from "./Typography";
+import { Heading, Paragraph } from "./Typography";
 import { StarIcon, PlayCircleIcon } from "@heroicons/react/24/solid";
 import {
   ClockIcon,
@@ -7,10 +7,11 @@ import {
   ChartBarIcon,
 } from "@heroicons/react/24/outline";
 import Button from "./Button";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ReactPlayer from "react-player";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { courseDetailCourseAct } from "../redux/actions/courseActions/courseDetailCourse";
+import { courseCheckoutAct } from "../redux/actions/courseActions/courseCheckout";
 
 const categoryMap = {
   1: "UI/UX Design",
@@ -23,7 +24,6 @@ const categoryMap = {
 const CourseDetails = () => {
   const params = useParams();
   const dispatch = useDispatch();
-  // const detailCourse = useSelector((store) => store.course.courses)
   const [detailCourse, setDetailCourse] = useState([]);
   const [currentModule, setCurrentModule] = useState(null);
 
@@ -41,7 +41,7 @@ const CourseDetails = () => {
 
   // const getDetailCourse = async () => {
   //   await dispatch(courseDetailCourseAct(params.id))
-    
+
   // }
 
   // useEffect(()=> {
@@ -67,12 +67,11 @@ const CourseDetails = () => {
     setCurrentModule(module);
   };
 
-
   return (
     <div className="w-full lg:w-3/5 flex flex-col gap-5">
       <div className="flex flex-col">
         <div className="flex justify-between items-center">
-          <Paragraph className="text-xs font-medium text-lightGrey tracking-wide">
+          <Paragraph className=" font-normal text-lightGrey tracking-wide">
             {category}
           </Paragraph>
           <span className="flex items-center text-darkOrange">
@@ -81,13 +80,21 @@ const CourseDetails = () => {
             ))}
           </span>
         </div>
-        <Paragraph className="font-medium text-darkGrey tracking-wide">
-          {detailCourse.title}
-        </Paragraph>
-        <Paragraph className="text-xs font-normal text-lightGrey tracking-wide">
+        <Heading
+          variant="h3"
+          className="font-semibold text-darkGrey tracking-wide"
+        >
+          {detailCourse.title
+            ? detailCourse.title
+            : "Frontend Javascript Developer"}
+        </Heading>
+        <Paragraph
+          variant="small"
+          className=" font-normal text-lightGrey tracking-wide"
+        >
           by {detailCourse.author}
         </Paragraph>
-        <div className="flex gap-4 flex-wrap mb-2">
+        <div className="flex gap-4 flex-wrap my-2">
           <span className="flex gap-1 items-center ">
             <ClockIcon className="w-4 h-4 text-darkOrange" strokeWidth="2" />
             <Paragraph className="text-sm font-normal text-lightGrey">
@@ -107,7 +114,7 @@ const CourseDetails = () => {
             </Paragraph>
           </span>
         </div>
-        <Button
+        {/* <Button
           isOrangeGradient
           type="link"
           href="https://t.me/+jNP5OgpdfoplZDVl"
@@ -116,11 +123,11 @@ const CourseDetails = () => {
           className="w-full md:w-1/2 text-center hover:scale-105 "
         >
           Join grup Telegram
-        </Button>
+        </Button> */}
       </div>
       <div className="flex flex-col gap-4 ">
         <div className="bg-darkGrey w-full h-[10rem] md:h-[20rem] rounded-xl flex justify-center items-center">
-        {currentModule ? (
+          {currentModule ? (
             <ReactPlayer
               url={currentModule.url}
               controls
@@ -130,7 +137,9 @@ const CourseDetails = () => {
           ) : (
             <PlayCircleIcon
               className="w-16 h-16 text-darkOrange cursor-pointer"
-              onClick={() => handlePlayIconClick(detailCourse.chapters[0]?.modules[0])}
+              onClick={() =>
+                handlePlayIconClick(detailCourse.chapters[0]?.modules[0])
+              }
             />
           )}
         </div>
@@ -169,7 +178,7 @@ const CourseDetails = () => {
             <p>No requirements available</p>
           )}
         </div>
-        </div>
+      </div>
     </div>
   );
 };
