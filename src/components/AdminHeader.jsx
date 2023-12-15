@@ -1,6 +1,6 @@
 import React from 'react'
 import SearchInput from "./SearchInput";
-import {UsersIcon} from "@heroicons/react/24/outline"
+import {UsersIcon} from "@heroicons/react/24/solid"
 import { useGetDataAdmin } from '../services/auth/get-admin';
 import { useFetchActiveClass, useFetchActiveUsers, useFetchPremimumClass } from '../services/admin/information-admin';
 
@@ -29,8 +29,8 @@ export const AdminHeader = () => {
         <div className=' flex w-[85%] h-[7rem] justify-between !mt-3'>
             <div className='bg-blue-500 w-[30%] rounded-2xl flex justify-center items-center '>  
             <div className='w-[80%] h-[80%] flex items-center space-x-6'>
-            <div className='bg-white w-[20%] h-[60%] rounded-full flex items-center justify-center'>
-             <UsersIcon className="w-[2rem]  text-[#6176F7]"/>
+            <div >
+             <UsersIcon className="w-[2rem]  text-white"/>
              </div>
              <div className='space-y-2 text-[1.2rem] text-white'>
                 <p>{dataActiveUsers}</p>
@@ -40,8 +40,8 @@ export const AdminHeader = () => {
             </div>
             <div className='bg-blue-500 w-[30%] rounded-2xl flex justify-center items-center'>
             <div className='w-[80%] h-[80%] flex items-center space-x-6'>
-            <div className='bg-white w-[20%] h-[60%] rounded-full flex items-center justify-center'>
-             <UsersIcon className="w-[2rem] text-[#6176F7]"/>
+            <div >
+             <UsersIcon className="w-[2rem] text-white"/>
              </div>
              <div className='space-y-2 text-[1.2rem] text-white'>
                 <p>{dataActiveClass}</p>
@@ -52,8 +52,8 @@ export const AdminHeader = () => {
             </div>
             <div className='bg-blue-500 w-[30%] rounded-2xl flex justify-center items-center'>
             <div className='w-[80%] h-[80%] flex items-center space-x-6'>
-            <div className='bg-white w-[20%] h-[60%] rounded-full flex items-center justify-center'>
-             <UsersIcon className="w-[2rem] text-[#6176F7]"/>
+            <div >
+             <UsersIcon className="w-[2rem] text-white"/>
              </div>
              <div className='space-y-2 text-[1.2rem] text-white'>
                 <p>{dataPremiumClass}</p>
