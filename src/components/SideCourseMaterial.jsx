@@ -42,7 +42,6 @@ const SideCourseMaterial = () => {
       }
     });
   }
-
   const coursePrice = formatRupiah(detailCourse.price);
 
   const handleBuyCourseClick = () => {

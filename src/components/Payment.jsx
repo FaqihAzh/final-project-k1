@@ -113,6 +113,10 @@ export function Payment() {
     }
   };
 
+  if (!cardCourse) {
+    return null;
+  }
+
   return (
     <div className="bg-softGrey py-24 px-4 md:px-12 lg:px-24  min-h-screen">
       <FadeIn delay={0.2} direction="down" fullWidth>
@@ -166,6 +170,9 @@ export function Payment() {
               Buy Now
             </Button>
           </div>
+          <Button className="px-5 py-3 bg-darkOrange text-white rounded-full hover:scale-105">
+            Bayar dan Ikuti Kelas Selamanya
+          </Button>
         </div>
       </FadeIn>
     </div>

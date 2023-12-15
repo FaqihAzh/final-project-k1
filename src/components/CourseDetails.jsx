@@ -39,6 +39,15 @@ const CourseDetails = () => {
     setDetailCourse(result);
   };
 
+  // const getDetailCourse = async () => {
+  //   await dispatch(courseDetailCourseAct(params.id))
+
+  // }
+
+  // useEffect(()=> {
+  //   getDetailCourse()
+  // }, [params.id])
+
   let totalModules = 0;
   let totalDuration = 0;
 

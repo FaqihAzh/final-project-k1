@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes, Outlet } from "react-router-dom";
 import UserLayout from "./Layout/UserLayout";
+// import RegisterPage from "./pages/RegisterPage";
 import { AdminLoginPage } from "./pages/admin/AdminLoginPage";
 import { AdminDashboard } from "./pages/admin/AdminDashboard";
 import { AdminKelolaKelas } from "./pages/admin/AdminKelolaKelas";
@@ -7,8 +8,10 @@ import UserAuthLayout from "./Layout/UserAuthLayout";
 import ResetPasswordPage from "./pages/Auth/ResetPasswordPage";
 import RegisterPage from "./pages/Auth/RegisterPage";
 import ForgotPasswordPage from "./pages/Auth/ForgotPasswordPage";
-import LoginPage from "./pages/Auth/LoginPage";
+
 import OtpPage from "./pages/Auth/OtpPage";
+import { AccountPage } from "./pages/AccountPage";
+import { ModalDelete } from "./components/ModalDelete";
 import MyCoursePage from "./pages/Course/MyCoursePage";
 import AllCoursePage from "./pages/Course/AllCoursePage";
 import HomePage from "./pages/HomePage";
@@ -27,6 +30,8 @@ import SearchResultsPage from "./pages/Course/SearchResultsPage";
 import ResetSuccessPage from "./pages/Auth/ResetSuccessPage";
 import ActivateAccount from "./components/Auth/ActivateAccount";
 import ResendEmailCheck from "./components/Auth/ResendOtpCheck";
+import LoginPage from "./pages/Auth/LoginPage";
+import { AdminPromo } from "./pages/admin/AdminPromo";
 
 const App = () => {
   return (
@@ -78,7 +83,15 @@ const App = () => {
           <Route path="/adminlogin" element={<AdminLoginPage />} />
           <Route path="/admindashboard" element={<AdminDashboard />} />
           <Route path="/adminkelolakelas" element={<AdminKelolaKelas />} />
+          <Route path="/adminpromo" element={<AdminPromo />} />
+
+          {/* <Route path="/delete/:id" element={<ModalDelete/>}/> */}
+
           {/* admin */}
+          <Route path="/register" element={<RegisterPage />} />
+
+          {/* Buat yg gapake layout samsek bisa di taruh disini, ex: login, regist etc */}
+          <Route path="/account" element={<AccountPage />} />
 
           <Route element={<AuthLayoutWithOutlet />}>
             <Route path="/login" element={<LoginPage />} />
