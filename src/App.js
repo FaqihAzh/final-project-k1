@@ -44,7 +44,7 @@ const App = () => {
               }
             />
             <Route
-              path="/payment"
+              path="/payment/:id"
               element={
                 <IsLogOutProtected>
                   <PaymentPage />
@@ -52,7 +52,7 @@ const App = () => {
               }
             />
             <Route
-              path="/payment/success"
+              path="/payment/success/:id"
               element={
                 <IsLogOutProtected>
                   <PaymentSuccessPage />
@@ -62,9 +62,9 @@ const App = () => {
             <Route
               path="/course/detail/:id"
               element={
-                <IsLogOutProtected>
-                  <CourseDetailsPage />
-                </IsLogOutProtected>
+                // <IsLogOutProtected>
+                <CourseDetailsPage />
+                // </IsLogOutProtected>
               }
             />
 

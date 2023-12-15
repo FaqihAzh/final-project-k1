@@ -3,8 +3,11 @@ import FadeIn from "./FadeIn";
 import succes from "../../src/assets/images/paymentSuccessIllustration.png";
 import { Heading, Paragraph } from "./Typography";
 import Button from "./Button";
+import { useParams } from "react-router-dom";
 
 const PaymentSucces = () => {
+  const params = useParams();
+
   return (
     <>
       <div className="bg-softGrey flex flex-col justify-center items-center w-screen h-screen px-4 md:px-12 lg:px-24">
@@ -30,8 +33,8 @@ const PaymentSucces = () => {
             </Heading>
 
             <Paragraph className="text-lightGrey font-thin text-center">
-              Premium class purchase successful, let's start learning and get
-              closer to your dreams
+              Join course successfully, let's start learning and get closer to
+              your dreams
             </Paragraph>
           </FadeIn>
 
@@ -41,7 +44,11 @@ const PaymentSucces = () => {
             fullWidth
             className="flex items-center justify-center flex-col gap-4 w-full mt-4"
           >
-            <Button className="px-5 py-3 text-lg bg-darkOrange text-white rounded-full w-full md:w-1/3 lg:w-1/4">
+            <Button
+              type="link"
+              href={`/learning/${params.id}`}
+              className="px-5 py-3 text-lg bg-darkOrange text-white rounded-full w-full md:w-1/3 lg:w-1/4"
+            >
               Start Learning
             </Button>
             <Button

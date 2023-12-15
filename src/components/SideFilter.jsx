@@ -37,8 +37,8 @@ const SideFilter = ({ onClick, setFilteredCourses, priceFilter }) => {
     localStorage.setItem("savedFilters", JSON.stringify(filters));
   }, [filters]);
 
-  const getCategoriesData = () => {
-    dispatch(courseCategoriesAct());
+  const getCategoriesData = async () => {
+    await dispatch(courseCategoriesAct());
   };
 
   const handleFilterChange = (name) => {
@@ -73,6 +73,10 @@ const SideFilter = ({ onClick, setFilteredCourses, priceFilter }) => {
   const renderLevels = () => {
     return levels.map((level) => renderCheckbox(level.id, level.name_levels));
   };
+
+  useEffect(() => {
+    applyFilters();
+  }, [filters, categories, priceFilter]);
 
   const applyFilters = () => {
     let filteredData = courses;
@@ -125,10 +129,6 @@ const SideFilter = ({ onClick, setFilteredCourses, priceFilter }) => {
 
     setFilteredCourses(filteredData);
   };
-
-  useEffect(() => {
-    applyFilters();
-  }, [filters, categories, priceFilter]);
 
   return (
     <div className="shadow-none lg:shadow-md relative flex flex-col justify-center items-start px-8 py-6 gap-5 rounded-xl bg-white h-max w-full ">

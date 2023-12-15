@@ -1,196 +1,173 @@
-import React, { useState } from "react";
-import {
-  Accordion,
-  AccordionHeader,
-  AccordionBody,
-} from "@material-tailwind/react";
-import FormInput from "./Form";
-import { Heading, Paragraph } from "./Typography";
+import React, { useEffect, useState } from "react";
 import Button from "./Button";
-import { StarIcon } from "@heroicons/react/24/solid";
-
-function Icon({ id, open }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      strokeWidth={2}
-      stroke="currentColor"
-      className={`${
-        id === open ? "rotate-180" : ""
-      } h-5 w-5 transition-transform`}
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-      />
-    </svg>
-  );
-}
+import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import CourseCard from "./CourseCard";
+import FadeIn from "./FadeIn";
+import PromoCardModal from "./PromoCardModal";
+import { formatRupiah } from "../utils/constants/function";
+import {
+  courseCheckoutAct,
+  courseCheckoutFreeAct,
+} from "../redux/actions/courseActions/courseCheckout";
+import { courseDetailCourseAct } from "../redux/actions/courseActions/courseDetailCourse";
+import { courseCheckoutNotifAct } from "../redux/actions/courseActions/courseCheckoutNotif";
 
 export function Payment() {
+  const params = useParams();
+  const [cardCourse, setCardCourse] = useState([]);
+  const [isPromoModalOpen, setIsPromoModalOpen] = useState(false);
+  const [discountAmount, setDiscountAmount] = useState(0);
+  const [promoName, setPromoName] = useState("");
+  const [snapToken, setSnapToken] = useState("");
   const [formData, setFormData] = useState({
-    Card_Number: "",
-    Card_name: "",
-    cvv: "",
-    Expiry_date: "",
+    courseId: Number(params.id),
+    promoCode: "",
   });
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+  const handlePromoModalClick = () => setIsPromoModalOpen(true);
+  const handleClosePromoModal = () => setIsPromoModalOpen(false);
+  const handleApplyPromo = (discountAmount) =>
+    setDiscountAmount(discountAmount);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    getDetailCourseData();
+  }, [params.id, dispatch, promoName]);
+
+  useEffect(() => {
+    if (snapToken) {
+      window.snap.pay(snapToken, {
+        onSuccess: function (result) {
+          console.log("Transaction is success:", result);
+          dispatch(
+            courseCheckoutNotifAct({
+              order_id: result.order_id,
+              transaction_status: result.transaction_status,
+              payment_type: result.payment_type,
+              transaction_time: result.transaction_time,
+            })
+          );
+        },
+        onPending: function (result) {
+          console.log("Transaction is pending:", result);
+          dispatch(
+            courseCheckoutNotifAct({
+              order_id: result.order_id,
+              transaction_status: result.transaction_status,
+              payment_type: result.payment_type,
+              transaction_time: result.transaction_time,
+            })
+          );
+        },
+        onError: function (result) {
+          console.log("Transaction is error:", result);
+          dispatch(
+            courseCheckoutNotifAct({
+              order_id: result.order_id,
+              transaction_status: result.transaction_status,
+              payment_type: result.payment_type,
+              transaction_time: result.transaction_time,
+            })
+          );
+        },
+        onClose: function () {
+          console.log(
+            "Customer closed the popup without finishing the payment"
+          );
+        },
+      });
+    }
+  }, [snapToken, dispatch]);
+
+  const getDetailCourseData = async () => {
+    const result = await dispatch(courseDetailCourseAct(params.id));
+    setCardCourse(result);
+    setFormData({
+      courseId: Number(params.id),
+      promoCode: promoName,
+    });
   };
 
-  const renderFormInput = (placeholder, label, name, type, text, className) => (
-    <FormInput
-      placeholder={placeholder}
-      label={label}
-      name={name}
-      value={formData[name]}
-      onChange={handleInputChange}
-      type={type}
-      text={text}
-      // className="focus:!border-b-2 focus:!border-b-darkOrange focus:!border-x-0 focus:!border-t-0 focus:!rounded-none rounded-none"
-      className="rounded-none transform translate-y-0 focus:!border-x-0 focus:!border-t-0 !border-b-1 !border-b-lightGrey !transition-none !duration-0 "
-    />
-  );
+  if (!cardCourse) {
+    return null;
+  }
 
-  const [open, setOpen] = React.useState(1);
+  const totalPay = cardCourse.price - discountAmount;
+  const persent = (discountAmount / cardCourse.price) * 100;
 
-  const handleOpen = (value) => setOpen(open === value ? 0 : value);
+  const handleBuyCourse = async () => {
+    const success = await dispatch(courseCheckoutAct(formData));
+    console.log(success, "success");
+    setSnapToken(success.token);
+  };
+
+  const handleBuyCourseFree = async () => {
+    const success = await dispatch(courseCheckoutFreeAct(params.id));
+    console.log(success, "success");
+
+    if (success) {
+      navigate(`/payment/success/${params.id}`);
+    }
+  };
 
   return (
-    <div className="bg-softGrey w-screen min-h-screen pt-24 flex flex-col-reverse md:flex-row gap-16 justify-center px-6 md:px-0">
-      <div className="w-full md:w-[45%] flex flex-col gap-5 pb-7">
-        <Accordion
-          open={open === 1}
-          icon={<Icon id={1} open={open} />}
-          className="rounded-b-lg shadow-[0px_6px_8px_3px_#CBD5E0]"
-        >
-          <AccordionHeader
-            onClick={() => handleOpen(1)}
-            className={`bg-darkGrey rounded-lg text-white px-4 transition-colors ${
-              open === 1
-                ? "text-white hover:!text-cloudWhite"
-                : "hover:!text-cloudWhite"
-            }`}
-          >
-            Bank Transfer
-          </AccordionHeader>
-          <AccordionBody className="px-4"></AccordionBody>
-        </Accordion>
+    <div className="bg-softGrey py-24 px-4 md:px-12 lg:px-24  min-h-screen">
+      <FadeIn delay={0.2} direction="down" fullWidth>
+        <div className="grid grid-cols-1 grid-rows-2 md:grid-cols-3 md:grid-rows-1 gap-0 md:gap-8 bg-white p-8 rounded-xl shadow-xl w-full items-start">
+          <div className="col-span-1 !-mt-6">
+            <CourseCard course={cardCourse} isPayment={true} />
+          </div>
+          <div className="col-span-2 flex flex-col gap-5">
+            <span className="font-semibold">Let's to Payment</span>
+            <Button
+              className="w-full text-center bg-softGrey rounded-full px-5 py-3"
+              onClick={handlePromoModalClick}
+            >
+              {promoName ? promoName : "Promo Code"}
+            </Button>
+            {isPromoModalOpen && (
+              <PromoCardModal
+                handleClose={handleClosePromoModal}
+                onApplyPromo={handleApplyPromo}
+                cardCourse={cardCourse}
+                setPromoName={setPromoName}
+              />
+            )}
+            <div className="flex flex-col gap-4">
+              <span className="font-semibold">Payment details</span>
+              <div className="flex flex-row justify-between">
+                <span className="text-darkGrey">Payment Method</span>
+                <span>Via Midtrans</span>
+              </div>
+              <div className="flex flex-row justify-between">
+                <span className="text-darkGrey">Course Pricing</span>
+                <span>{formatRupiah(cardCourse.price)}</span>
+              </div>
+              <div className="flex flex-row justify-between">
+                <span className="text-darkGrey">Discount {persent}%</span>
+                <span>{formatRupiah(discountAmount)}</span>
+              </div>
 
-        <Accordion
-          open={open === 2}
-          icon={<Icon id={2} open={open} />}
-          className="rounded-b-lg shadow-[0px_6px_8px_3px_#CBD5E0]"
-        >
-          <AccordionHeader
-            onClick={() => handleOpen(2)}
-            className={`bg-brightBlue rounded-lg text-white px-4 transition-colors ${
-              open === 2
-                ? "text-white hover:!text-cloudWhite"
-                : "hover:!text-cloudWhite"
-            }`}
-          >
-            Bank Transfer
-          </AccordionHeader>
-          <AccordionBody className="flex flex-col gap-2 items-center ">
-            <div className="w-2/3 md:w-1/2">
-              <span className="text-darkGrey flex flex-wrap font-medium text-lg">
-                Card number
-              </span>
-              {renderFormInput(
-                "4480 0000 0000 0000",
-                " ",
-                "Card_Number",
-                "string",
-                "darkGrey"
-              )}
-            </div>
-            <div className="w-2/3 md:w-1/2">
-              <span className="text-darkGrey flex flex-wrap font-medium text-lg">
-                Card holder name
-              </span>
-              {renderFormInput("444800", " ", "Card_name", "name", "darkGrey")}
-            </div>
-            <div className="flex flex-row gap-2 w-2/3 md:w-1/2">
-              <div className="w-1/2">
-                <span className="text-darkGrey flex flex-wrap font-medium text-lg">
-                  cvv
-                </span>
-                {renderFormInput("000", " ", "cvv", "string", "darkGrey")}
-              </div>
-              <div className="w-1/2">
-                <span className="text-darkGrey flex flex-wrap font-medium text-lg">
-                  Expiry date
-                </span>
-                {renderFormInput(
-                  "07/24",
-                  " ",
-                  "Expiry_date",
-                  "date",
-                  "darkGrey"
-                )}
+              <hr />
+              <div className="flex flex-row justify-between">
+                <span className="font-semibold">Total Pay</span>
+                <span className="font-semibold">{formatRupiah(totalPay)}</span>
               </div>
             </div>
-          </AccordionBody>
-        </Accordion>
-      </div>
-      <div className="w-full md:w-[25%] h-[30%] outline outline-brightBlue p-5 flex flex-col gap-5 ">
-        <Heading variant="h3" className="text-darkGrey">
-          Pembayaran kelas
-        </Heading>
-        <div className="flex flex-col gap-2 p-2 rounded-xl bg-white w-full shadow-xl">
-          {/* <CourseCard /> */}
-          <div className="w-full">
-            <img
-              src="https://picsum.photos/300/150"
-              alt=""
-              className="rounded-lg w-full"
-            />
-          </div>
-          <div className="flex flex-col">
-            <div className="flex justify-between items-center">
-              <Paragraph className="text-xs font-medium text-lightGrey tracking-wide">
-                UI/UX Design
-              </Paragraph>
-              <span className="flex items-center text-darkOrange">
-                <StarIcon className="w-4 h-4" />
-                <StarIcon className="w-4 h-4" />
-                <StarIcon className="w-4 h-4" />
-                <StarIcon className="w-4 h-4" />
-                <StarIcon className="w-4 h-4" />
-              </span>
-            </div>
-            <Paragraph className="font-medium text-darkGrey tracking-wide">
-              UI/UX Design for Beginners
-            </Paragraph>
-            <Paragraph className="text-xs font-normal text-lightGrey tracking-wide">
-              by Felicia Shue
-            </Paragraph>
+            <Button
+              onClick={
+                cardCourse.price === 0 ? handleBuyCourseFree : handleBuyCourse
+              }
+              className="px-5 py-3 bg-darkOrange text-white rounded-full hover:scale-105"
+            >
+              Buy Now
+            </Button>
           </div>
         </div>
-        <div className="grid grid-cols-3 gap-22 pt-5">
-          <div className="flex flex-col gap-4">
-            <span className="font-semibold ">Harga</span>
-            <span>Rp. 349,000</span>
-          </div>
-          <div className="flex flex-col gap-4">
-            <span className="font-semibold">PPN 11%</span>
-            <span>Rp. 38,390</span>
-          </div>
-          <div className="flex flex-col gap-4">
-            <span className="font-semibold">Total Bayar</span>
-            <span className="text-brightBlue font-semibold">Rp. 349,000</span>
-          </div>
-        </div>
-        <Button className="px-5 py-3 bg-darkOrange text-white rounded-full hover:scale-105">
-          Bayar dan Ikuti Kelas Selamanya
-        </Button>
-      </div>
+      </FadeIn>
     </div>
   );
 }
