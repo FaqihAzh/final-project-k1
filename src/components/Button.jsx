@@ -27,8 +27,11 @@ const Button = (props) => {
         `${buttonClassName} hover:!bg-gradient-to-b hover:!from-salmon hover:!to-salmon bg-gradient-to-b from-palePink to-salmon ${className}`,
       props.isPurpleGradient &&
         `${buttonClassName} hover:!bg-gradient-to-b hover:!from-[#6D3AE9] hover:!to-[#6D3AE9] bg-gradient-to-b from-[#A988F9] to-[#6D3AE9] ${className}`,
+      props.isSolidBlue && `${buttonClassName} bg-lightBlue ${className}`,
+      props.isSolidWhite &&
+        `${buttonClassName} bg-white !text-darkGrey ${className}`,
       props.isOutline &&
-        `${buttonClassName} bg-transparent border border-1 border-white ${className}`,
+        `${buttonClassName} bg-transparent outline outline-1 outline-white flex-1 ${className}`,
       props.isBlock && `w-full ${className}`,
     ];
 

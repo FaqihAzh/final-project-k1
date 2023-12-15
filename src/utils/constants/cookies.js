@@ -4,6 +4,7 @@ const cookies = new Cookies();
 
 export const CookieKeys = {
   AuthToken: "authToken",
+  registerEmail: "registerEmail",
   User: "user",
   LimitError: 100,
 };
