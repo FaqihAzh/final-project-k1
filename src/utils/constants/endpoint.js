@@ -44,10 +44,22 @@ export const API_ENDPOINT = {
     return `/promo/${id}`
   },
 
+  DELETE_PROMO : (id) => {
+    return `/promo/${id}`
+  },
+
+  UPDATE_PROMO : (id) => {
+    return `/promo/${id}`
+  },
+
 
   ADMIN_LOGIN: "/auth/admin/login",
   GET_ADMIN: "/auth/admin/whoami",
   GET_ALL_COURSE : "/courses",
   POST_COURSE : "/courses",
+  PROMO : "/promo",
+  ACTIVE_USERS : "/activeUsers",
+  ACTIVE_CLASS : "/activeClass",
+  PREMIUM_CLASS : "/premiumClass"
  
 };

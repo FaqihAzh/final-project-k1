@@ -7,7 +7,7 @@ export const ModalDelete = ({ setDeleteModal, idCourse}) => {
   const handleDelete = () => {
     dispatch(DeleteCourseAct(idCourse))
   }
-  // const hapusCourse()
+
   const handleCancel = () => {
  
     setDeleteModal(false);

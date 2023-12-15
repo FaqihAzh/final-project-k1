@@ -76,7 +76,7 @@ export const ModalAddCourse = ({ setOpenModal }) => {
   };
   console.log(chapters, "chapters");
 
-  const { mutate: PostCourses } = UsepostDataCourses();
+  const { mutate: PostCourses } = UsepostDataCourses()
 
   const addrequirements = () => {
     if (InputRequirment.trim() !== "") {
