@@ -20,7 +20,7 @@ export const Akun = () => {
     <div className="w-[100vw] h-[100vh] flex justify-center items-center">
       <div className="outline outline-1 w-[50rem] h-[37rem] rounded-xl ">
         <div className="w-full h-[3rem] bg-[#6176F7] text-white font-bold rounded-t-xl  flex items-center justify-center">
-          {" "}
+
           Akun
         </div>
         <div className="w-[100%] h-[85%] flex ">
@@ -65,13 +65,13 @@ export const Akun = () => {
 
 //-------------------------------------------------------------------------------------//
 const UpdateProfileComponent = () => {
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImage, setSelectedImage] = useState();
   const [nama, setnama] = useState("");
   const [noTlpn, setnoTlpn] = useState();
   const [negara, setnegara] = useState("");
   const [kota, setkota] = useState("");
   const [getdata, setgetdata] = useState(true);
-  const handleImageChange = (e) => {
+  const handleImage = (e) => {
     const file = e.target.files[0];
     if (file) {
       setSelectedImage(file);
@@ -80,6 +80,7 @@ const UpdateProfileComponent = () => {
 
   const { data: fetchDataProfil } = useFetchDataUser();
   const dataUser = fetchDataProfil?.data;
+  console.log(dataUser, "dataUser")
 
   useEffect(() => {
     if (getdata && dataUser) {
@@ -109,7 +110,6 @@ const UpdateProfileComponent = () => {
 
 
   const handleSimpanProfil = () => {
-    if (selectedImage && Object.keys(selectedImage).length > 0) {
       updateProfil({
         phone_number: noTlpn,
         full_name: nama,
@@ -117,10 +117,7 @@ const UpdateProfileComponent = () => {
         city: kota,
         country: negara,
       });
-    } else {
-      // Mungkin Anda ingin memberikan pesan kesalahan atau menangani situasi di sini
-      console.error("Image is empty or invalid");
-    }
+    
   };
 
   // console.log(fetchDataProfil, "fetchDataProfil");
@@ -143,7 +140,7 @@ const UpdateProfileComponent = () => {
       <input
         type="file"
         accept="image"
-        onChange={handleImageChange}
+        onChange={handleImage}
         className="mb-4"
       />
       <div className="w-full flex flex-col items-center">
