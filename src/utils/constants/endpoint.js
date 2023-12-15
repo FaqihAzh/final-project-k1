@@ -33,6 +33,7 @@ export const API_ENDPOINT = {
     return `/promo/${id}`
   },
 
+  GET_NOTIFICATION: "/notification",
 
   ADMIN_LOGIN: "/auth/admin/login",
   GET_ADMIN: "/auth/admin/whoami",
