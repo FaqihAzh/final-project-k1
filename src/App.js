@@ -32,6 +32,7 @@ import ActivateAccount from "./components/Auth/ActivateAccount";
 import ResendEmailCheck from "./components/Auth/ResendOtpCheck";
 import LoginPage from "./pages/Auth/LoginPage";
 import { AdminPromo } from "./pages/admin/AdminPromo";
+import LearningCoursePage from "./pages/Course/LearningCoursePage";
 
 const App = () => {
   return (
@@ -73,6 +74,7 @@ const App = () => {
               }
             />
 
+            <Route path="/learning/:id" element={<LearningCoursePage />} />
             <Route path="/all/course" element={<AllCoursePage />} />
             <Route path="/course/category/:id" element={<Courses />} />
             <Route path="/search-results" element={<SearchResultsPage />} />

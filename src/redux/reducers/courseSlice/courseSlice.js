@@ -5,6 +5,8 @@ const courseSlice = createSlice({
   initialState: {
     courses: [],
     categories: [],
+    coursesUser: [],
+    progress:[],
   },
   reducers: {
     updateCourses(state, action) {
@@ -13,11 +15,17 @@ const courseSlice = createSlice({
     updateCategories(state, action) {
       state.categories = action.payload;
     },
+    updateCoursesUser(state, action) {
+      state.coursesUser = action.payload;
+    },
+    updateProgress(state, action) {
+      state.progress = action.payload
+    },
   },
 });
 
 const courseReducer = courseSlice.reducer;
-const { updateCourses, updateCategories } = courseSlice.actions;
+const { updateCourses, updateCategories, updateCoursesUser, updateProgress } = courseSlice.actions;
 
-export { updateCourses, updateCategories };
+export { updateCourses, updateCategories, updateCoursesUser, updateProgress };
 export default courseReducer;

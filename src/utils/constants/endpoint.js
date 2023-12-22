@@ -21,6 +21,14 @@ export const API_ENDPOINT = {
 
   GET_COURSES_ME: "/courses/me",
 
+  GET_DETAIL_COURSES_ME: (id) => {
+    return `/courses/me/${id}`;
+  },
+
+  UPDATE_PROGRESS: (progressId) => {
+    return `/courses/me/progress/${progressId}`
+  },
+
   GET_COURSES: (page, limit) => {
     return `/courses?page=${page}&limit=${limit}`;
   },
@@ -37,12 +45,7 @@ export const API_ENDPOINT = {
     return `/auth/reset-password?token=${token}`;
   },
 
-  GET_PROMO: "/promo",
-
-  GET_DETAIL_PROMO: (id) => {
-    return `/promo/${id}`;
-  },
-
+  GET_NOTIFICATION: "/notification",
   COURSE_CHECKOUT: "/payment/checkout",
 
   COURSE_CHECKOUT_FREE: (id) => {
@@ -70,6 +73,11 @@ export const API_ENDPOINT = {
 
   UPDATE_PROMO: (id) => {
     return `/promo/${id}`;
+  },
+
+  POST_RATING: "/ratings",
+  GET_RATING : (id) => {
+    return `/ratings/${id}`
   },
 
   ADMIN_LOGIN: "/auth/admin/login",
