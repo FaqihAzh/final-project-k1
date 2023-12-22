@@ -19,7 +19,7 @@ const categoryMap = {
   5: "Business Intelligence",
 };
 
-const CourseCard = ({ isMyClass, course }) => {
+const CourseCard = ({ isMyClass, course, isPayment }) => {
   const [detailCourse, setDetailCourse] = useState([]);
 
   const categoryId = detailCourse.category_id;
@@ -27,7 +27,7 @@ const CourseCard = ({ isMyClass, course }) => {
 
   useEffect(() => {
     getDetailCourseData();
-  }, []);
+  }, [course.id]);
 
   const dispatch = useDispatch();
 
@@ -97,7 +97,7 @@ const CourseCard = ({ isMyClass, course }) => {
             )}
           </div>
         </div>
-        <div className="flex flex-col">
+        <div className={`flex flex-col ${isPayment && "pb-2"}`}>
           <span className="border-b w-full border-dotted border-lightGrey my-2"></span>
           <div className="flex gap-x-4 gap-y-2 flex-wrap">
             <span className="flex gap-1 items-center">
@@ -128,15 +128,17 @@ const CourseCard = ({ isMyClass, course }) => {
               </div>
             </div>
           ) : (
-            <div className="flex justify-center items center relative -bottom-4 -mt-2">
-              <Button
-                type="link"
-                href={`/course/detail/${detailCourse?.id}`}
-                className="bg-darkOrange px-5 py-2 text-base rounded-full text-white hover:scale-105"
-              >
-                Join Course
-              </Button>
-            </div>
+            !isPayment && (
+              <div className="flex justify-center items center relative -bottom-4 -mt-2">
+                <Button
+                  type="link"
+                  href={`/course/detail/${detailCourse?.id}`}
+                  className="bg-darkOrange px-5 py-2 text-base rounded-full text-white hover:scale-105"
+                >
+                  Join Course
+                </Button>
+              </div>
+            )
           )}
         </div>
       </div>

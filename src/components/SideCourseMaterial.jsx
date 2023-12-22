@@ -42,7 +42,6 @@ const SideCourseMaterial = () => {
       }
     });
   }
-  
   const coursePrice = formatRupiah(detailCourse.price);
 
   const handleBuyCourseClick = () => {
@@ -106,33 +105,26 @@ const SideCourseMaterial = () => {
         </Button>
       </div>
       {isModalOpen && detailCourse && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-6 rounded-md">
-            <div className="flex flex-col items-end">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white pr-6 pl-6 pb-6 pt-2  rounded-xl relative">
+            <div className="flex flex-col items-end absolute -top-8 -right-8">
               <XCircleIcon
-                className="text-darkGrey hover:text-lightGrey w-7 h-7"
+                className="text-white hover:text-paleOrange w-9 h-9 cursor-pointer"
+                strokeWidth={1}
                 onClick={handleCloseModal}
               ></XCircleIcon>
             </div>
-            <Heading variant="h3" className="text-center">
-              Selangkah lagi menuju
-            </Heading>
-            <Heading variant="h3" className="text-darkOrange text-center">
-              Kelas premium
-            </Heading>
-            <CourseCard course={detailCourse} />
-            <div className="flex flex-col gap-3">
-              <Paragraph className="font-medium text-darkOrange tracking-wide">
-                Total {coursePrice}
-              </Paragraph>
-              <Button isOrangeGradient
-               type="link" 
-               href={`/payment/${detailCourse?.id}`}
-               className="w-full text-center">
-                Beli Sekarang
+            <CourseCard course={detailCourse} isPayment={true} />
+            <div className="flex mt-4">
+              <Button
+                isOrangeGradient
+                type="link"
+                href={`/payment/${detailCourse?.id}`}
+                className="w-full text-center"
+              >
+                Buy Now
               </Button>
             </div>
-            
           </div>
         </div>
       )}

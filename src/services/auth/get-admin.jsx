@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { API_ENDPOINT } from "../../utils/constants/endpoint";
 import http from "../../utils/constants/http";
 
+
 const fetchDataAdmin = async ({ queryKey }) => {
   const [_key] = queryKey;
   try {

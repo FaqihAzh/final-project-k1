@@ -9,8 +9,6 @@ import "swiper/css/grid";
 import "swiper/css/autoplay";
 import "react-toastify/dist/ReactToastify.css";
 
-import { ThemeProvider } from "@material-tailwind/react";
-
 import { ToastContainer } from "react-toastify";
 import { Provider } from "react-redux";
 import store from "./redux/store";

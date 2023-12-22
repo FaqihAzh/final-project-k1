@@ -2,13 +2,31 @@ export const API_ENDPOINT = {
   USER_WHOAMI: "/auth/whoami",
   USER_LOGIN: "/auth/login",
   USER_REGISTER: "/auth/register",
-  USER_OTP: "/auth/verifyOTP",
   USER_FORGOT_PASSWORD: "/auth/forgotPassword",
+  USER_RESEND_OTP: "/auth/resend-otp",
+  USER_UPDATE_PROFIL: "/profile",
+  USER_CHANGE_PASSWORD: "/auth/change-password",
+  USER_PROFIL: "/profile",
+  USER_UPDATE_IMAGE_USER: "/profile/",
 
   GET_CATEGORIES: "/categories",
 
+  USER_OTP: (otp, token) => {
+    return `/auth/verifyOTP?otp=${otp}&token=${token}`;
+  },
+
   GET_CATEGORIES_ID: (id) => {
     return `/categories/${id}`;
+  },
+
+  GET_COURSES_ME: "/courses/me",
+
+  GET_DETAIL_COURSES_ME: (id) => {
+    return `/courses/me/${id}`;
+  },
+
+  UPDATE_PROGRESS: (progressId) => {
+    return `/courses/me/progress/${progressId}`
   },
 
   GET_COURSES: (page, limit) => {
@@ -27,14 +45,47 @@ export const API_ENDPOINT = {
     return `/auth/reset-password?token=${token}`;
   },
 
+  GET_NOTIFICATION: "/notification",
+  COURSE_CHECKOUT: "/payment/checkout",
+
+  COURSE_CHECKOUT_FREE: (id) => {
+    return `/courses/${id}/join`;
+  },
+
+  COURSE_CHECKOUT_NOTIFICATION: "/payment/notification",
+  DELETE_COURSE: (id) => {
+    return `/courses/${id}`;
+  },
+
+  UPDATE_COURSES: (id) => {
+    return `/courses/${id}`;
+  },
+
   GET_PROMO: "/promo",
 
   GET_DETAIL_PROMO: (id) => {
-    return `/promo/${id}`
+    return `/promo/${id}`;
   },
 
-  GET_NOTIFICATION: "/notification",
+  DELETE_PROMO: (id) => {
+    return `/promo/${id}`;
+  },
+
+  UPDATE_PROMO: (id) => {
+    return `/promo/${id}`;
+  },
+
+  POST_RATING: "/ratings",
+  GET_RATING : (id) => {
+    return `/ratings/${id}`
+  },
 
   ADMIN_LOGIN: "/auth/admin/login",
   GET_ADMIN: "/auth/admin/whoami",
+  GET_ALL_COURSE: "/courses",
+  POST_COURSE: "/courses",
+  PROMO: "/promo",
+  ACTIVE_USERS: "/activeUsers",
+  ACTIVE_CLASS: "/activeClass",
+  PREMIUM_CLASS: "/premiumClass",
 };

@@ -8,7 +8,7 @@ const rootReducers = combineReducers({
   authUser: authUserReducer,
   course: courseReducer,
   promo: promoReducer,
-  notification: notificationsReducer 
+  notification: notificationsReducer
 });
 
 export default rootReducers;
