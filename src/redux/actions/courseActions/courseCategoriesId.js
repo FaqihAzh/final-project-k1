@@ -5,7 +5,7 @@ export const courseCategoriesIdAct = (id) => async (dispatch) => {
   return await getCategoriesId(id)
     .then((result) => {
       dispatch(updateCourses(result.data.data));
-      return result.data.message;
+      return result.data.data;
     })
     .catch((err) => {
       return err;

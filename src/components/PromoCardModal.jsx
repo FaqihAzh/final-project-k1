@@ -52,26 +52,21 @@ const PromoCardModal = ({
           </Heading>
           <div className="flex flex-col gap-4">
             {promosData.map((promo) => (
-              <FadeIn
+              <div
                 key={promo.id}
-                delay={(promo.id + 1) * 0.2}
-                direction="top"
+                className={`flex bg-softGrey p-4 rounded-2xl gap-2 items-center ${
+                  selectedPromo === promo ? "outline outline-darkOrange" : ""
+                }`}
+                onClick={() => setSelectedPromo(promo)}
               >
-                <div
-                  className={`flex bg-softGrey p-4 rounded-2xl gap-2 items-center ${
-                    selectedPromo === promo ? "outline outline-darkOrange" : ""
-                  }`}
-                  onClick={() => setSelectedPromo(promo)}
-                >
-                  <ReceiptPercentIcon className="w-6 h-6"></ReceiptPercentIcon>
-                  <div className="flex flex-row justify-between gap-4">
-                    <Paragraph variant="large">{promo.code_promo}</Paragraph>
-                    <Paragraph variant="large" className="">
-                      Diskon {promo.discount}%
-                    </Paragraph>
-                  </div>
+                <ReceiptPercentIcon className="w-6 h-6"></ReceiptPercentIcon>
+                <div className="flex flex-row justify-between gap-4">
+                  <Paragraph variant="large">{promo.code_promo}</Paragraph>
+                  <Paragraph variant="large" className="">
+                    Diskon {promo.discount}%
+                  </Paragraph>
                 </div>
-              </FadeIn>
+              </div>
             ))}
           </div>
           <Button

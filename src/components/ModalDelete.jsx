@@ -1,25 +1,24 @@
-import React from 'react';
-import { DeleteCourseAct } from '../redux/actions/Admin/DeleteCourse';
-import { useDispatch } from 'react-redux';
+import React from "react";
+import { DeleteCourseAct } from "../redux/actions/Admin/DeleteCourse";
+import { useDispatch } from "react-redux";
 
-export const ModalDelete = ({ setDeleteModal, idCourse}) => {
-  const dispatch = useDispatch()
+export const ModalDelete = ({ setDeleteModal, idCourse }) => {
+  const dispatch = useDispatch();
   const handleDelete = () => {
-    dispatch(DeleteCourseAct(idCourse))
-  }
+    dispatch(DeleteCourseAct(idCourse));
+  };
 
   const handleCancel = () => {
- 
     setDeleteModal(false);
   };
 
   const handleContinue = () => {
-    handleDelete()
+    handleDelete();
     setDeleteModal(false);
-    window.location.reload();
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
   };
-
-  
 
   return (
     <div className="fixed inset-0 overflow-y-auto flex items-center justify-center">
@@ -57,7 +56,6 @@ export const ModalDelete = ({ setDeleteModal, idCourse}) => {
           </button>
         </div>
       </div>
-    
     </div>
   );
 };

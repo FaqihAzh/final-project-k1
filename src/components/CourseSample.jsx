@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 import FadeIn from "./FadeIn";
 import { Heading, Paragraph } from "./Typography";
 import { useDispatch } from "react-redux";
-import { courseCoursesAct } from "../redux/actions/courseActions/courseCourses";
+import {
+  courseAllCoursesAct,
+  courseCoursesMeAct,
+} from "../redux/actions/courseActions/courseCourses";
 import CourseCard from "./CourseCard";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Grid, Autoplay } from "swiper/modules";
@@ -12,9 +15,10 @@ const CourseSample = ({ allCourse }) => {
   const [all, setAll] = useState([]);
   const [my, setMy] = useState([]);
 
-  const [page, setPage] = useState(1);
+  const allFilter =
+    all.length > 0 && all.filter((course) => course.price > 500000);
 
-  const dataMap = allCourse ? all : my;
+  const dataMap = allCourse ? allFilter : my;
 
   SwiperCore.use([Grid, Autoplay]);
 
@@ -25,9 +29,10 @@ const CourseSample = ({ allCourse }) => {
   const dispatch = useDispatch();
 
   const getCoursesData = async () => {
-    const data = await dispatch(courseCoursesAct(page, 10));
+    const data = await dispatch(courseAllCoursesAct());
+    const dataMy = await dispatch(courseCoursesMeAct());
     setAll(data);
-    setMy(data);
+    setMy(dataMy);
   };
 
   return (
@@ -41,7 +46,7 @@ const CourseSample = ({ allCourse }) => {
                   variant="h1"
                   className="text-darkGrey flex gap-2 justify-start items-center"
                 >
-                  Best <span className="text-brightBlue "> Course's</span>
+                  Our <span className="text-brightBlue "> Best Course's</span>
                 </Heading>
               ) : (
                 <Heading
@@ -71,8 +76,13 @@ const CourseSample = ({ allCourse }) => {
               )}
             </FadeIn>
           </div>
-          <div className="w-full h-full">
-            <FadeIn delay={0.2} direction="left" fullWidth className="pb-8">
+          <div className="w-full h-full grid grid-cols-1">
+            <FadeIn
+              delay={0.2}
+              direction="left"
+              fullWidth
+              className="pb-8 h-full"
+            >
               <Swiper
                 modules={[Grid, Autoplay]}
                 loop={true}
@@ -93,9 +103,9 @@ const CourseSample = ({ allCourse }) => {
                   },
                 }}
               >
-                {dataMap.map((course) => (
+                {dataMap?.map((course) => (
                   <SwiperSlide key={course.id}>
-                    <div className="pb-8" key={course.id}>
+                    <div className="pb-8 min-h-full" key={course.id}>
                       <CourseCard
                         course={course}
                         isMyClass={allCourse ? false : true}

@@ -1,6 +1,5 @@
 import { BrowserRouter, Route, Routes, Outlet } from "react-router-dom";
 import UserLayout from "./Layout/UserLayout";
-// import RegisterPage from "./pages/RegisterPage";
 import { AdminLoginPage } from "./pages/admin/AdminLoginPage";
 import { AdminDashboard } from "./pages/admin/AdminDashboard";
 import { AdminKelolaKelas } from "./pages/admin/AdminKelolaKelas";
@@ -11,7 +10,7 @@ import ForgotPasswordPage from "./pages/Auth/ForgotPasswordPage";
 
 import OtpPage from "./pages/Auth/OtpPage";
 import { AccountPage } from "./pages/AccountPage";
-import { ModalDelete } from "./components/ModalDelete";
+// import { ModalDelete } from "./components/ModalDelete";
 import MyCoursePage from "./pages/Course/MyCoursePage";
 import AllCoursePage from "./pages/Course/AllCoursePage";
 import HomePage from "./pages/HomePage";
@@ -67,31 +66,46 @@ const App = () => {
             <Route
               path="/course/detail/:id"
               element={
-                // <IsLogOutProtected>
-                <CourseDetailsPage />
-                // </IsLogOutProtected>
+                <IsLogOutProtected>
+                  <CourseDetailsPage />
+                </IsLogOutProtected>
               }
             />
-
+            <Route
+              path="/search-results"
+              element={
+                <IsLogOutProtected>
+                  <SearchResultsPage />
+                </IsLogOutProtected>
+              }
+            />
+            <Route
+              path="/notification"
+              element={
+                <IsLogOutProtected>
+                  <NotificationPage />
+                </IsLogOutProtected>
+              }
+            />
+            <Route
+              path="/account"
+              element={
+                <IsLogOutProtected>
+                  <AccountPage />
+                </IsLogOutProtected>
+              }
+            />
             <Route path="/all/course" element={<AllCoursePage />} />
             <Route path="/course/category/:id" element={<Courses />} />
-            <Route path="/search-results" element={<SearchResultsPage />} />
-            <Route path="/notification" element={<NotificationPage />} />
           </Route>
 
-          {/* admin */}
+          {/* Admin Start */}
           <Route path="/adminlogin" element={<AdminLoginPage />} />
           <Route path="/admindashboard" element={<AdminDashboard />} />
           <Route path="/adminkelolakelas" element={<AdminKelolaKelas />} />
           <Route path="/adminpromo" element={<AdminPromo />} />
-
           {/* <Route path="/delete/:id" element={<ModalDelete/>}/> */}
-
-          {/* admin */}
-          <Route path="/register" element={<RegisterPage />} />
-
-          {/* Buat yg gapake layout samsek bisa di taruh disini, ex: login, regist etc */}
-          <Route path="/account" element={<AccountPage />} />
+          {/* Admin End */}
 
           <Route element={<AuthLayoutWithOutlet />}>
             <Route path="/login" element={<LoginPage />} />

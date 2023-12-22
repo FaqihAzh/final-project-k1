@@ -13,19 +13,27 @@ import SideFilter from "../../components/SideFilter";
 import SearchInput from "../../components/SearchInput";
 import { useDispatch, useSelector } from "react-redux";
 import { courseCoursesMeAct } from "../../redux/actions/courseActions/courseCourses";
-import Pagination from "../../components/Pagination";
+import {
+  setIsMyCourse,
+  setIsNotif,
+  setIsProfile,
+} from "../../redux/reducers/courseSlice/courseSlice";
+import FadeIn from "../../components/FadeIn";
+import notFound from "../../assets/images/notFoundSearch.png";
 
 const MyCoursePage = () => {
   const [filterActive, setFilterActive] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
-  const dataCourse = useSelector((store) => store.course.courses);
+  const [showingCourses, setShowingCourses] = useState(6);
+  const dataCourse = useSelector((store) => store.course.myCourses);
 
   const [filteredCourses, setFilteredCourses] = useState(dataCourse);
+  const [searchTerm, setSearchTerm] = useState("");
 
-  const [priceFilter, setPriceFilter] = useState("All");
+  const [progressFilter, setProgressFilter] = useState("All");
 
-  const filterByPrice = (priceType) => {
-    setPriceFilter(priceType);
+  const filterByProgress = (progressType) => {
+    setProgressFilter(progressType);
   };
 
   const handleFilter = () => {
@@ -37,14 +45,37 @@ const MyCoursePage = () => {
   };
 
   const dispatch = useDispatch();
-  const [page, setPage] = useState(1);
 
   useEffect(() => {
+    setFilteredCourses(dataCourse);
+  }, [dataCourse]);
+
+  useEffect(() => {
+    dispatch(setIsMyCourse(true));
+    dispatch(setIsNotif(false));
+    dispatch(setIsProfile(false));
     getCoursesData();
-  }, [dispatch, filteredCourses, priceFilter]);
+  }, []);
+
+  useEffect(() => {
+    const filtered = dataCourse.filter((course) =>
+      course.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredCourses(filtered);
+  }, [searchTerm, dataCourse]);
 
   const getCoursesData = async () => {
     await dispatch(courseCoursesMeAct());
+  };
+
+  const loadMore = () => {
+    setShowingCourses(showingCourses + 6);
+  };
+
+  const showLess = () => {
+    if (showingCourses > 6) {
+      setShowingCourses(showingCourses - 6);
+    }
   };
 
   return (
@@ -79,12 +110,18 @@ const MyCoursePage = () => {
               </Button>
             </div>
           )}
-          <SearchInput text="darkGrey" border="border-2" />
+          <SearchInput
+            text="darkGrey"
+            border="border-2"
+            isCourse={true}
+            searchTerm={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
         </div>
       </div>
       <div className="grid grid-cols-4 gap-8 ">
         <div
-          className={`fixed lg:static right-4 transition-opacity duration-500 lg:duration-0 ease-in-out z-30 ${
+          className={`fixed lg:static right-4 top-24 md:top-auto transition-opacity duration-500 lg:duration-0 ease-in-out z-30 ${
             filterActive
               ? "opacity-100 pointer-events-auto "
               : "opacity-0 pointer-events-none lg:opacity-100 lg:pointer-events-auto"
@@ -100,7 +137,9 @@ const MyCoursePage = () => {
             <SideFilter
               onClick={handleFilter}
               setFilteredCourses={setFilteredCourses}
-              priceFilter={priceFilter}
+              progressFilter={progressFilter}
+              isMyCourse={true}
+              courses={dataCourse}
             />
           </div>
         </div>
@@ -128,26 +167,30 @@ const MyCoursePage = () => {
               </div>
               <TopFilter
                 buttonNames={["All", "Ongoing", "Done"]}
-                setPriceFilter={filterByPrice}
+                setProgressFilter={filterByProgress}
+                isMyCourse={true}
               />
             </div>
           </div>
           {dataCourse.length > 0 ? (
             <>
               {filteredCourses.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  {filteredCourses.map((course) => (
-                    <CourseCard
-                      key={course.id}
-                      course={course}
-                      isMyClass={true}
-                    />
-                  ))}
-                </div>
+                <FadeIn delay={0.3} direction="left">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {filteredCourses.map((course, index) => (
+                      <CourseCard
+                        key={course.id}
+                        course={course}
+                        isMyClass={true}
+                      />
+                    ))}
+                  </div>
+                </FadeIn>
               ) : (
-                <div className="justify-start items-center flex">
+                <div className="justify-center items-center flex flex-col h-full">
+                  <img src={notFound} alt="notFound" />
                   <Paragraph className="text-darkGrey capitalize">
-                    Sorry, the course with that category is not available yet
+                    Sorry, the course with that filter is not available yet
                   </Paragraph>
                 </div>
               )}
@@ -159,9 +202,28 @@ const MyCoursePage = () => {
               </Paragraph>
             </div>
           )}
-          {filteredCourses.length >= 10 && (
-            <Pagination page={page} setPage={setPage} />
-          )}
+          <div className="flex justify-center gap-2">
+            {filteredCourses.length > showingCourses ? (
+              <div className="flex justify-center">
+                <Button
+                  onClick={loadMore}
+                  className="text-sm text-white bg-darkOrange px-4 py-2 rounded-full shadow-md hover:scale-105"
+                >
+                  Load More
+                </Button>
+              </div>
+            ) : null}{" "}
+            {showingCourses > 6 && (
+              <div className="flex justify-center">
+                <Button
+                  onClick={showLess}
+                  className="text-sm text-darkOrange bg-white px-4 py-2 rounded-full shadow-md hover:scale-105"
+                >
+                  Show Less
+                </Button>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

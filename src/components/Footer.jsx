@@ -62,7 +62,9 @@ const Footer = () => {
           >
             Notifications
           </Button>
-          <Button className={footerMenuClassName}>Profile</Button>
+          <Button type="link" href="/account" className={footerMenuClassName}>
+            Profile
+          </Button>
         </div>
         <div className="flex flex-col gap-4 text-white justify-start">
           <Button className="font-semibold text-sm text-left">Category</Button>

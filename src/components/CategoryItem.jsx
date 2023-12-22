@@ -21,6 +21,7 @@ const iconMap = {
 
 const CategoryItem = ({ category }) => {
   const [isHover, setIsHover] = useState(false);
+
   const categoryNameLowerCase = category.name_categories.toLowerCase();
 
   const iconComponent = iconMap[
@@ -33,28 +34,31 @@ const CategoryItem = ({ category }) => {
     : "p-0 text-paleOrange bg-transparent";
 
   return (
-    <Button
-      className={`relative py-3 px-4 flex justify-between items-center rounded-2xl bg-white w-full transition duration-500 ease-in-out ${hoverParent}`}
+    <div
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
-      type="link"
-      href={`/course/category/${category.id}`}
     >
-      <div className="flex gap-2 items-center">
-        {iconComponent}
-        <Paragraph
-          variant="small"
-          className="text-darkGrey font-normal overflow-hidden whitespace-nowrap overflow-ellipsis max-w-[90%]"
-        >
-          {category.name_categories}
-        </Paragraph>
-      </div>
-      <div
-        className={`absolute right-4 flex items-center rounded-full transition duration-500 ease-in-out ${hoverChild}`}
+      <Button
+        className={`relative py-3 px-4 flex justify-between items-center rounded-2xl bg-white w-full transition duration-500 ease-in-out ${hoverParent}`}
+        type="link"
+        href={`/course/category/${category.id}`}
       >
-        <ArrowUpRightIcon className="w-4 h-4" />
-      </div>
-    </Button>
+        <div className="flex gap-2 items-center">
+          {iconComponent}
+          <Paragraph
+            variant="small"
+            className="text-darkGrey font-normal overflow-hidden whitespace-nowrap overflow-ellipsis max-w-[90%]"
+          >
+            {category.name_categories}
+          </Paragraph>
+        </div>
+        <div
+          className={`absolute right-4 flex items-center rounded-full transition duration-500 ease-in-out ${hoverChild}`}
+        >
+          <ArrowUpRightIcon className="w-4 h-4" />
+        </div>
+      </Button>
+    </div>
   );
 };
 

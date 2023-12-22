@@ -12,6 +12,8 @@ import {
 } from "../redux/actions/courseActions/courseCheckout";
 import { courseDetailCourseAct } from "../redux/actions/courseActions/courseDetailCourse";
 import { courseCheckoutNotifAct } from "../redux/actions/courseActions/courseCheckoutNotif";
+import { Heading } from "./Typography";
+import { toast } from "react-toastify";
 
 export function Payment() {
   const params = useParams();
@@ -41,7 +43,6 @@ export function Payment() {
     if (snapToken) {
       window.snap.pay(snapToken, {
         onSuccess: function (result) {
-          console.log("Transaction is success:", result);
           dispatch(
             courseCheckoutNotifAct({
               order_id: result.order_id,
@@ -52,7 +53,6 @@ export function Payment() {
           );
         },
         onPending: function (result) {
-          console.log("Transaction is pending:", result);
           dispatch(
             courseCheckoutNotifAct({
               order_id: result.order_id,
@@ -63,7 +63,6 @@ export function Payment() {
           );
         },
         onError: function (result) {
-          console.log("Transaction is error:", result);
           dispatch(
             courseCheckoutNotifAct({
               order_id: result.order_id,
@@ -74,9 +73,10 @@ export function Payment() {
           );
         },
         onClose: function () {
-          console.log(
-            "Customer closed the popup without finishing the payment"
-          );
+          toast("Customer closed the popup without finishing the payment", {
+            position: toast.POSITION.BOTTOM_CENTER,
+            className: "custom-toast-error",
+          });
         },
       });
     }
@@ -91,22 +91,16 @@ export function Payment() {
     });
   };
 
-  if (!cardCourse) {
-    return null;
-  }
-
   const totalPay = cardCourse.price - discountAmount;
   const persent = (discountAmount / cardCourse.price) * 100;
 
   const handleBuyCourse = async () => {
     const success = await dispatch(courseCheckoutAct(formData));
-    console.log(success, "success");
     setSnapToken(success.token);
   };
 
   const handleBuyCourseFree = async () => {
     const success = await dispatch(courseCheckoutFreeAct(params.id));
-    console.log(success, "success");
 
     if (success) {
       navigate(`/payment/success/${params.id}`);
@@ -120,14 +114,21 @@ export function Payment() {
   return (
     <div className="bg-softGrey py-24 px-4 md:px-12 lg:px-24  min-h-screen">
       <FadeIn delay={0.2} direction="down" fullWidth>
-        <div className="grid grid-cols-1 grid-rows-2 md:grid-cols-3 md:grid-rows-1 gap-0 md:gap-8 bg-white p-8 rounded-xl shadow-xl w-full items-start">
-          <div className="col-span-1 !-mt-6">
+        <Heading
+          variant="h1"
+          className="text-darkGrey flex gap-2 justify-start items-center mb-4"
+        >
+          Payment <span className="text-brightBlue "> Details's</span>
+        </Heading>
+      </FadeIn>
+      <FadeIn delay={0.3} direction="down" fullWidth>
+        <div className="grid grid-cols-1 grid-rows-2 md:grid-cols-3 md:grid-rows-1 gap-0 md:gap-8 bg-white p-8 rounded-xl shadow-xl w-full">
+          <div className="col-span-1 -mt-6">
             <CourseCard course={cardCourse} isPayment={true} />
           </div>
           <div className="col-span-2 flex flex-col gap-5">
-            <span className="font-semibold">Let's to Payment</span>
             <Button
-              className="w-full text-center bg-softGrey rounded-full px-5 py-3"
+              className="w-full text-center bg-softGrey rounded-full px-5 py-3 mt-8 md:mt-0"
               onClick={handlePromoModalClick}
             >
               {promoName ? promoName : "Promo Code"}
@@ -170,9 +171,6 @@ export function Payment() {
               Buy Now
             </Button>
           </div>
-          <Button className="px-5 py-3 bg-darkOrange text-white rounded-full hover:scale-105">
-            Bayar dan Ikuti Kelas Selamanya
-          </Button>
         </div>
       </FadeIn>
     </div>

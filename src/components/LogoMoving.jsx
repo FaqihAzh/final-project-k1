@@ -34,6 +34,7 @@ import typescript from "../assets/images/techLogos/typescript.png";
 import vscode from "../assets/images/techLogos/vscode.png";
 import { Heading, Paragraph } from "./Typography";
 import FadeIn from "./FadeIn";
+import { CookieKeys, CookieStorage } from "../utils/constants/cookies";
 
 const LogoMoving = () => {
   const logosGroup1 = [
@@ -75,6 +76,9 @@ const LogoMoving = () => {
     vscode,
   ];
 
+  const token = CookieStorage.get(CookieKeys.AuthToken);
+  const isLogin = token ? true : false;
+
   useEffect(() => {
     const scrollers = document.querySelectorAll(".scroller");
 
@@ -110,21 +114,22 @@ const LogoMoving = () => {
   };
 
   return (
-    <div className=" pb-16 flex flex-col gap-6 h-auto w-screen bg-softGrey">
+    <div
+      className={`${
+        isLogin ? "pt-0 -mt-4" : "pt-12"
+      } pb-16 flex flex-col gap-6 h-auto w-screen bg-softGrey`}
+    >
       <div className="flex flex-col mb-2 px-4 md:px-12 lg:px-24">
         <FadeIn delay={0.2} direction="up">
           <Heading
             variant="h1"
-            className="text-darkGrey flex gap-2 justify-center items-center"
+            className="text-darkGrey flex gap-2 justify-start items-center"
           >
             Our <span className="text-brightBlue ">Best Stack</span>
           </Heading>
         </FadeIn>
         <FadeIn delay={0.2} direction="up">
-          <Paragraph
-            variant="large"
-            className="text-center text-lightGrey font-thin z-20"
-          >
+          <Paragraph variant="large" className=" text-lightGrey font-thin z-20">
             The best and most comprehensive place to learn Information
             Technology
           </Paragraph>

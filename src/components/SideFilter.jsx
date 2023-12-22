@@ -5,11 +5,11 @@ import Button from "./Button";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useDispatch, useSelector } from "react-redux";
 import { courseCategoriesAct } from "../redux/actions/courseActions/courseCategories";
+import { courseCoursesMeIdAct } from "../redux/actions/courseActions/courseCourses";
 
 const times = [
   { id: "topNew", name_time: "Top New" },
   { id: "mostPopular", name_time: "Most Popular" },
-  { id: "sale", name_time: "Sale" },
 ];
 
 const levels = [
@@ -19,26 +19,47 @@ const levels = [
   { id: "advanced", name_levels: "Advanced" },
 ];
 
-const SideFilter = ({ onClick, setFilteredCourses, priceFilter }) => {
-  const [filters, setFilters] = useState(() => {
-    const savedFilters = localStorage.getItem("savedFilters");
-    return savedFilters ? JSON.parse(savedFilters) : {};
-  });
+const SideFilter = ({
+  onClick,
+  setFilteredCourses,
+  priceFilter,
+  progressFilter,
+  courses,
+  isMyCourse,
+}) => {
+  const [filters, setFilters] = useState({});
+  const [myCourse, setmyCourseId] = useState([]);
 
   const categories = useSelector((store) => store.course.categories);
-  const courses = useSelector((store) => store.course.courses);
   const dispatch = useDispatch();
 
   useEffect(() => {
     getCategoriesData();
-  }, []);
+    getMyCourseDataId();
+  }, [courses]);
 
   useEffect(() => {
-    localStorage.setItem("savedFilters", JSON.stringify(filters));
-  }, [filters]);
+    if (isMyCourse && courses.length > 0) {
+      getMyCourseDataId();
+    }
+  }, [isMyCourse]);
 
   const getCategoriesData = async () => {
     await dispatch(courseCategoriesAct());
+  };
+
+  const getMyCourseDataId = async () => {
+    if (isMyCourse && courses.length > 0) {
+      const results = await Promise.all(
+        courses.map(async (course) => {
+          return dispatch(courseCoursesMeIdAct(course.id));
+        })
+      );
+
+      const mergedResults = results.flat();
+
+      setmyCourseId(mergedResults);
+    }
   };
 
   const handleFilterChange = (name) => {
@@ -52,6 +73,7 @@ const SideFilter = ({ onClick, setFilteredCourses, priceFilter }) => {
 
   const renderCheckbox = (name, label) => (
     <FormInput
+      key={name}
       type="checkbox"
       name={name}
       label={label}
@@ -76,7 +98,7 @@ const SideFilter = ({ onClick, setFilteredCourses, priceFilter }) => {
 
   useEffect(() => {
     applyFilters();
-  }, [filters, categories, priceFilter]);
+  }, [filters, categories, priceFilter, progressFilter]);
 
   const applyFilters = () => {
     let filteredData = courses;
@@ -105,9 +127,9 @@ const SideFilter = ({ onClick, setFilteredCourses, priceFilter }) => {
       );
     }
 
-    const { topNew, mostPopular, sale } = filters;
+    const { topNew, mostPopular } = filters;
 
-    if (topNew || mostPopular || sale) {
+    if (topNew || mostPopular) {
       if (topNew) {
         const currentDate = new Date();
         const oneWeekAgo = new Date();
@@ -118,6 +140,14 @@ const SideFilter = ({ onClick, setFilteredCourses, priceFilter }) => {
           return courseCreatedAt >= oneWeekAgo;
         });
       }
+
+      if (mostPopular) {
+        const sortedData = [...filteredData];
+
+        sortedData.sort((a, b) => b.averageRating - a.averageRating);
+
+        filteredData = sortedData;
+      }
     }
 
     if (priceFilter === "Free") {
@@ -125,7 +155,24 @@ const SideFilter = ({ onClick, setFilteredCourses, priceFilter }) => {
     } else if (priceFilter === "Premium") {
       filteredData = filteredData.filter((course) => course.price !== 0);
     }
-    // Buat yang lain
+
+    if (progressFilter === "Done") {
+      filteredData = myCourse.filter((course) => {
+        return course.chapters.every((chapter) =>
+          chapter.modules.every(
+            (module) => module.userCourseProgress.isCompleted === true
+          )
+        );
+      });
+    } else if (progressFilter === "Ongoing") {
+      filteredData = myCourse.filter((course) => {
+        return course.chapters.some((chapter) =>
+          chapter.modules.some(
+            (module) => module.userCourseProgress.isCompleted !== true
+          )
+        );
+      });
+    }
 
     setFilteredCourses(filteredData);
   };
