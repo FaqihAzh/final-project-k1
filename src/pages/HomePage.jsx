@@ -21,6 +21,7 @@ const HomePage = () => {
     dispatch(setIsMyCourse(false));
     dispatch(setIsNotif(false));
     dispatch(setIsProfile(false));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

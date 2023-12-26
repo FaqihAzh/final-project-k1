@@ -4,10 +4,7 @@ import {
   setIsVerifyUser,
   setToken,
 } from "../../../reducers/authSlice/User/authUserSlice";
-import {
-  userLogin,
-  userLoginAuth,
-} from "../../../../services/auth/User/userLogin";
+import { userLogin } from "../../../../services/auth/User/userLogin";
 
 export const authLoginUserAct = (input) => async (dispatch) => {
   return await userLogin(input)
