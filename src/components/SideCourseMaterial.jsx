@@ -16,6 +16,7 @@ const SideCourseMaterial = () => {
 
   useEffect(() => {
     getDetailCourseData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.id]);
 
   const dispatch = useDispatch();
@@ -135,8 +136,8 @@ const SideCourseMaterial = () => {
       </div>
       {isModalOpen && detailCourse && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white pr-6 pl-6 pb-6 pt-2  rounded-xl relative">
-            <div className="flex flex-col items-end absolute -top-8 -right-8">
+          <div className="bg-white pr-3 pl-3 pb-3 pt-1 md:pr-6 md:pl-6 md:pb-6 md:pt-2  rounded-xl relative ">
+            <div className="flex flex-col items-end absolute right-0 -top-10 md:-top-8 md:-right-8">
               <XCircleIcon
                 className="text-white hover:text-paleOrange w-9 h-9 cursor-pointer"
                 strokeWidth={1}

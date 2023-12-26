@@ -37,6 +37,7 @@ export function Payment() {
 
   useEffect(() => {
     getDetailCourseData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.id, dispatch, promoName]);
 
   useEffect(() => {
@@ -111,6 +112,13 @@ export function Payment() {
     return null;
   }
 
+  const handlePromoFree = () => {
+    toast("Promo not available for free course", {
+      position: toast.POSITION.BOTTOM_CENTER,
+      className: "custom-toast-error",
+    });
+  };
+
   return (
     <div className="bg-softGrey py-24 px-4 md:px-12 lg:px-24  min-h-screen">
       <FadeIn delay={0.2} direction="down" fullWidth>
@@ -127,12 +135,21 @@ export function Payment() {
             <CourseCard course={cardCourse} isPayment={true} />
           </div>
           <div className="col-span-2 flex flex-col gap-5">
-            <Button
-              className="w-full text-center bg-softGrey rounded-full px-5 py-3 mt-8 md:mt-0"
-              onClick={handlePromoModalClick}
-            >
-              {promoName ? promoName : "Promo Code"}
-            </Button>
+            {cardCourse.price !== 0 ? (
+              <Button
+                className="w-full text-center bg-softGrey rounded-full px-5 py-3 mt-8 md:mt-0"
+                onClick={handlePromoModalClick}
+              >
+                {promoName ? promoName : "Promo Code"}
+              </Button>
+            ) : (
+              <Button
+                className="w-full text-center bg-softGrey rounded-full px-5 py-3 mt-8 md:mt-0"
+                onClick={handlePromoFree}
+              >
+                Promo Code
+              </Button>
+            )}
             {isPromoModalOpen && (
               <PromoCardModal
                 handleClose={handleClosePromoModal}
@@ -151,11 +168,17 @@ export function Payment() {
                 <span className="text-darkGrey">Course Pricing</span>
                 <span>{formatRupiah(cardCourse.price)}</span>
               </div>
-              <div className="flex flex-row justify-between">
-                <span className="text-darkGrey">Discount {persent}%</span>
-                <span>{formatRupiah(discountAmount)}</span>
-              </div>
-
+              {cardCourse.price !== 0 ? (
+                <div className="flex flex-row justify-between">
+                  <span className="text-darkGrey">Discount {persent}%</span>
+                  <span>{formatRupiah(discountAmount)}</span>
+                </div>
+              ) : (
+                <div className="flex flex-row justify-between">
+                  <span className="text-darkGrey">Discount</span>
+                  <span>Free</span>
+                </div>
+              )}
               <hr />
               <div className="flex flex-row justify-between">
                 <span className="font-semibold">Total Pay</span>

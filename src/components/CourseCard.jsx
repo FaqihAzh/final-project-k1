@@ -138,7 +138,7 @@ const CourseCard = ({ isMyClass, course, isPayment, isHistory }) => {
             )}
           </div>
         </div>
-        <div className={`flex flex-col ${isPayment && "pb-2"}`}>
+        <div className={`flex flex-col ${isPayment && "pb-2"} `}>
           <span className="border-b w-full border-dotted border-lightGrey my-2"></span>
           <div className="flex gap-x-4 gap-y-2 truncate hover:flex-wrap hover:whitespace-normal hover:overflow-visible hover:text-clip">
             <span className="flex gap-1 items-center">
