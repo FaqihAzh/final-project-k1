@@ -31,7 +31,7 @@ const Notification = () => {
 
   return (
     <>
-      <div className="bg-softGrey flex flex-col items-center pt-20 md:pt-32 px-4 md:px-20 w-screen min-h-screen ">
+      <div className="bg-softGrey flex flex-col items-center pt-20 md:pt-32 px-4 md:px-24 w-screen min-h-screen ">
         <div className="flex flex-col md:outline outline-2 outline-brightBlue rounded-xl w-full">
           <div className="text-darkGrey md:text-white md:text-center md:bg-brightBlue rounded-t-xl py-0 md:py-3 px-4 md:px-0">
             <Heading variant="h3">Notification</Heading>
