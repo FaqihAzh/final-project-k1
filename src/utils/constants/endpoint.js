@@ -36,6 +36,14 @@ export const API_ENDPOINT = {
     return `/courses/me/${id}`;
   },
 
+  GET_DETAIL_COURSES_ME: (id) => {
+    return `/courses/me/${id}`;
+  },
+
+  UPDATE_PROGRESS: (progressId) => {
+    return `/courses/me/progress/${progressId}`;
+  },
+
   GET_COURSES: (page, limit) => {
     return `/courses?page=${page}&limit=${limit}`;
   },
@@ -76,9 +84,20 @@ export const API_ENDPOINT = {
   },
 
   // RATING
+  POST_RATING: "/ratings",
+
   RATINGS: (id) => {
     return `/ratings/${id}`;
   },
+
+  // NOTIFICATIONS
+  GET_NOTIFICATION: "/notification",
+  PUT_NOTIFICATION: (id) => {
+    return `/notification/${id}`;
+  },
+
+  // TRANSACTIONS
+  GET_TRANSACTION_USER: "/transactions/me",
 
   // ADMIN
   ADMIN_LOGIN: "/auth/admin/login",

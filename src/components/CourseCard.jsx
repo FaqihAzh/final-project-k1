@@ -6,6 +6,7 @@ import {
   BookOpenIcon,
   ChartBarIcon,
 } from "@heroicons/react/24/outline";
+import nullBackground from "../assets/images/nullBackgorund.jpg";
 import Button from "./Button";
 import { useDispatch } from "react-redux";
 import { courseDetailCourseAct } from "../redux/actions/courseActions/courseDetailCourse";
@@ -13,6 +14,7 @@ import { formatRupiah } from "../utils/constants/function";
 import { Link } from "react-router-dom";
 import { courseRatingsAct } from "../redux/actions/courseActions/courseRatings";
 import { courseCoursesMeIdAct } from "../redux/actions/courseActions/courseCourses";
+import CourseCardSkeleton from "./SkeletonLoading/CourseCardSkeleton";
 
 const categoryMap = {
   1: "UI/UX Design",
@@ -22,7 +24,7 @@ const categoryMap = {
   5: "Business Intelligence",
 };
 
-const CourseCard = ({ isMyClass, course, isPayment }) => {
+const CourseCard = ({ isMyClass, course, isPayment, isHistory }) => {
   const [detailCourse, setDetailCourse] = useState([]);
   const [myCourse, setmyCourseId] = useState([]);
   const [ratingsCourse, setRatingsCourse] = useState(1);
@@ -30,12 +32,6 @@ const CourseCard = ({ isMyClass, course, isPayment }) => {
   const categoryId = detailCourse.category_id;
   const category = categoryMap[categoryId] || "Unknown Category";
   const rating = ratingsCourse && Math.round(ratingsCourse);
-
-  useEffect(() => {
-    getDetailCourseData();
-    getRatingsData();
-    getMyCourseDataId();
-  }, [course.id]);
 
   const dispatch = useDispatch();
 
@@ -106,11 +102,7 @@ const CourseCard = ({ isMyClass, course, isPayment }) => {
     >
       <div className="w-full">
         <img
-          src={
-            detailCourse.image
-              ? detailCourse.image
-              : "https://picsum.photos/150"
-          }
+          src={detailCourse.image ? detailCourse.image : nullBackground}
           alt=""
           className="rounded-lg min-h-[150px] max-h-[150px] w-full"
         />
@@ -174,11 +166,11 @@ const CourseCard = ({ isMyClass, course, isPayment }) => {
           {isMyClass ? (
             <div className="w-full flex outline outline-1 outline-softGrey rounded-full mt-2">
               <div
-                className={`${progress === 0 && "bg-salmon"} ${
-                  progress > 0 && progress < 100 && "bg-darkOrange"
-                } ${
+                className={`w-[${String(progress)}%] ${
+                  progress === 0 && "bg-salmon"
+                } ${progress > 0 && progress < 100 && "bg-darkOrange"} ${
                   progress === 100 && "bg-seaGreen"
-                } px-4 rounded-full w-[${progress}%]`}
+                } px-4 rounded-full `}
               >
                 <Paragraph
                   className={`text-xs font-normal text-white ${
@@ -202,15 +194,55 @@ const CourseCard = ({ isMyClass, course, isPayment }) => {
               </div>
             )
           )}
+          {isHistory && (
+            <div className="w-full flex rounded-full mt-2">
+              <div
+                className={`px-4 py-1 rounded-full w-fit ${
+                  course?.status === "paid" && "bg-seaGreen"
+                } ${course?.status === "Pending" && "bg-darkOrange"} ${
+                  course?.status !== "paid" &&
+                  course?.status !== "Pending" &&
+                  "bg-salmon"
+                }`}
+              >
+                <Paragraph
+                  className={`text-xs font-medium text-white tracking-wide capitalize`}
+                >
+                  {course.status}
+                </Paragraph>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
   );
 
+  useEffect(() => {
+    getDetailCourseData();
+    getRatingsData();
+    getMyCourseDataId();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [course.id, progress]);
+
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timeout);
+  }, []);
+
+  if (isLoading) {
+    return <CourseCardSkeleton />;
+  }
+
   return (
     <>
       {isMyClass ? (
-        <Link to={`/course/detail/${detailCourse?.id}`}>
+        <Link to={`/learning/${detailCourse?.id}`}>
           {renderCourseContent()}
         </Link>
       ) : (

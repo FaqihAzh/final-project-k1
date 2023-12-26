@@ -6,6 +6,7 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useDispatch, useSelector } from "react-redux";
 import { courseCategoriesAct } from "../redux/actions/courseActions/courseCategories";
 import { courseCoursesMeIdAct } from "../redux/actions/courseActions/courseCourses";
+import SideFilterSkeleton from "./SkeletonLoading/SideFilterSkeleton";
 
 const times = [
   { id: "topNew", name_time: "Top New" },
@@ -176,6 +177,20 @@ const SideFilter = ({
 
     setFilteredCourses(filteredData);
   };
+
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timeout);
+  }, []);
+
+  if (isLoading) {
+    return <SideFilterSkeleton />;
+  }
 
   return (
     <div className="shadow-none lg:shadow-md relative flex flex-col justify-center items-start px-8 py-6 gap-5 rounded-xl bg-white h-max w-full ">

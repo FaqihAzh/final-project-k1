@@ -199,19 +199,17 @@ const AllCoursePage = () => {
               </div>
             </div>
             {filteredCourses.length > 0 ? (
-              <FadeIn delay={0.3} direction="left">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-                  {coursesNotInMyCourses
-                    .slice(0, showingCourses)
-                    .map((course) => (
-                      <CourseCard
-                        key={course.id}
-                        course={course}
-                        isMyClass={false}
-                      />
-                    ))}
-                </div>
-              </FadeIn>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                {coursesNotInMyCourses
+                  .slice(0, showingCourses)
+                  .map((course) => (
+                    <CourseCard
+                      key={course.id}
+                      course={course}
+                      isMyClass={false}
+                    />
+                  ))}
+              </div>
             ) : (
               <div className="justify-center items-center flex flex-col h-full">
                 <img src={notFound} alt="notFound" />

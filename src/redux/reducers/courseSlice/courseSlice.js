@@ -9,6 +9,8 @@ const courseSlice = createSlice({
     isMyCourse: false,
     isNotif: false,
     isProfile: false,
+    coursesUser: [],
+    progress: [],
   },
   reducers: {
     updateCourses(state, action) {
@@ -29,6 +31,12 @@ const courseSlice = createSlice({
     setIsProfile(state, action) {
       state.isProfile = action.payload;
     },
+    updateCoursesUser(state, action) {
+      state.coursesUser = action.payload;
+    },
+    updateProgress(state, action) {
+      state.progress = action.payload;
+    },
   },
 });
 
@@ -40,6 +48,8 @@ const {
   setIsMyCourse,
   setIsNotif,
   setIsProfile,
+  updateCoursesUser,
+  updateProgress,
 } = courseSlice.actions;
 
 export {
@@ -49,5 +59,8 @@ export {
   setIsMyCourse,
   setIsNotif,
   setIsProfile,
+  updateCoursesUser,
+  updateProgress,
 };
+
 export default courseReducer;

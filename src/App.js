@@ -31,6 +31,9 @@ import ActivateAccount from "./components/Auth/ActivateAccount";
 import ResendEmailCheck from "./components/Auth/ResendOtpCheck";
 import LoginPage from "./pages/Auth/LoginPage";
 import { AdminPromo } from "./pages/admin/AdminPromo";
+import LearningCoursePage from "./pages/Course/LearningCoursePage";
+import TestingPage from "./pages/TestingPage";
+import CourseDone from "./components/CourseDone";
 
 const App = () => {
   return (
@@ -95,8 +98,12 @@ const App = () => {
                 </IsLogOutProtected>
               }
             />
+
+            <Route path="/learning/:id" element={<LearningCoursePage />} />
+            <Route path="/congrats/:id" element={<CourseDone />} />
             <Route path="/all/course" element={<AllCoursePage />} />
             <Route path="/course/category/:id" element={<Courses />} />
+            <Route path="/testing" element={<TestingPage />} />
           </Route>
 
           {/* Admin Start */}

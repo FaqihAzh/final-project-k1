@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "./Button";
+import TopFilterSkeleton from "./SkeletonLoading/TopFilterSkeleton";
 
 const TopFilter = ({
   buttonNames,
@@ -8,6 +9,19 @@ const TopFilter = ({
   isMyCourse,
 }) => {
   const [activeButton, setActiveButton] = useState("All");
+
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+    return () => clearTimeout(timeout);
+  }, []);
+
+  if (isLoading) {
+    return <TopFilterSkeleton />;
+  }
 
   const handleClick = (buttonName) => {
     setActiveButton(buttonName);

@@ -24,6 +24,7 @@ const CourseSample = ({ allCourse }) => {
 
   useEffect(() => {
     getCoursesData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const dispatch = useDispatch();
@@ -37,7 +38,7 @@ const CourseSample = ({ allCourse }) => {
 
   return (
     <>
-      {dataMap && (
+      {dataMap.length > 0 && (
         <div className="py-12 px-4 md:px-12 lg:px-24 flex flex-col gap-4 w-screen bg-softGrey">
           <div className="flex flex-col">
             <FadeIn delay={0.2} direction="up">
@@ -103,16 +104,17 @@ const CourseSample = ({ allCourse }) => {
                   },
                 }}
               >
-                {dataMap?.map((course) => (
-                  <SwiperSlide key={course.id}>
-                    <div className="pb-8 min-h-full" key={course.id}>
-                      <CourseCard
-                        course={course}
-                        isMyClass={allCourse ? false : true}
-                      />
-                    </div>
-                  </SwiperSlide>
-                ))}
+                {dataMap.length > 0 &&
+                  dataMap.map((course) => (
+                    <SwiperSlide key={course.id}>
+                      <div className="pb-8 min-h-full" key={course.id}>
+                        <CourseCard
+                          course={course}
+                          isMyClass={allCourse ? false : true}
+                        />
+                      </div>
+                    </SwiperSlide>
+                  ))}
               </Swiper>
             </FadeIn>
           </div>

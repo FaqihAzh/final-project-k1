@@ -18,7 +18,6 @@ import {
   setIsNotif,
   setIsProfile,
 } from "../../redux/reducers/courseSlice/courseSlice";
-import FadeIn from "../../components/FadeIn";
 import notFound from "../../assets/images/notFoundSearch.png";
 
 const MyCoursePage = () => {
@@ -31,6 +30,16 @@ const MyCoursePage = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   const [progressFilter, setProgressFilter] = useState("All");
+
+  const [showNotFound, setShowNotFound] = useState(false);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setShowNotFound(true);
+    }, 2000);
+
+    return () => clearTimeout(timeout);
+  }, []);
 
   const filterByProgress = (progressType) => {
     setProgressFilter(progressType);
@@ -175,17 +184,15 @@ const MyCoursePage = () => {
           {dataCourse.length > 0 ? (
             <>
               {filteredCourses.length > 0 ? (
-                <FadeIn delay={0.3} direction="left">
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    {filteredCourses.map((course, index) => (
-                      <CourseCard
-                        key={course.id}
-                        course={course}
-                        isMyClass={true}
-                      />
-                    ))}
-                  </div>
-                </FadeIn>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {filteredCourses.map((course) => (
+                    <CourseCard
+                      key={course.id}
+                      course={course}
+                      isMyClass={true}
+                    />
+                  ))}
+                </div>
               ) : (
                 <div className="justify-center items-center flex flex-col h-full">
                   <img src={notFound} alt="notFound" />
@@ -196,11 +203,14 @@ const MyCoursePage = () => {
               )}
             </>
           ) : (
-            <div className="justify-start items-center flex">
-              <Paragraph className="text-darkGrey capitalize">
-                Sorry, you haven't joined any courses yet
-              </Paragraph>
-            </div>
+            showNotFound && (
+              <div className="justify-center items-center flex flex-col h-full">
+                <img src={notFound} alt="notFound" />
+                <Paragraph className="text-darkGrey capitalize">
+                  Sorry, you haven't joined any courses yet
+                </Paragraph>
+              </div>
+            )
           )}
           <div className="flex justify-center gap-2">
             {filteredCourses.length > showingCourses ? (

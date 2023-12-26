@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import angular from "../assets/images/techLogos/angular.png";
 import bootstrap from "../assets/images/techLogos/bootstrap.png";
 import c from "../assets/images/techLogos/c.png";
@@ -35,6 +35,8 @@ import vscode from "../assets/images/techLogos/vscode.png";
 import { Heading, Paragraph } from "./Typography";
 import FadeIn from "./FadeIn";
 import { CookieKeys, CookieStorage } from "../utils/constants/cookies";
+import { useDispatch } from "react-redux";
+import { courseCoursesMeAct } from "../redux/actions/courseActions/courseCourses";
 
 const LogoMoving = () => {
   const logosGroup1 = [
@@ -76,6 +78,21 @@ const LogoMoving = () => {
     vscode,
   ];
 
+  const [my, setMy] = useState([]);
+  const length = my && my.length > 0 ? true : false;
+
+  useEffect(() => {
+    getCoursesData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const dispatch = useDispatch();
+
+  const getCoursesData = async () => {
+    const dataMy = await dispatch(courseCoursesMeAct());
+    setMy(dataMy);
+  };
+
   const token = CookieStorage.get(CookieKeys.AuthToken);
   const isLogin = token ? true : false;
 
@@ -115,8 +132,8 @@ const LogoMoving = () => {
 
   return (
     <div
-      className={`${
-        isLogin ? "pt-0 -mt-4" : "pt-12"
+      className={`${isLogin ? "pt-0 -mt-4" : "pt-12"} ${
+        isLogin && !length && "pt-12"
       } pb-16 flex flex-col gap-6 h-auto w-screen bg-softGrey`}
     >
       <div className="flex flex-col mb-2 px-4 md:px-12 lg:px-24">

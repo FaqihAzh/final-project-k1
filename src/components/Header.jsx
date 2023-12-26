@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   BellAlertIcon,
   ListBulletIcon,
@@ -15,6 +15,7 @@ import { useUserGetData } from "../services/auth/User/userGetData";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { LogOut } from "../redux/actions/authActions/User/authLoginUser";
+import { notificationAct } from "../redux/actions/notificationActions/Notification";
 
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
@@ -37,6 +38,30 @@ const Header = () => {
     window.location.href = "/";
   };
 
+  const Notification = useSelector((store) => store.notification.notifications);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      getNotificationData();
+    }, 7000);
+
+    return () => clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const getNotificationData = async () => {
+    await dispatch(notificationAct());
+  };
+
+  const countReadNotifications = () => {
+    const readNotifications = Notification.filter(
+      (notification) => !notification.isRead
+    );
+    return readNotifications.length;
+  };
+
+  const notifAmount = Notification && countReadNotifications();
+
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
@@ -56,12 +81,17 @@ const Header = () => {
       <Button
         type="link"
         href="/notification"
-        className={`hover:text-paleOrange text-sm px-2 flex gap-2 min-w-max items-center ${
+        className={`hover:text-paleOrange text-sm px-2 flex gap-2 min-w-max items-center relative ${
           isNotif ? "text-paleOrange" : "text-white"
         }`}
       >
         <BellAlertIcon className="w-6 h-6 " />
         <span className="hidden lg:block">Notifications</span>
+        {notifAmount > 0 && (
+          <div className="top-1 left-1 w-4 h-4 text-xs rounded-full bg-salmon absolute justify-center items-center flex text-white font-medium">
+            {notifAmount}
+          </div>
+        )}
       </Button>
       <Button
         type="link"
