@@ -3,10 +3,13 @@ import FadeIn from "./FadeIn";
 import succes from "../../src/assets/images/paymentSuccessIllustration.png";
 import { Heading, Paragraph } from "./Typography";
 import Button from "./Button";
-import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const PaymentSucces = () => {
-  const params = useParams();
+  const location = useLocation();
+  const paymentData = location.state;
+
+  console.log(paymentData, "payment");
 
   return (
     <>
@@ -46,10 +49,10 @@ const PaymentSucces = () => {
           >
             <Button
               type="link"
-              href={`/learning/${params.id}`}
+              href={`/my/course`}
               className="px-5 py-3 text-lg bg-darkOrange text-white rounded-full w-full md:w-1/3 lg:w-1/4 flex justify-center"
             >
-              Start Learning
+              Let's Check My Course
             </Button>
             <Button
               type="link"

@@ -25,7 +25,7 @@ const HomePage = () => {
   }, []);
 
   return (
-    <div>
+    <div className="overflow-x-hidden">
       <Hero />
       <Advantages />
       <CourseSample allCourse={true} />

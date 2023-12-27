@@ -230,7 +230,7 @@ const CourseCard = ({ isMyClass, course, isPayment, isHistory }) => {
   useEffect(() => {
     const timeout = setTimeout(() => {
       setIsLoading(false);
-    }, 2000);
+    }, 500);
 
     return () => clearTimeout(timeout);
   }, []);

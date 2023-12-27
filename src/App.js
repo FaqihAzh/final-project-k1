@@ -59,7 +59,7 @@ const App = () => {
               }
             />
             <Route
-              path="/payment/success/:id"
+              path="/payment/success"
               element={
                 <IsLogOutProtected>
                   <PaymentSuccessPage />
