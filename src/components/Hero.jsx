@@ -11,7 +11,7 @@ import FadeIn from "./FadeIn";
 const Hero = () => {
   return (
     <>
-      <div className="relative flex flex-col-reverse lg:flex-row w-screen bg-lightBlue py-24 px-4 md:px-12 lg:px-24 items-center gap-8 lg:gap-4 min-h-screen">
+      <div className="relative flex flex-col-reverse lg:flex-row w-screen bg-lightBlue py-24 px-4 md:px-12 lg:px-24 items-center gap-8 lg:gap-4 min-h-screen ">
         <div className="flex flex-col gap-2 flex-1 items-center lg:items-start text-center lg:text-left z-40">
           <FadeIn delay={0.2} direction="down" fullWidth>
             <Paragraph

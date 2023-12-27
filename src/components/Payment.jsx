@@ -104,7 +104,7 @@ export function Payment() {
     const success = await dispatch(courseCheckoutFreeAct(params.id));
 
     if (success) {
-      navigate(`/payment/success/${params.id}`);
+      navigate(`/payment/success`);
     }
   };
 
