@@ -6,10 +6,15 @@ import {
   BookOpenIcon,
   ChartBarIcon,
 } from "@heroicons/react/24/outline";
+import nullBackground from "../assets/images/nullBackgorund.jpg";
 import Button from "./Button";
 import { useDispatch } from "react-redux";
 import { courseDetailCourseAct } from "../redux/actions/courseActions/courseDetailCourse";
 import { formatRupiah } from "../utils/constants/function";
+import { Link } from "react-router-dom";
+import { courseRatingsAct } from "../redux/actions/courseActions/courseRatings";
+import { courseCoursesMeIdAct } from "../redux/actions/courseActions/courseCourses";
+import CourseCardSkeleton from "./SkeletonLoading/CourseCardSkeleton";
 
 const categoryMap = {
   1: "UI/UX Design",
@@ -19,21 +24,30 @@ const categoryMap = {
   5: "Business Intelligence",
 };
 
-const CourseCard = ({ isMyClass, course, isPayment }) => {
+const CourseCard = ({ isMyClass, course, isPayment, isHistory }) => {
   const [detailCourse, setDetailCourse] = useState([]);
+  const [myCourse, setmyCourseId] = useState([]);
+  const [ratingsCourse, setRatingsCourse] = useState(1);
 
   const categoryId = detailCourse.category_id;
   const category = categoryMap[categoryId] || "Unknown Category";
-
-  useEffect(() => {
-    getDetailCourseData();
-  }, [course.id]);
+  const rating = ratingsCourse && Math.round(ratingsCourse);
 
   const dispatch = useDispatch();
 
   const getDetailCourseData = async () => {
     const result = await dispatch(courseDetailCourseAct(course.id));
     setDetailCourse(result);
+  };
+
+  const getMyCourseDataId = async () => {
+    const result = await dispatch(courseCoursesMeIdAct(course.id));
+    setmyCourseId(result);
+  };
+
+  const getRatingsData = async () => {
+    const result = await dispatch(courseRatingsAct(course.id));
+    setRatingsCourse(result.averageRatings);
   };
 
   const type = detailCourse.price !== 0 ? "Premium" : "Free";
@@ -53,19 +67,44 @@ const CourseCard = ({ isMyClass, course, isPayment }) => {
     });
   }
 
+  const calculateProgress = () => {
+    let totalModules = 0;
+    let completedModules = 0;
+
+    if (myCourse.chapters) {
+      myCourse.chapters.forEach((chapter) => {
+        if (chapter.modules) {
+          chapter.modules.forEach((module) => {
+            totalModules++;
+            if (module.userCourseProgress.isCompleted) {
+              completedModules++;
+            }
+          });
+        }
+      });
+    }
+
+    const progressPercentage =
+      totalModules !== 0
+        ? Math.floor((completedModules / totalModules) * 100)
+        : 0;
+    return progressPercentage;
+  };
+
+  const progress = calculateProgress();
   const coursePrice = formatRupiah(detailCourse?.price);
 
-  return (
+  const renderCourseContent = () => (
     <div
       className={`flex flex-col gap-2 ${
         isMyClass ? "p-3" : "pt-3 pl-3 pr-3 mt-4"
-      } rounded-xl bg-white w-full shadow-xl relative`}
+      } rounded-xl bg-white w-full shadow-xl relative `}
     >
       <div className="w-full">
         <img
-          src="https://picsum.photos/300/150"
+          src={detailCourse.image ? detailCourse.image : nullBackground}
           alt=""
-          className="rounded-lg w-full"
+          className="rounded-lg min-h-[150px] max-h-[150px] w-full"
         />
         <span className="absolute top-4 right-4 bg-gradient-to-b from-paleOrange to-darkOrange bg-opacity-90 px-4 py-1 text-sm rounded-md text-white">
           {type}
@@ -78,13 +117,15 @@ const CourseCard = ({ isMyClass, course, isPayment }) => {
               {category}
             </Paragraph>
             <span className="flex items-center text-darkOrange">
-              {[...Array(detailCourse?.ratings)].map((_, index) => (
-                <StarIcon key={index} className="w-4 h-4" />
-              ))}
+              {ratingsCourse
+                ? [...Array(rating)].map((_, index) => (
+                    <StarIcon key={index} className="w-4 h-4" />
+                  ))
+                : null}
             </span>
           </div>
           <div>
-            <Paragraph className="font-medium text-darkGrey tracking-wide capitalize">
+            <Paragraph className="font-medium text-darkGrey tracking-wide capitalize truncate hover:whitespace-normal hover:overflow-visible hover:text-clip">
               {detailCourse?.title}
             </Paragraph>
             <Paragraph className="text-xs font-normal text-lightGrey tracking-wide">
@@ -92,38 +133,51 @@ const CourseCard = ({ isMyClass, course, isPayment }) => {
             </Paragraph>
             {isMyClass ? null : (
               <Paragraph className="font-medium text-darkOrange tracking-wide">
-                {coursePrice}
+                {detailCourse?.price === 0 ? "Free Course" : coursePrice}
               </Paragraph>
             )}
           </div>
         </div>
-        <div className={`flex flex-col ${isPayment && "pb-2"}`}>
+        <div className={`flex flex-col ${isPayment && "pb-2"} `}>
           <span className="border-b w-full border-dotted border-lightGrey my-2"></span>
-          <div className="flex gap-x-4 gap-y-2 flex-wrap">
+          <div className="flex gap-x-4 gap-y-2 truncate hover:flex-wrap hover:whitespace-normal hover:overflow-visible hover:text-clip">
             <span className="flex gap-1 items-center">
               <ClockIcon className="w-4 h-4 text-darkOrange" strokeWidth="2" />
               <Paragraph className="text-sm font-normal text-lightGrey">
-                {totalDuration} Menit
+                {totalDuration} Mins
               </Paragraph>
             </span>
             <span className="flex gap-1 items-center text-darkOrange">
               <BookOpenIcon className="w-4 h-4" strokeWidth="2" />
               <Paragraph className="text-sm font-normal text-lightGrey">
-                {totalModules} Modul
+                {totalModules} Mods
               </Paragraph>
             </span>
-            <span className="flex gap-1 items-center text-darkOrange">
-              <ChartBarIcon className="w-4 h-4" strokeWidth="2" />
-              <Paragraph className="text-sm font-normal text-lightGrey capitalize">
+            <span className="flex gap-1 items-center text-darkOrange truncate">
+              <ChartBarIcon
+                className="w-4 h-4  whitespace-normal overflow-visible text-clip"
+                strokeWidth="2"
+              />
+              <Paragraph className="text-sm font-normal text-lightGrey capitalize truncate">
                 {detailCourse?.level}
               </Paragraph>
             </span>
           </div>
           {isMyClass ? (
             <div className="w-full flex outline outline-1 outline-softGrey rounded-full mt-2">
-              <div className=" bg-darkOrange px-4 rounded-full w-9/12">
-                <Paragraph className="text-xs font-normal text-white tracking-wide">
-                  75%
+              <div
+                className={`w-[${String(progress)}%] ${
+                  progress === 0 && "bg-salmon"
+                } ${progress > 0 && progress < 100 && "bg-darkOrange"} ${
+                  progress === 100 && "bg-seaGreen"
+                } px-4 rounded-full `}
+              >
+                <Paragraph
+                  className={`text-xs font-normal text-white ${
+                    progress === 100 && "text-center"
+                  } tracking-wide`}
+                >
+                  {progress < 100 ? `${progress}%` : "Complete"}
                 </Paragraph>
               </div>
             </div>
@@ -140,9 +194,61 @@ const CourseCard = ({ isMyClass, course, isPayment }) => {
               </div>
             )
           )}
+          {isHistory && (
+            <div className="w-full flex rounded-full mt-2">
+              <div
+                className={`px-4 py-1 rounded-full w-fit ${
+                  course?.status === "paid" && "bg-seaGreen"
+                } ${course?.status === "Pending" && "bg-darkOrange"} ${
+                  course?.status !== "paid" &&
+                  course?.status !== "Pending" &&
+                  "bg-salmon"
+                }`}
+              >
+                <Paragraph
+                  className={`text-xs font-medium text-white tracking-wide capitalize`}
+                >
+                  {course.status}
+                </Paragraph>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
+  );
+
+  useEffect(() => {
+    getDetailCourseData();
+    getRatingsData();
+    getMyCourseDataId();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [course.id, progress]);
+
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timeout);
+  }, []);
+
+  if (isLoading) {
+    return <CourseCardSkeleton />;
+  }
+
+  return (
+    <>
+      {isMyClass ? (
+        <Link to={`/learning/${detailCourse?.id}`}>
+          {renderCourseContent()}
+        </Link>
+      ) : (
+        renderCourseContent()
+      )}
+    </>
   );
 };
 

@@ -6,7 +6,7 @@ import {
   ShoppingCartIcon,
   ArrowLeftOnRectangleIcon,
   EyeIcon,
-  EyeSlashIcon
+  EyeSlashIcon,
 } from "@heroicons/react/24/outline";
 import { useUserChangePassword } from "../services/auth/User/userChangePaswword";
 import { useFetchDataUser } from "../services/user/getUserProfil";
@@ -16,112 +16,71 @@ import {
 } from "../services/user/putUserProfil";
 import { Heading } from "./Typography";
 import Button from "./Button";
-import {
-  Card,
-  Drawer,
-  List,
-  ListItem,
-} from "@material-tailwind/react";
+import { Card, Drawer, List, ListItem } from "@material-tailwind/react";
+import ModalLogoutAkun from "./ModalLogoutAkun";
 
 export const Akun = () => {
   const [activeTab, setActiveTab] = useState("profile");
-
-
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
   };
 
+  const openModal = () => {
+    setIsLogoutModalOpen(true);
+  };
+
+  const closeLogoutModal = () => {
+    setIsLogoutModalOpen(false);
+  };
+
   return (
-    // <div className="flex flex-col items-center pt-16 md:pt-32 px-4 md:px-14 lg:px-24 w-screen min-h-screen bg-softGrey">
-    //   <div className="flex flex-col md:outline outline-2 outline-lightBlue rounded-xl w-full">
-    //     <div className="hidden md:block text-darkGrey md:text-white md:text-center md:bg-lightBlue rounded-t-xl py-2 px-0">
-    //       <Heading variant="h3">Account</Heading>
-    //     </div>
-    //     <div className="flex flex-col md:flex-row my-4">
-    //       <div className="hidden md:flex w-[50%] flex-col px-4 justify-start items-start ">
-    //         <button
-    //           onClick={() => handleTabChange("profile")}
-    //           className="flex items-center space-x-2 h-[3rem] border-b-2 w-[80%]"
-    //         >
-    //           <PencilSquareIcon className="w-[2rem] text-[#6176F7]" />
-    //           <span>Profil</span>
-    //         </button>
-    //         <button
-    //           onClick={() => handleTabChange("changePassword")}
-    //           className="flex items-center space-x-2 h-[3rem] border-b-2 w-[80%]"
-    //         >
-    //           <Cog6ToothIcon className="w-[2rem] text-[#6176F7]" />
-    //           <span>Change Password</span>
-    //         </button>
-    //         <button
-    //           onClick={() => handleTabChange("paymentHistory")}
-    //           className="flex items-center space-x-2 h-[3rem] border-b-2 w-[80%]"
-    //         >
-    //           <ShoppingCartIcon className="w-[2rem] text-[#6176F7]" />
-    //           <span>Payment History</span>
-    //         </button>
-    //         <button className="flex items-center space-x-2 h-[3rem] border-b-2 w-[80%]">
-    //           <ArrowLeftOnRectangleIcon className="w-[2rem] text-[#6176F7]" />
-    //           <span>Logout</span>
-    //         </button>
-    //       </div>
-
-    //       <Sidebar
-    //         activeTab={activeTab}
-    //         handleTabChange={handleTabChange}
-    //       />
-
-    //       <div className="w-full md:w-[50%] pt-3">
-    //         {activeTab === "profile" && <UpdateProfileComponent />}
-    //         {activeTab === "paymentHistory" && <PaymentHistoryComponent />}
-    //         {activeTab === "changePassword" && <ChangePasswordComponent />}
-    //       </div>
-    //     </div>
-    //   </div>
-    // </div>
     <div className="flex flex-col w-screen h-screen md:h-fit bg-softGrey">
-        <div className="flex flex-col md:flex-row pt-16 md:pt-24 md:pb-5 px-4">
-          <div className="hidden md:flex md:w-[35%] lg:w-[25%] bg-white h-screen flex-col rounded-[2rem] shadow-2xl p-7 gap-2">
-          <Heading variant="h3" className="text-lightBlue">Account</Heading>
-            <button
-              onClick={() => handleTabChange("profile")}
-              className="flex items-center space-x-2 h-[3rem] border-b-2 w-[100%]"
-            >
-              <PencilSquareIcon className="w-[2rem] text-[#6176F7]" />
-              <span>Profil</span>
-            </button>
-            <button
-              onClick={() => handleTabChange("changePassword")}
-              className="flex items-center space-x-2 h-[3rem] border-b-2 w-[100%]"
-            >
-              <Cog6ToothIcon className="w-[2rem] text-[#6176F7]" />
-              <span>Change Password</span>
-            </button>
-            <button
-              onClick={() => handleTabChange("paymentHistory")}
-              className="flex items-center space-x-2 h-[3rem] border-b-2 w-[100%]"
-            >
-              <ShoppingCartIcon className="w-[2rem] text-[#6176F7]" />
-              <span>Payment History</span>
-            </button>
-            <button className="flex items-center space-x-2 h-[3rem] border-b-2 w-[100%]">
-              <ArrowLeftOnRectangleIcon className="w-[2rem] text-[#6176F7]" />
-              <span>Logout</span>
-            </button>
-          </div>
-
-          <Sidebar
-            activeTab={activeTab}
-            handleTabChange={handleTabChange}
-          />
-
-          <div className="flex flex-row justify-center w-full md:w-[65%] lg:w-[75%] pt-3">
-            {activeTab === "profile" && <UpdateProfileComponent />}
-            {activeTab === "paymentHistory" && <PaymentHistoryComponent />}
-            {activeTab === "changePassword" && <ChangePasswordComponent />}
-          </div>
+      <div className="flex flex-col md:flex-row pt-16 md:pt-24 md:pb-5 px-4 md:px-12 lg:px-24">
+        <div className="hidden md:flex md:w-[40%] lg:w-[35%] bg-white h-screen flex-col rounded-[2rem] shadow-2xl p-7 gap-2">
+          <Heading variant="h3" className="text-lightBlue">
+            Account
+          </Heading>
+          <button
+            onClick={() => handleTabChange("profile")}
+            className="flex items-center space-x-2 h-[3rem] border-b-2 w-[100%]"
+          >
+            <PencilSquareIcon className="w-[2rem] text-[#6176F7]" />
+            <span>Profil</span>
+          </button>
+          <button
+            onClick={() => handleTabChange("changePassword")}
+            className="flex items-center space-x-2 h-[3rem] border-b-2 w-[100%]"
+          >
+            <Cog6ToothIcon className="w-[2rem] text-[#6176F7]" />
+            <span>Change Password</span>
+          </button>
+          <button
+            onClick={() => handleTabChange("paymentHistory")}
+            className="flex items-center space-x-2 h-[3rem] border-b-2 w-[100%]"
+          >
+            <ShoppingCartIcon className="w-[2rem] text-[#6176F7]" />
+            <span>Payment History</span>
+          </button>
+          <button
+            onClick={openModal}
+            className="flex items-center space-x-2 h-[3rem] border-b-2 w-[100%]"
+          >
+            <ArrowLeftOnRectangleIcon className="w-[2rem] text-[#6176F7]" />
+            <span>Logout</span>
+          </button>
+          {isLogoutModalOpen && <ModalLogoutAkun closeModal={closeLogoutModal} />}
         </div>
+
+        <Sidebar activeTab={activeTab} handleTabChange={handleTabChange} />
+
+        <div className="flex flex-row justify-center w-full md:w-[60%] lg:w-[75%] pt-3">
+          {activeTab === "profile" && <UpdateProfileComponent />}
+          {activeTab === "paymentHistory" && <PaymentHistoryComponent />}
+          {activeTab === "changePassword" && <ChangePasswordComponent />}
+        </div>
+      </div>
     </div>
   );
 };
@@ -185,7 +144,7 @@ const UpdateProfileComponent = () => {
   console.log(selectedImage, "selectedImage");
   return (
     // <div className="flex flex-col items-center">
-    <div className="flex flex-col items-center w-full lg:w-1/2"> 
+    <div className="flex flex-col items-center w-full lg:w-1/2">
       <div className="w-20 h-20 rounded-full overflow-hidden mb-4">
         <img
           src={
@@ -205,7 +164,7 @@ const UpdateProfileComponent = () => {
         onChange={handleImage}
         className="mb-4"
       />
-      <div className="w-full flex flex-col gap-3 px-8">
+      <div className="w-full md:w-[80%] flex flex-col gap-3 px-4 md:px-0">
         <div className="flex flex-col w-full ">
           <label className="text-xs text-left">Nama</label>
           <input
@@ -217,7 +176,7 @@ const UpdateProfileComponent = () => {
           />
         </div>
         <div className="flex flex-col w-full">
-          <label className="text-xs mb-1 text-left flex items-start w-[80%] ">
+          <label className="text-xs mb-1 text-left flex items-start w-full ">
             Nomor Telelpon
           </label>
           <input
@@ -320,11 +279,11 @@ const ChangePasswordComponent = () => {
 
   return (
     // <div className="flex flex-col items-center ">
-      <div className= "flex flex-col items-center w-full lg:w-1/2">
+    <div className="flex flex-col items-center w-full lg:w-1/2 ">
       <h2 className="text-2xl font-bold my-4 hidden md:block">Ubah Password</h2>
-      <div className="w-[100%] md:w-[80%] space-y-4">
+      <div className="w-[100%] md:w-[80%] space-y-4 mt-6">
         <div className="w-full px-4 md:px-0 flex flex-col items-center">
-          <label className="text-xs mb-1 text-left flex items-start w-full md:w-[100%]">
+          <label className="text-xs mb-1 text-left flex items-start w-full">
             Masukan Password Lama
           </label>
           <div className="relative w-full">
@@ -408,18 +367,32 @@ const ChangePasswordComponent = () => {
 
 const Sidebar = ({ activeTab, handleTabChange }) => {
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
   const openDrawer = () => setIsDrawerOpen(true);
   const closeDrawer = () => setIsDrawerOpen(false);
+
+  const openModal = () => {
+    setIsLogoutModalOpen(true);
+  };
+
+  const closeLogoutModal = () => {
+    setIsLogoutModalOpen(false);
+  };
   return (
     <div className="block md:hidden ">
-      <div className="flex items-center px-4 py-2 cursor-pointer" onClick={openDrawer}>
+      <div
+        className="flex items-center px-4 py-2 cursor-pointer"
+        onClick={openDrawer}
+      >
         <span className="text-xl font-bold text-darkGrey">
           {activeTab === "profile" && "Profile"}
           {activeTab === "changePassword" && "Change Password"}
           {activeTab === "paymentHistory" && "Payment History"}
         </span>
-        <ChevronRightIcon className={`h-6 w-6 ${isDrawerOpen ? 'transform rotate-90' : ''}`} />
+        <ChevronRightIcon
+          className={`h-6 w-6 ${isDrawerOpen ? "transform rotate-90" : ""}`}
+        />
       </div>
       <Drawer open={isDrawerOpen} onClose={closeDrawer}>
         <Card
@@ -436,7 +409,10 @@ const Sidebar = ({ activeTab, handleTabChange }) => {
             <hr className="my-2 border-lightGrey" />
             <ListItem>
               <button
-                onClick={() => handleTabChange("profile")}
+                onClick={() => {
+                  handleTabChange("profile");
+                  closeDrawer();
+                }}
                 className="flex items-center w-full gap-2"
               >
                 <PencilSquareIcon className="w-[2rem] text-[#6176F7]" />
@@ -445,7 +421,10 @@ const Sidebar = ({ activeTab, handleTabChange }) => {
             </ListItem>
             <ListItem>
               <button
-                onClick={() => handleTabChange("changePassword")}
+                onClick={() => {
+                  handleTabChange("changePassword");
+                  closeDrawer();
+                }}
                 className="flex items-center w-full gap-2"
               >
                 <Cog6ToothIcon className="w-[2rem] text-[#6176F7]" />
@@ -454,7 +433,10 @@ const Sidebar = ({ activeTab, handleTabChange }) => {
             </ListItem>
             <ListItem>
               <button
-                onClick={() => handleTabChange("paymentHistory")}
+                onClick={() => {
+                  handleTabChange("paymentHistory");
+                  closeDrawer();
+                }}
                 className="flex items-center w-full gap-2"
               >
                 <ShoppingCartIcon className="w-[2rem] text-[#6176F7]" />
@@ -462,10 +444,14 @@ const Sidebar = ({ activeTab, handleTabChange }) => {
               </button>
             </ListItem>
             <ListItem>
-              <button className="flex items-center w-full gap-2">
-                <ArrowLeftOnRectangleIcon className="w-[2rem] text-[#6176F7]" />
-                <span>Logout</span>
-              </button>
+            <button
+            onClick={openModal}
+            className="flex items-center space-x-2 h-[3rem] border-b-2 w-[100%]"
+          >
+            <ArrowLeftOnRectangleIcon className="w-[2rem] text-[#6176F7]" />
+            <span>Logout</span>
+          </button>
+          {isLogoutModalOpen && <ModalLogoutAkun closeModal={closeLogoutModal} />}
             </ListItem>
           </List>
         </Card>

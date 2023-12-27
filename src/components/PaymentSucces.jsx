@@ -47,7 +47,7 @@ const PaymentSucces = () => {
             <Button
               type="link"
               href={`/learning/${params.id}`}
-              className="px-5 py-3 text-lg bg-darkOrange text-white rounded-full w-full md:w-1/3 lg:w-1/4"
+              className="px-5 py-3 text-lg bg-darkOrange text-white rounded-full w-full md:w-1/3 lg:w-1/4 flex justify-center"
             >
               Start Learning
             </Button>

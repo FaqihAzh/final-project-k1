@@ -1,6 +1,8 @@
 export const API_ENDPOINT = {
+  // USER
   USER_WHOAMI: "/auth/whoami",
   USER_LOGIN: "/auth/login",
+  USER_LOGIN_AUTH: "/auth/google",
   USER_REGISTER: "/auth/register",
   USER_FORGOT_PASSWORD: "/auth/forgotPassword",
   USER_RESEND_OTP: "/auth/resend-otp",
@@ -9,24 +11,37 @@ export const API_ENDPOINT = {
   USER_PROFIL: "/profile",
   USER_UPDATE_IMAGE_USER: "/profile/",
 
-  GET_CATEGORIES: "/categories",
-
   USER_OTP: (otp, token) => {
     return `/auth/verifyOTP?otp=${otp}&token=${token}`;
   },
+
+  USER_RESET_PASSWORD: (token) => {
+    return `/auth/reset-password?token=${token}`;
+  },
+
+  // CATEGORY
+  GET_CATEGORIES: "/categories",
 
   GET_CATEGORIES_ID: (id) => {
     return `/categories/${id}`;
   },
 
+  // COURSES
   GET_COURSES_ME: "/courses/me",
+  GET_ALL_COURSES: "/courses",
+  COURSE_CHECKOUT: "/payment/checkout",
+  COURSE_CHECKOUT_NOTIFICATION: "/payment/notification",
+
+  GET_COURSES_ME_ID: (id) => {
+    return `/courses/me/${id}`;
+  },
 
   GET_DETAIL_COURSES_ME: (id) => {
     return `/courses/me/${id}`;
   },
 
   UPDATE_PROGRESS: (progressId) => {
-    return `/courses/me/progress/${progressId}`
+    return `/courses/me/progress/${progressId}`;
   },
 
   GET_COURSES: (page, limit) => {
@@ -41,18 +56,10 @@ export const API_ENDPOINT = {
     return `/courses/${id}`;
   },
 
-  USER_RESET_PASSWORD: (token) => {
-    return `/auth/reset-password?token=${token}`;
-  },
-
-  GET_NOTIFICATION: "/notification",
-  COURSE_CHECKOUT: "/payment/checkout",
-
   COURSE_CHECKOUT_FREE: (id) => {
     return `/courses/${id}/join`;
   },
 
-  COURSE_CHECKOUT_NOTIFICATION: "/payment/notification",
   DELETE_COURSE: (id) => {
     return `/courses/${id}`;
   },
@@ -61,6 +68,7 @@ export const API_ENDPOINT = {
     return `/courses/${id}`;
   },
 
+  // PROMO
   GET_PROMO: "/promo",
 
   GET_DETAIL_PROMO: (id) => {
@@ -75,14 +83,25 @@ export const API_ENDPOINT = {
     return `/promo/${id}`;
   },
 
+  // RATING
   POST_RATING: "/ratings",
-  GET_RATING : (id) => {
-    return `/ratings/${id}`
+
+  RATINGS: (id) => {
+    return `/ratings/${id}`;
   },
 
+  // NOTIFICATIONS
+  GET_NOTIFICATION: "/notification",
+  PUT_NOTIFICATION: (id) => {
+    return `/notification/${id}`;
+  },
+
+  // TRANSACTIONS
+  GET_TRANSACTION_USER: "/transactions/me",
+
+  // ADMIN
   ADMIN_LOGIN: "/auth/admin/login",
   GET_ADMIN: "/auth/admin/whoami",
-  GET_ALL_COURSE: "/courses",
   POST_COURSE: "/courses",
   PROMO: "/promo",
   ACTIVE_USERS: "/activeUsers",

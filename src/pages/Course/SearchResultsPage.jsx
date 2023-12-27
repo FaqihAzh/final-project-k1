@@ -1,9 +1,25 @@
 import { useLocation } from "react-router-dom";
 import CourseCard from "../../components/CourseCard";
 import { Heading, Paragraph } from "../../components/Typography";
-import FadeIn from "../../components/FadeIn";
+import { useEffect } from "react";
+import {
+  setIsMyCourse,
+  setIsNotif,
+  setIsProfile,
+} from "../../redux/reducers/courseSlice/courseSlice";
+import { useDispatch } from "react-redux";
+import notFound from "../../assets/images/notFoundSearch.png";
+import { Button } from "flowbite-react";
 
 const SearchResultsPage = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setIsMyCourse(false));
+    dispatch(setIsNotif(false));
+    dispatch(setIsProfile(false));
+  }, []);
+
   const location = useLocation();
   const results = location.state.results;
   const searchQuery = new URLSearchParams(location.search).get("query");
@@ -25,10 +41,18 @@ const SearchResultsPage = () => {
           ))}
         </div>
       ) : (
-        <div className="justify-start items-center flex">
+        <div className="justify-center items-center flex flex-col h-full">
+          <img src={notFound} alt="notFound" />
           <Paragraph className="text-darkGrey capitalize">
-            Sorry, courses not available
+            Sorry, the course is not available
           </Paragraph>
+          <Button
+            type="link"
+            href="/"
+            className="mt-4 !px-4 !py-2 bg-darkOrange text-white rounded-full text-center"
+          >
+            Back to Homepage
+          </Button>
         </div>
       )}
     </div>

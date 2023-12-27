@@ -1,8 +1,22 @@
 "use client";
 import React, { useEffect } from "react";
 import { Payment } from "../../components/Payment";
+import {
+  setIsMyCourse,
+  setIsNotif,
+  setIsProfile,
+} from "../../redux/reducers/courseSlice/courseSlice";
+import { useDispatch } from "react-redux";
 
 const PaymentPage = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setIsMyCourse(false));
+    dispatch(setIsNotif(false));
+    dispatch(setIsProfile(false));
+  }, []);
+
   useEffect(() => {
     const snapUrl = "https://app.sandbox.midtrans.com/snap/snap.js";
     const clientKey = process.env.REACT_APP_MIDTRANS_CLIENT_KEY;

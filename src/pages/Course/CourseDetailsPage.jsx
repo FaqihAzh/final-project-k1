@@ -1,14 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CourseDetails from "../../components/CourseDetails";
-import SideCourseMaterial from "../../components/SideCourseMaterial";
+import {
+  setIsMyCourse,
+  setIsNotif,
+  setIsProfile,
+} from "../../redux/reducers/courseSlice/courseSlice";
+import { useDispatch } from "react-redux";
 
 const CourseDetailsPage = () => {
-  return (
-    <div className="flex flex-col lg:flex-row pt-24 px-5 lg:px-24 bg-softGrey pb-5 gap-10 lg:gap-20">
-      <CourseDetails />
-      <SideCourseMaterial />
-    </div>
-  );
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setIsMyCourse(false));
+    dispatch(setIsNotif(false));
+    dispatch(setIsProfile(false));
+  }, []);
+
+  return <CourseDetails />;
 };
 
 export default CourseDetailsPage;

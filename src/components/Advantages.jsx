@@ -8,8 +8,6 @@ import {
 import { Paragraph } from "./Typography";
 import FadeIn from "./FadeIn";
 
-// Get Ready For a Career
-
 const Advantages = () => {
   return (
     <>
