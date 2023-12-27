@@ -29,7 +29,7 @@ const Notification = () => {
   useEffect(() => {
     const timeout = setTimeout(() => {
       setIsLoading(false);
-    }, 2000);
+    }, 750);
 
     return () => clearTimeout(timeout);
   }, []);
@@ -123,31 +123,6 @@ const Notification = () => {
                 </div>
               </div>
             </div>
-            // <div
-            //   key={notif.id}
-            //   className=" p-4 gap-4 shadow-sm bg-white rounded-2xl flex flex-col"
-            // >
-            //   <div className="flex gap-4 items-center">
-            //     <BellAlertIcon className="w-8 h-8 p-1 bg-brightBlue rounded-full text-white" />
-            //     <Paragraph
-            //       variant="large"
-            //       className="text-brightBlue flex flex-wrap flex-1"
-            //     >
-            //       {notif.title}
-            //     </Paragraph>
-            //     <Paragraph className="text-darkGrey text-end flex-1 flex-wrap">
-            //       {formatUpdatedAt(notif.updatedAt)}
-            //     </Paragraph>
-            //   </div>
-            //   <div className="flex flex-col ">
-            //     <Paragraph className="text-darkGrey flex flex-wrap">
-            //       {notif.body}
-            //     </Paragraph>
-            //     <Paragraph className="text-lightGrey flex flex-wrap">
-            //       {notif.description}
-            //     </Paragraph>
-            //   </div>
-            // </div>
           ))}
         </div>
       </div>
