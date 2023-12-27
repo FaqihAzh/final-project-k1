@@ -140,14 +140,14 @@ export function Payment() {
                 className="w-full text-center bg-softGrey rounded-full px-5 py-3 mt-8 md:mt-0"
                 onClick={handlePromoModalClick}
               >
-                {promoName ? promoName : "Promo Code"}
+                {promoName ? promoName : "Click to Get Discount"}
               </Button>
             ) : (
               <Button
                 className="w-full text-center bg-softGrey rounded-full px-5 py-3 mt-8 md:mt-0"
                 onClick={handlePromoFree}
               >
-                Promo Code
+                Click to Get Discount
               </Button>
             )}
             {isPromoModalOpen && (
