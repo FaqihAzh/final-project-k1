@@ -36,7 +36,22 @@ export const TableAdminKelolaKelas = () => {
   console.log(fetchData, "inidata");
   const datarender = search ? fetchData?.data : fetchData?.data?.courses
 
-  
+  const getCategoryNameById = (categoryId) => {
+    switch (categoryId) {
+      case 1:
+        return "UI/UX Design";
+      case 2:
+        return "Web Development";
+      case 3:
+        return "Android Development";
+      case 4:
+        return "Data Science";
+      case 5:
+        return "Business Intelligence";
+      default:
+        return "Unknown Category";
+    }
+  };
 
   console.log(idCorse, "id")
   console.log(datarender, "datarender")
@@ -88,12 +103,12 @@ export const TableAdminKelolaKelas = () => {
                 className="bg-white dark:border-gray-700 dark:bg-gray-800 space-y-[0.8rem]"
               >
                 <td className="py-2 px-4 border-b">{value.id}</td>
-                <td className="py-2 px-4 border-b">{value.category_id}</td>
+                <td className="py-2 px-4 border-b">{getCategoryNameById(value.category_id)}</td>
                 <td className="py-2 px-4 border-b">{value.author}</td>
                 <td className="py-2 px-4 border-b">{value.title}</td>
                 <td className="py-2 px-4 border-b">{value.level}</td>
-                <td className="py-2 px-4 border-b">{value.price}</td>
-                {/* <td className="py-2 px-4 border-b">{value.ratings}</td> */}
+                <td className="py-2 px-4 border-b">{value.price === 0 ? "Gratis" : value.price}</td>
+                <td className="py-2 px-4 border-b text-center">{value.averageRating}</td>
                 <td className="py-2 px-4 border-b space-x-3 flex">
                   <button className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"
                   onClick={()=> {
