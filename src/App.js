@@ -75,6 +75,7 @@ const App = () => {
             <Route path="/course/category/:id" element={<Courses />} />
             <Route path="/search-results" element={<SearchResultsPage />} />
             <Route path="/notification" element={<NotificationPage />} />
+            <Route path="/account" element={<AccountPage/>}/>
           </Route>
 
           {/* admin */}
@@ -90,7 +91,7 @@ const App = () => {
           <Route path="/register" element={<RegisterPage />} />
        
           {/* Buat yg gapake layout samsek bisa di taruh disini, ex: login, regist etc */}
-          <Route path="/account" element={<AccountPage/>}/>
+       
 
           <Route element={<AuthLayoutWithOutlet />}>
             <Route path="/login" element={<LoginPage />} />

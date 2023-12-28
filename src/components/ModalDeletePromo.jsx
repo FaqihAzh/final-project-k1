@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux';
 import { DeletePromoAct } from '../redux/actions/Admin/Promo';
-
+import {ArchiveBoxXMarkIcon} from "@heroicons/react/24/solid"
 export const ModalDeletePromo = ({setdeleteModal, idPromo}) => {
 
    const dispatch = useDispatch()
@@ -31,10 +31,12 @@ export const ModalDeletePromo = ({setdeleteModal, idPromo}) => {
         </button>
       </div>
       <div className="title mt-4 border text-center">
-        <h1 className="text-lg font-bold">Hapus Kelas</h1>
+        <h1 className="text-lg font-bold">Hapus Promo</h1>
       </div>
       <div className="body mt-4 border max-h-[25rem] overflow-auto p-2">
-        <div className="outline-dotted">Yakin dihapus?</div>
+        <div className=" flex justify-center items-center">
+        <ArchiveBoxXMarkIcon className='w-[3rem] text-red-400'/>
+        </div>
       </div>
       <div className="footer mt-6 flex justify-center">
         <button

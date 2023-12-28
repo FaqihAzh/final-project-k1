@@ -3,6 +3,9 @@ import { useDataPromo } from '../services/promo/getPromo'
 import { ModalAddPromo } from './ModalAddPromo'
 import { ModalDeletePromo } from './ModalDeletePromo'
 import { ModalUpdatePromo } from './ModalUpdatePromo'
+import {MagnifyingGlassIcon} from "@heroicons/react/24/outline"
+
+// 
 
 
 export const TablePromo = () => {
@@ -18,7 +21,8 @@ export const TablePromo = () => {
     <div className="">
     <div className=" my-1 flex justify-between items-center px-[2rem]">
     <h2 className="font-bold text-[1.2rem]">Kelola Promo</h2>
-      <button
+    <div className='flex space-x-3'>
+    <button
         className="bg-[#FFC27A] hover:bg-[#FFA337] text-white font-bold py-2 px-4 rounded"
         onClick={() => {
           setmodalAdd(true);
@@ -26,6 +30,8 @@ export const TablePromo = () => {
       >
         Tambah Course
       </button>
+    </div>
+      
       {modalAdd && <ModalAddPromo  setopenModal={setmodalAdd} />}
     </div>
     <div className="max-w-full overflow-x-auto">

@@ -1,12 +1,13 @@
 import { useMutation } from "@tanstack/react-query";
 import { API_ENDPOINT } from "../../utils/constants/endpoint";
 import http from "../../utils/constants/http";
+import http2 from "../../utils/constants/http2";
 
 
 
 
 const postDataCourses = async (input) => {
-    return await http.post(API_ENDPOINT.POST_COURSE, input).then((result) => {
+    return await http2.post(API_ENDPOINT.POST_COURSE, input).then((result) => {
     console.log(result, "post Courses")
     alert("Berhasil Menambahkan")
     }).catch((err) => {

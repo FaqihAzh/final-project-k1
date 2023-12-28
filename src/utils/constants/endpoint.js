@@ -60,6 +60,7 @@ export const API_ENDPOINT = {
   PROMO : "/promo",
   ACTIVE_USERS : "/activeUsers",
   ACTIVE_CLASS : "/activeClass",
-  PREMIUM_CLASS : "/premiumClass"
- 
+  PREMIUM_CLASS : "/premiumClass",
+  GET_TRANSACTION_USER : '/transactions/me',
+  GET_ALL_TRANSACTION_: '/transactions'
 };
