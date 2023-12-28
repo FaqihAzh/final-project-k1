@@ -9,6 +9,12 @@ import loginIllustration from "../../assets/images/loginIllustration.png";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { authLoginUserAct } from "../../redux/actions/authActions/User/authLoginUser";
+import { CookieKeys, CookieStorage } from "../../utils/constants/cookies";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { useGoogleLogin } from "@react-oauth/google";
+import { API_ENDPOINT } from "../../utils/constants/endpoint";
+import { setToken } from "../../redux/reducers/authSlice/User/authUserSlice";
 
 const LoginUser = () => {
   const [formData, setFormData] = useState({
@@ -56,6 +62,51 @@ const LoginUser = () => {
       onKeyPress={onKeyPress}
     />
   );
+
+  const loginWithGoogleAction = async (accessToken) => {
+    try {
+      let data = JSON.stringify({
+        access_token: accessToken,
+      });
+
+      let config = {
+        method: "post",
+        maxBodyLength: Infinity,
+        url: `${process.env.REACT_APP_SERVER}${API_ENDPOINT.USER_LOGIN_AUTH}`,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: data,
+      };
+
+      const response = await axios.request(config);
+      const { token } = response.data.data;
+
+      dispatch(setToken(token));
+      CookieStorage.set(CookieKeys.AuthToken, token);
+
+      toast("Login Success", {
+        position: "bottom-center",
+        className: "custom-toast-success",
+      });
+
+      navigate("/");
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        return;
+      }
+      toast("Login Failed", {
+        position: "bottom-center",
+        className: "custom-toast-error",
+      });
+    }
+  };
+
+  const loginWithGoogle = useGoogleLogin({
+    onSuccess: (codeResponse) => {
+      loginWithGoogleAction(codeResponse.access_token);
+    },
+  });
 
   return (
     <>
@@ -148,7 +199,10 @@ const LoginUser = () => {
 
             <FadeIn delay={0.2} direction="up" fullWidth>
               <div className="">
-                <Button className="px-5 py-3 font-semibold bg-transparent rounded-full border border-darkOrange text-darkGrey w-full flex gap-2 items-center justify-center">
+                <Button
+                  onClick={loginWithGoogle}
+                  className="px-5 py-3 font-semibold bg-transparent rounded-full border border-darkOrange text-darkGrey w-full flex gap-2 items-center justify-center"
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -192,9 +246,21 @@ const LoginUser = () => {
                 <Button
                   type="link"
                   href="/register"
-                  className="text-darkOrange"
+                  className="text-darkOrange font-semibold"
                 >
                   Create an Account
+                </Button>
+              </Paragraph>
+            </FadeIn>
+            <FadeIn delay={0.2} direction="up">
+              <Paragraph variant="small">
+                Not activated yet?{" "}
+                <Button
+                  type="link"
+                  href="/activate"
+                  className="text-darkOrange font-semibold"
+                >
+                  Activate now
                 </Button>
               </Paragraph>
             </FadeIn>

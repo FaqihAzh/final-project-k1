@@ -65,7 +65,7 @@ export const Akun = () => {
 
 //-------------------------------------------------------------------------------------//
 const UpdateProfileComponent = () => {
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImage, setSelectedImage] = useState();
   const [nama, setnama] = useState("");
   const [noTlpn, setnoTlpn] = useState();
   const [negara, setnegara] = useState("");

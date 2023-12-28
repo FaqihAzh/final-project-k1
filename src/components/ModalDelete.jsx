@@ -5,21 +5,18 @@ import {ArchiveBoxXMarkIcon} from "@heroicons/react/24/solid"
 export const ModalDelete = ({ setDeleteModal, idCourse}) => {
   const dispatch = useDispatch()
   const handleDelete = () => {
-    dispatch(DeleteCourseAct(idCourse))
-  }
+    dispatch(DeleteCourseAct(idCourse));
+  };
 
   const handleCancel = () => {
- 
     setDeleteModal(false);
   };
 
   const handleContinue = () => {
-    handleDelete()
+    handleDelete();
     setDeleteModal(false);
     // window.location.reload();
   };
-
-  
 
   return (
     <div className="fixed inset-0 overflow-y-auto flex items-center justify-center">
@@ -59,7 +56,6 @@ export const ModalDelete = ({ setDeleteModal, idCourse}) => {
           </button>
         </div>
       </div>
-    
     </div>
   );
 };

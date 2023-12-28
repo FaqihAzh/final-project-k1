@@ -1,12 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "./Button";
+import TopFilterSkeleton from "./SkeletonLoading/TopFilterSkeleton";
 
-const TopFilter = ({ buttonNames, setPriceFilter }) => {
+const TopFilter = ({
+  buttonNames,
+  setPriceFilter,
+  setProgressFilter,
+  isMyCourse,
+}) => {
   const [activeButton, setActiveButton] = useState("All");
+
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setIsLoading(false);
+    }, 500);
+    return () => clearTimeout(timeout);
+  }, []);
+
+  if (isLoading) {
+    return <TopFilterSkeleton />;
+  }
 
   const handleClick = (buttonName) => {
     setActiveButton(buttonName);
-    setPriceFilter(buttonName);
+    if (isMyCourse) {
+      return setProgressFilter(buttonName);
+    } else {
+      return setPriceFilter(buttonName);
+    }
   };
 
   if (!buttonNames || buttonNames.length === 0) {

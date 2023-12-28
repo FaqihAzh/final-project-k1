@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { courseSearchAct } from "../redux/actions/courseActions/courseSearch";
 
-const SearchInput = ({ text, border }) => {
+const SearchInput = ({ text, border, isCourse, onChange, searchTerm }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
@@ -37,32 +37,62 @@ const SearchInput = ({ text, border }) => {
     }
   };
 
+  const handleEnterPress = (e) => {
+    if (e.key === "Enter") {
+      searchCourses();
+    }
+  };
+
   return (
     <>
-      <div className="relative flex items-center w-full">
-        <input
-          ref={inputRef}
-          type="text"
-          name="search"
-          autoComplete="none"
-          placeholder="Search Course"
-          aria-label="Search Course"
-          className={`w-full pl-4 pr-10 py-2 font-normal text-sm text-ellipsis placeholder:text-ellipsis bg-transparent text-${
-            text ? text : "white"
-          } ${
-            text ? `placeholder-${text}` : `placeholder-white`
-          } rounded-full focus:outline-none ${
-            border ? border : "border"
-          }  border-${text ? text : "white"}`}
-          value={searchQuery}
-          onChange={handleInputChange}
-        />
-        <Button onClick={searchCourses} className="absolute right-4">
-          <MagnifyingGlassIcon
-            className={`w-5 h-5 hover:scale-125 text-${text ? text : "white"}`}
+      {isCourse ? (
+        <div className="relative flex items-center w-full">
+          <input
+            type="text"
+            name="search"
+            autoComplete="none"
+            placeholder="Search Course"
+            aria-label="Search Course"
+            className={`w-full pl-4 pr-10 py-2 font-normal text-sm text-ellipsis placeholder:text-ellipsis bg-transparent text-${
+              text ? text : "white"
+            } ${
+              text ? `placeholder-${text}` : `placeholder-white`
+            } rounded-full focus:outline-none ${
+              border ? border : "border"
+            }  border-${text ? text : "white"}`}
+            value={searchTerm}
+            onChange={onChange}
           />
-        </Button>
-      </div>
+        </div>
+      ) : (
+        <div className="relative flex items-center w-full">
+          <input
+            ref={inputRef}
+            type="text"
+            name="search"
+            autoComplete="none"
+            placeholder="Search Course"
+            aria-label="Search Course"
+            className={`w-full pl-4 pr-10 py-2 font-normal text-sm text-ellipsis placeholder:text-ellipsis bg-transparent text-${
+              text ? text : "white"
+            } ${
+              text ? `placeholder-${text}` : `placeholder-white`
+            } rounded-full focus:outline-none ${
+              border ? border : "border"
+            }  border-${text ? text : "white"}`}
+            value={searchQuery}
+            onChange={handleInputChange}
+            onKeyPress={handleEnterPress}
+          />
+          <Button onClick={searchCourses} className="absolute right-4">
+            <MagnifyingGlassIcon
+              className={`w-5 h-5 hover:scale-125 text-${
+                text ? text : "white"
+              }`}
+            />
+          </Button>
+        </div>
+      )}
     </>
   );
 };

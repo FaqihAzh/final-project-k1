@@ -13,12 +13,15 @@ import SearchInput from "./SearchInput";
 import { CookieKeys, CookieStorage } from "../utils/constants/cookies";
 import { useUserGetData } from "../services/auth/User/userGetData";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { LogOut } from "../redux/actions/authActions/User/authLoginUser";
+import { notificationAct } from "../redux/actions/notificationActions/Notification";
 
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
-
+  const isMyCourse = useSelector((store) => store.course.isMyCourse);
+  const isNotif = useSelector((store) => store.course.isNotif);
+  const isProfile = useSelector((store) => store.course.isProfile);
   const token = CookieStorage.get(CookieKeys.AuthToken);
   const isLogin = token ? true : false;
 
@@ -35,6 +38,30 @@ const Header = () => {
     window.location.href = "/";
   };
 
+  const Notification = useSelector((store) => store.notification.notifications);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      getNotificationData();
+    }, 5000);
+
+    return () => clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const getNotificationData = async () => {
+    await dispatch(notificationAct());
+  };
+
+  const countReadNotifications = () => {
+    const readNotifications = Notification.filter(
+      (notification) => !notification.isRead
+    );
+    return readNotifications.length;
+  };
+
+  const notifAmount = Notification && countReadNotifications();
+
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
@@ -44,7 +71,9 @@ const Header = () => {
       <Button
         type="link"
         href="/my/course"
-        className="hover:text-paleOrange text-sm px-2 flex gap-2 min-w-max items-center text-white"
+        className={`hover:text-paleOrange text-sm px-2 flex gap-2 min-w-max items-center ${
+          isMyCourse ? "text-paleOrange" : "text-white"
+        }`}
       >
         <ListBulletIcon className="w-6 h-6" />
         <span className="hidden lg:block">My Class</span>
@@ -52,12 +81,27 @@ const Header = () => {
       <Button
         type="link"
         href="/notification"
-        className="hover:text-paleOrange text-sm px-2 flex gap-2 min-w-max items-center text-white"
+        className={`hover:text-paleOrange text-sm px-2 flex gap-2 min-w-max items-center relative ${
+          isNotif ? "text-paleOrange" : "text-white"
+        }`}
       >
         <BellAlertIcon className="w-6 h-6 " />
         <span className="hidden lg:block">Notifications</span>
+        {notifAmount > 0 && (
+          <div className="top-1 left-1 w-4 h-4 text-xs rounded-full bg-salmon absolute justify-center items-center flex text-white font-medium">
+            {notifAmount}
+          </div>
+        )}
       </Button>
-      <Button className="hover:text-paleOrange text-sm py-2 px-4 rounded-full flex gap-2 min-w-max items-center text-white border border-1 border-white hover:border-darkOrange">
+      <Button
+        type="link"
+        href="/account"
+        className={`hover:text-paleOrange text-sm py-2 px-4 rounded-full flex gap-2 min-w-max items-center ${
+          isProfile
+            ? "text-paleOrange outline-none lg:outline lg:outline-1 lg:outline-darkOrange"
+            : "text-white outline-none lg:outline lg:outline-1 lg:outline-white"
+        }  lg:hover:outline-darkOrange`}
+      >
         <UserIcon className="w-6 h-6 " />
         <span className="hidden lg:block">
           {data ? data.nickname : "Username"}
@@ -84,7 +128,11 @@ const Header = () => {
         <BellAlertIcon className="w-6 h-6 " />
         <span>Notifications</span>
       </Button>
-      <Button className="hover:text-darkOrange text-sm rounded-full flex gap-2 min-w-max items-center text-white">
+      <Button
+        type="link"
+        href="/account"
+        className="hover:text-darkOrange text-sm rounded-full flex gap-2 min-w-max items-center text-white"
+      >
         <UserIcon className="w-6 h-6 " />
         <span>{data ? data.nickname : "Username"}</span>
       </Button>
@@ -96,14 +144,14 @@ const Header = () => {
       <Button
         type="link"
         href="/login"
-        className="flex-1 min-w-max flex gap-1 items-center"
+        className="flex-1 flex gap-1 items-center !min-w-max md:!max-w-fit"
         isOutline
       >
         <LockClosedIcon className="w-5 h-5 text-white" />
         <span>Sign In</span>
       </Button>
       <Button
-        className="min-w-max flex-1 flex justify-center items-center"
+        className="!outline !outline-1 !outline-paleOrange flex-1 flex justify-center items-center !min-w-max md:!max-w-fit"
         isOrangeGradient
         type="link"
         href="/register"
@@ -118,7 +166,7 @@ const Header = () => {
       <Button
         type="link"
         href="/login"
-        className="flex-1 min-w-max flex gap-1 items-center justify-center"
+        className="flex-1 flex gap-1 items-center justify-center !min-w-max md:!max-w-fit"
         isOutline
       >
         <LockClosedIcon className="w-5 h-5 text-white" />
@@ -128,7 +176,7 @@ const Header = () => {
         isOrangeGradient
         type="link"
         href="/register"
-        className="flex-1 flex items-center justify-center"
+        className="!outline !outline-1 !outline-paleOrange flex-1 flex items-center justify-center !min-w-max md:!max-w-fit"
       >
         Sign Up
       </Button>

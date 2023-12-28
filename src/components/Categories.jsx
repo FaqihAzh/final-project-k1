@@ -14,8 +14,8 @@ const Categories = () => {
 
   const dispatch = useDispatch();
 
-  const getCategoriesData = () => {
-    dispatch(courseCategoriesAct());
+  const getCategoriesData = async () => {
+    await dispatch(courseCategoriesAct());
   };
 
   return (

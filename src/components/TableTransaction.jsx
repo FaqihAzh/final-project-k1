@@ -11,7 +11,6 @@ export const TableTransaction = () => {
     limit: 12,
   });
   const dataTransaction = fetchData?.data?.transactions;
-  console.log(dataTransaction, "fetchData Tran");
 
   return (
     <div>

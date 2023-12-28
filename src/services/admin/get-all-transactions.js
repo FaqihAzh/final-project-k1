@@ -6,7 +6,6 @@ import { API_ENDPOINT } from "../../utils/constants/endpoint";
 const fetchDataTransaction = async ({queryKey}) => {
     const [_key, _params] = queryKey;
     const { data } = await http.get(_key, { params : _params})
-    console.log(data , "data Transaction")
     return data
 }
 

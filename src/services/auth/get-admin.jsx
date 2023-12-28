@@ -7,7 +7,6 @@ const fetchDataAdmin = async ({ queryKey }) => {
   const [_key] = queryKey;
   try {
     const response = await http.get(_key);
-    console.log(response.data, "tesssss11");
     return response.data;
   } catch (err) {
     if (err.response.status === 401) {

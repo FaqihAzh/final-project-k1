@@ -1,10 +1,26 @@
-import React from 'react'
-import Notification from '../components/Notification'
+import React, { useEffect } from "react";
+import Notification from "../components/Notification";
+import {
+  setIsMyCourse,
+  setIsNotif,
+  setIsProfile,
+} from "../redux/reducers/courseSlice/courseSlice";
+import { useDispatch } from "react-redux";
 
 const NotificationPage = () => {
-  return (
-    <><Notification/></>
-  )
-}
+  const dispatch = useDispatch();
 
-export default NotificationPage
+  useEffect(() => {
+    dispatch(setIsMyCourse(false));
+    dispatch(setIsNotif(true));
+    dispatch(setIsProfile(false));
+  }, []);
+
+  return (
+    <>
+      <Notification />
+    </>
+  );
+};
+
+export default NotificationPage;

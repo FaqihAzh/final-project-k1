@@ -24,7 +24,7 @@ export const ModalUpdate = ({ setUpdateModal, idCourse }) => {
   const [selectedChapterIndex, setSelectedChapterIndex] = useState(0);
   const [selectedModuleIndex, setSelectedModuleIndex] = useState(0);
 
-  console.log(detailCourse, "detailCourse");
+  
   useEffect(() => {
     getDetailCourseData();
   }, []);
@@ -61,14 +61,13 @@ export const ModalUpdate = ({ setUpdateModal, idCourse }) => {
     updatedChapters[chapterIndex].modules[moduleIndex][property] = value;
     setChapters(updatedChapters);
   };
-  console.log(detailCourse, "1");
+
 
   const Post = () => {
     dispatch(
       UpdateCourseACT(idCourse, {
         title: title,
         description: description,
-        // image: image,
         price: parseInt(price),
         author: author,
         level: level,
@@ -80,9 +79,7 @@ export const ModalUpdate = ({ setUpdateModal, idCourse }) => {
   };
 
 
-  console.log(chapters, "chapters");
 
-  console.log(idCourse, "ini id");
   const addrequirements = () => {
     if (InputRequirment.trim() !== "") {
       setrequirements([...requirements, InputRequirment]);
@@ -120,7 +117,7 @@ export const ModalUpdate = ({ setUpdateModal, idCourse }) => {
     }
   };
 
-  console.log(requirements, "requirements");
+  
 
   return (
     <div className="fixed inset-0 overflow-y-auto flex items-center justify-center">
@@ -140,7 +137,7 @@ export const ModalUpdate = ({ setUpdateModal, idCourse }) => {
           </button>
         </div>
         <div className="title mt-4 border text-center">
-          <h1 className="text-lg font-bold">Tambah Course</h1>
+          <h1 className="text-lg font-bold">Update Course</h1>
         </div>
         <div className="body mt-4 border max-h-[25rem] overflow-auto p-2">
           <div className="space-y-4">

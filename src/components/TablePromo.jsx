@@ -16,7 +16,6 @@ export const TablePromo = () => {
 
   const { data: fetchData} = useDataPromo()
   const dataPromo = fetchData?.data
-  console.log(dataPromo, 'fetchDataPromo')
   return (
     <div className="">
     <div className=" my-1 flex justify-between items-center px-[2rem]">

@@ -9,11 +9,10 @@ import "swiper/css/grid";
 import "swiper/css/autoplay";
 import "react-toastify/dist/ReactToastify.css";
 
-import { ThemeProvider } from "@material-tailwind/react";
-
 import { ToastContainer } from "react-toastify";
 import { Provider } from "react-redux";
 import store from "./redux/store";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const queryClient = new QueryClient();
 
@@ -22,15 +21,17 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
-        <ToastContainer
-          closeButton={false}
-          autoClose={3000}
-          hideProgressBar
-          closeOnClick
-          draggable={false}
-          bodyClassName={() => "!py-1 !flex !justify-center !items-center"}
-        />
-        <App />
+        <GoogleOAuthProvider clientId={process.env.REACT_APP_OAUTH_GOOGLE_ID}>
+          <ToastContainer
+            closeButton={false}
+            autoClose={3000}
+            hideProgressBar
+            closeOnClick
+            draggable={false}
+            bodyClassName={() => "!py-1 !flex !justify-center !items-center"}
+          />
+          <App />
+        </GoogleOAuthProvider>
       </QueryClientProvider>
     </Provider>
   </React.StrictMode>

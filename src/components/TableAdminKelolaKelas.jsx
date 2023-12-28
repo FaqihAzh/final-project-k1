@@ -33,7 +33,7 @@ export const TableAdminKelolaKelas = () => {
   
 
   
-  console.log(fetchData, "inidata");
+  
   const datarender = search ? fetchData?.data : fetchData?.data?.courses
 
   const getCategoryNameById = (categoryId) => {
@@ -53,8 +53,6 @@ export const TableAdminKelolaKelas = () => {
     }
   };
 
-  console.log(idCorse, "id")
-  console.log(datarender, "datarender")
   return (
     <div className="">
       <div className=" my-1 flex justify-between items-center px-[0.5rem] md:px-[2rem]">

@@ -8,7 +8,6 @@ import CourseCard from "./CourseCard";
 import { courseCategoriesAct } from "../redux/actions/courseActions/courseCategories";
 import { courseCategoriesIdAct } from "../redux/actions/courseActions/courseCategoriesId";
 import { useParams } from "react-router-dom";
-import FadeIn from "./FadeIn";
 
 const categoryMap = {
   1: "UI/UX Design",
@@ -21,7 +20,10 @@ const categoryMap = {
 const Courses = () => {
   const [showDropdown, setShowDropdown] = useState(false);
 
-  const dataCourse = useSelector((store) => store.course.courses);
+  const baseDataCourse = useSelector((store) => store.course.courses);
+  const [dataCourse, setDataCourse] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+
   const categoriesData = useSelector((store) => store.course.categories);
 
   const toggleDropdown = () => {
@@ -39,16 +41,24 @@ const Courses = () => {
 
   const dispatch = useDispatch();
 
-  const getCategoriesData = () => {
-    dispatch(courseCategoriesAct());
+  const getCategoriesData = async () => {
+    await dispatch(courseCategoriesAct());
   };
 
   const getCoursesByCategoriesData = async () => {
-    await dispatch(courseCategoriesIdAct(params.id));
+    const result = await dispatch(courseCategoriesIdAct(params.id));
+    setDataCourse(result);
   };
 
+  useEffect(() => {
+    const filtered = baseDataCourse.filter((course) =>
+      course.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setDataCourse(filtered);
+  }, [searchTerm, baseDataCourse]);
+
   return (
-    <div className="w-screen min-h-screen pt-24 pb-12 px-4 md:px-12 lg:px-24 lg:pt-28 bg-softGrey flex flex-col gap-4">
+    <div className="w-screen min-h-screen py-24 px-4 md:px-12 lg:px-24 lg:pt-28 bg-softGrey flex flex-col gap-4">
       <div className="grid grid-cols-3 items-center relative">
         <Heading
           variant="h3"
@@ -78,19 +88,19 @@ const Courses = () => {
               ))}
             </div>
           )}
-          <SearchInput text="darkGrey" border="border-2" />
+          <SearchInput
+            text="darkGrey"
+            border="border-2"
+            isCourse={true}
+            searchTerm={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
         </div>
       </div>
       {dataCourse.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 ">
           {dataCourse.map((course) => (
-            <FadeIn
-              key={course.id}
-              delay={(course.id + 1) * 0.2}
-              direction="left"
-            >
-              <CourseCard course={course} isMyClass={false} />
-            </FadeIn>
+            <CourseCard key={course.id} course={course} isMyClass={false} />
           ))}
         </div>
       ) : (

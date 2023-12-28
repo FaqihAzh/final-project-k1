@@ -9,7 +9,7 @@ export const AdminHeader = ({setSideBar, showSideBar}) => {
    // const [isSidebarVisible, setIsSidebarVisible] = useState(false)
 
    const { data: fetchAdmin } = useGetDataAdmin({})
-   console.log(fetchAdmin, "data admin");  
+  
    const {data : fetchActiveUsers} = useFetchActiveUsers()
    const {data : fetchActiveClass} = useFetchActiveClass()
    const {data : fetchPremiumClass} = useFetchPremimumClass()
@@ -23,7 +23,7 @@ export const AdminHeader = ({setSideBar, showSideBar}) => {
    const handleToggleSidebar = () => {
       setSideBar(!showSideBar);
   };
-  console.log(showSideBar, "showSideBar")
+
   return (
 <div className='space-y-10 flex flex-col items-center mb-5 ' >
     <div className='bg-cyan-200 w-full h-[3rem] flex justify-between px-5 items-center sm:flex-row-reverse z-50'>
