@@ -14,6 +14,7 @@ const AdminLogin = async (input) => {
       return result;
     })
     .catch((err) => {
+      alert(err.response.data.error)
       console.log(err, "ini eror");
     });
 };

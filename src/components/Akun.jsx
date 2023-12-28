@@ -7,7 +7,8 @@ import { EyeIcon } from "@heroicons/react/24/outline";
 import { EyeSlashIcon } from "@heroicons/react/24/outline";
 import { useUserChangePassword } from "../services/auth/User/userChangePaswword";
 import { useFetchDataUser } from "../services/user/getUserProfil";
-import { useUpdateDataUser, useUpdateImageUser } from "../services/user/putUserProfil";
+import {useUpdateDataUser} from "../services/user/putUserProfil";
+import { useFetchDataTransactionUser } from "../services/user/getTransaction";
 
 export const Akun = () => {
   const [activeTab, setActiveTab] = useState("profile");
@@ -20,7 +21,6 @@ export const Akun = () => {
     <div className="w-[100vw] h-[100vh] flex justify-center items-center">
       <div className="outline outline-1 w-[50rem] h-[37rem] rounded-xl ">
         <div className="w-full h-[3rem] bg-[#6176F7] text-white font-bold rounded-t-xl  flex items-center justify-center">
-
           Akun
         </div>
         <div className="w-[100%] h-[85%] flex ">
@@ -71,16 +71,22 @@ const UpdateProfileComponent = () => {
   const [negara, setnegara] = useState("");
   const [kota, setkota] = useState("");
   const [getdata, setgetdata] = useState(true);
-  const handleImage = (e) => {
+  const [isImageEnlarged, setIsImageEnlarged] = useState(false);
+  const [checkImg, setcheckImg] = useState(null)
+  const handleImageChange = (e) => {
     const file = e.target.files[0];
+    console.log(file); 
     if (file) {
       setSelectedImage(file);
     }
   };
+  const handleImageClick = () => {
+    setIsImageEnlarged(!isImageEnlarged);
+  };
 
   const { data: fetchDataProfil } = useFetchDataUser();
   const dataUser = fetchDataProfil?.data;
-  console.log(dataUser, "dataUser")
+  console.log(dataUser, "dataUser");
 
   useEffect(() => {
     if (getdata && dataUser) {
@@ -91,6 +97,15 @@ const UpdateProfileComponent = () => {
       setgetdata(false);
     }
   }, [getdata, dataUser]);
+
+  useEffect(() => {
+    // Set selectedImage to profile picture URL when available
+    if (dataUser && dataUser.profile_picture) {
+      setSelectedImage(dataUser.profile_picture);
+      setcheckImg(dataUser.profile_picture);
+    }
+  }, [dataUser]);
+
   const handleInput = (e) => {
     if (e.target.id === "nama") {
       setnama(e.target.value);
@@ -108,8 +123,15 @@ const UpdateProfileComponent = () => {
 
   const { mutate: updateProfil } = useUpdateDataUser();
 
-
   const handleSimpanProfil = () => {
+    if (selectedImage === checkImg ) {
+      updateProfil({
+        phone_number: noTlpn,
+        full_name: nama,
+        city: kota,
+        country: negara,
+      });
+    } else {
       updateProfil({
         phone_number: noTlpn,
         full_name: nama,
@@ -117,30 +139,29 @@ const UpdateProfileComponent = () => {
         city: kota,
         country: negara,
       });
-    
+    }
   };
 
-  // console.log(fetchDataProfil, "fetchDataProfil");
   console.log(selectedImage, "selectedImage");
   return (
     <div className="flex flex-col items-center ">
       <div className="w-20 h-20 rounded-full overflow-hidden mb-4">
-        <img
+      <img
           src={
-            selectedImage
+            selectedImage instanceof File
               ? URL.createObjectURL(selectedImage)
-              : "https://via.placeholder.com/150"
+              : selectedImage || "https://via.placeholder.com/150"
           }
-          alt="Profile"
-          accept="image/*"
-          className="w-full h-full object-cover"
+          alt="Profil"
+          className="w-full h-full object-cover cursor-pointer"
+          onClick={handleImageClick}
         />
       </div>
 
       <input
         type="file"
-        accept="image"
-        onChange={handleImage}
+        accept="image/*"
+        onChange={handleImageChange}
         className="mb-4"
       />
       <div className="w-full flex flex-col items-center">
@@ -191,6 +212,22 @@ const UpdateProfileComponent = () => {
           className="border rounded-lg h-[2.5rem] p-2 w-[80%] border-gray-200"
         />
       </div>
+      {isImageEnlarged && (
+        <div className="fixed inset-0 overflow-hidden z-50 bg-black bg-opacity-75">
+          <div className="flex items-center justify-center h-full">
+            <img
+              src={
+                selectedImage instanceof File
+                  ? URL.createObjectURL(selectedImage)
+                  : selectedImage || "https://via.placeholder.com/150"
+              }
+              alt="Profil"
+              className="max-w-full max-h-full"
+              onClick={handleImageClick}
+            />
+          </div>
+        </div>
+      )}
       <button
         onClick={handleSimpanProfil}
         className=" text-white font-semibold w-[80%] bg-[#6176F7] mt-3 h-[2.5rem] rounded-3xl"
@@ -202,6 +239,9 @@ const UpdateProfileComponent = () => {
 };
 
 const PaymentHistoryComponent = () => {
+  const { data: fetchDataTransaction } = useFetchDataTransactionUser();
+  console.log("fetchDataTransaction", fetchDataTransaction);
+
   return (
     <div>
       <h2>Riwayat Pembayaran</h2>

@@ -1,17 +1,23 @@
 import { useMutation } from "@tanstack/react-query";
 import { API_ENDPOINT } from "../../utils/constants/endpoint";
 import http from "../../utils/constants/http";
+import http2 from "../../utils/constants/http2";
+import { toast } from "react-toastify";
 
 
 
 
 const postDataCourses = async (input) => {
-    return await http.post(API_ENDPOINT.POST_COURSE, input).then((result) => {
-    console.log(result, "post Courses")
-    alert("Berhasil Menambahkan")
+    return await http2.post(API_ENDPOINT.POST_COURSE, input).then((result) => {
+    toast(result.data.message, {
+      position: "bottom-center",
+      className: "custom-toast-success",
+    });
     }).catch((err) => {
-     console.log(err, "ini eror")
-    alert("Gagal Cuy")
+     toast(err.response.data.data, {
+      position: toast.POSITION.BOTTOM_CENTER,
+      className: "custom-toast-error",
+    });
     });
 }
 

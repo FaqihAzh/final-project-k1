@@ -1,6 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { API_ENDPOINT } from "../../utils/constants/endpoint";
 import http from "../../utils/constants/http";
+import { toast } from "react-toastify";
 
 export const getPromo = async () => {
   return await http.get(API_ENDPOINT.GET_PROMO);
@@ -10,7 +11,7 @@ export const getPromo = async () => {
 const fetchDataPromo = async ({ queryKey }) => {
   const [_key, _params] = queryKey;
   const { data } = await http.get(_key, { params: _params });
-  console.log(data, "data Promo");
+
   return data;
 };
 const useDataPromo = (options) => {
@@ -24,7 +25,10 @@ const postPromo = async (input) => {
     .post(API_ENDPOINT.PROMO, input)
     .then((result) => {
       console.log(result, "post promo");
-      alert("berhasil menambahkan promo");
+      toast(result.data.message, {
+        position: "bottom-center",
+        className: "custom-toast-success",
+      });
     })
     .catch((err) => {
       console.log(err, "ini eror");
