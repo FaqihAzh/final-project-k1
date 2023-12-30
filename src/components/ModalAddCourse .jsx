@@ -9,13 +9,15 @@ export const ModalAddCourse = ({ setOpenModal }) => {
   // const [namaKelas, setnamaKelas] = useState('')
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(null);
   const [price, setPrice] = useState(0);
   const [author, setAuthor] = useState("");
   const [level, setLevel] = useState("beginner");
   const [category_id, setCategoryId] = useState(1);
   const [requirements, setrequirements] = useState([]);
   const [InputRequirment, setInputRequirment] = useState("");
+  const [trailer, settrailer] = useState(false)
+  const [teleGrup, setteleGrup] = useState("")
   const [chapters, setChapters] = useState([]);
 
   const [inputChapterName, setInputChapterName] = useState("");
@@ -23,6 +25,14 @@ export const ModalAddCourse = ({ setOpenModal }) => {
   const [inputModuleDuration, setInputModuleDuration] = useState("");
   const [inputModuleUrl, setInputModuleUrl] = useState("");
   const [selectedChapterIndex, setSelectedChapterIndex] = useState(0);
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    console.log(file);
+    if (file) {
+      setImage(file);
+    }
+  };
 
   const addChapter = () => {
     if (inputChapterName.trim() !== "") {
@@ -54,6 +64,7 @@ export const ModalAddCourse = ({ setOpenModal }) => {
         title: inputModuleTitle,
         duration: parseInt(inputModuleDuration),
         url: inputModuleUrl,
+        isTrailer : trailer,
       };
 
       const updatedChapters = [...chapters];
@@ -97,9 +108,6 @@ export const ModalAddCourse = ({ setOpenModal }) => {
     if (e.target.id === "description") {
       setDescription(e.target.value);
     }
-    if (e.target.id === "image") {
-      setImage(e.target.value);
-    }
     if (e.target.id === "price") {
       setPrice(e.target.value);
     }
@@ -112,6 +120,9 @@ export const ModalAddCourse = ({ setOpenModal }) => {
     if (e.target.id === "category_id") {
       setCategoryId(e.target.value);
     }
+    if (e.target.id === "teleGrup") {
+      setteleGrup(e.target.value);
+    }
   };
 
   const Post = () => {
@@ -121,6 +132,7 @@ export const ModalAddCourse = ({ setOpenModal }) => {
       image: image,
       price: parseInt(price),
       author: author,
+      telegram_group:teleGrup,
       level: level,
       category_id: parseInt(category_id),
       requirements: requirements,
@@ -163,26 +175,6 @@ export const ModalAddCourse = ({ setOpenModal }) => {
               />
             </div>
             <div className="flex flex-col">
-              <label className="text-sm font-semibold">description</label>
-              <input
-                className="rounded-lg border p-2 border-gray-300"
-                onChange={handleInput}
-                placeholder="description"
-                id="description"
-                type="text"
-              />
-            </div>
-            <div className="flex flex-col">
-              <label className="text-sm font-semibold"> Image</label>
-              <input
-                className="rounded-lg border p-2 border-gray-300"
-                onChange={handleInput}
-                placeholder="image"
-                id="image"
-                type="text"
-              />
-            </div>
-            <div className="flex flex-col">
               <label className="text-sm font-semibold">Harga</label>
               <input
                 className="rounded-lg border p-2 border-gray-300"
@@ -193,7 +185,7 @@ export const ModalAddCourse = ({ setOpenModal }) => {
               />
             </div>
             <div className="flex flex-col">
-              <label className="text-sm font-semibold">author</label>
+              <label className="text-sm font-semibold">Author</label>
               <input
                 className="rounded-lg border p-2 border-gray-300"
                 onChange={handleInput}
@@ -202,7 +194,17 @@ export const ModalAddCourse = ({ setOpenModal }) => {
                 type="text"
               />
             </div>
-            <div className="flex  justify-between">
+            <div className="flex flex-col">
+              <label className="text-sm font-semibold">Link Grup</label>
+              <input
+                className="rounded-lg border p-2 border-gray-300"
+                onChange={handleInput}
+                placeholder="teleGrup"
+                id="teleGrup"
+                type="text"
+              />
+            </div>
+            <div className="flex  justify-around">
               <div className="flex flex-col">
                 <label className="text-sm font-semibold"> level</label>
                 <select
@@ -218,7 +220,7 @@ export const ModalAddCourse = ({ setOpenModal }) => {
               <div className="flex flex-col ">
                 <h2 className="font-semibold text-sm">Category</h2>
                 <select
-                  className="w-[10rem] border p-2 border-gray-300"
+                  className="w-[13rem] border p-2 border-gray-300"
                   value={category_id}
                   onChange={(e) => setCategoryId(parseInt(e.target.value))}
                 >
@@ -229,6 +231,24 @@ export const ModalAddCourse = ({ setOpenModal }) => {
                   <option value="5">Business Intelligence</option>
                 </select>
               </div>
+            </div>
+            <div className="flex flex-col">
+              <label className="text-sm font-semibold">description</label>
+              <textarea
+                className="rounded-lg border p-2 border-gray-300 resize-none h-[8rem]"
+                onChange={handleInput}
+                placeholder="description"
+                id="description"
+              ></textarea>
+            </div>
+            <div className="flex flex-col">
+              <label className="text-sm font-semibold"> Image</label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                className="mb-4"
+              />
             </div>
             <div>
               <h2 className="font-bold">requirements :</h2>
@@ -280,8 +300,8 @@ export const ModalAddCourse = ({ setOpenModal }) => {
                             className="flex w-[100%] justify-between "
                           >
                             <h2>
-                              {" "}
-                              {`Module: ${module.title}, Duration: ${module.duration}, URL: ${module.url}`}
+                      
+                              {`Module: ${module.title}, Duration: ${module.duration}, URL: ${module.url}, Trailer: ${module.isTrailer}`}
                             </h2>
                             <button
                               onClick={() =>
@@ -321,6 +341,7 @@ export const ModalAddCourse = ({ setOpenModal }) => {
                     Pilih Chapter:{" "}
                   </label>
                   <select
+                  className="rounded-lg border p-2 border-gray-300  "
                     value={selectedChapterIndex}
                     onChange={(e) =>
                       setSelectedChapterIndex(parseInt(e.target.value))
@@ -358,6 +379,17 @@ export const ModalAddCourse = ({ setOpenModal }) => {
                 value={inputModuleUrl}
                 onChange={(e) => setInputModuleUrl(e.target.value)}
               />
+               <div className="flex flex-col">
+                <label className="text-sm font-semibold"> level</label>
+                <select
+                  className="w-[10rem] border p-2 border-gray-300"
+                  value={trailer}
+                  onChange={(e) => settrailer(e.target.value)}
+                >
+                  <option value="false">False</option>
+                  <option value="true">True</option>
+                </select>
+              </div>
 
               <button
                 onClick={addModule}

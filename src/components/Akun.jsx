@@ -15,6 +15,8 @@ import { Heading } from "./Typography";
 import Button from "./Button";
 import { Card, Drawer, List, ListItem } from "@material-tailwind/react";
 import ModalLogoutAkun from "./ModalLogoutAkun";
+import { useFetchDataTransactionUser } from "../services/user/getTransaction";
+import CourseCard from "./CourseCard";
 
 export const Akun = () => {
   const [activeTab, setActiveTab] = useState("profile");
@@ -33,9 +35,9 @@ export const Akun = () => {
   };
 
   return (
-    <div className="flex flex-col w-screen h-screen md:h-fit bg-softGrey">
+    <div className="flex flex-col w-screen min-h-screen bg-softGrey">
       <div className="flex flex-col md:flex-row pt-16 md:pt-24 md:pb-5 px-4 md:px-12 lg:px-24">
-        <div className="hidden md:flex md:w-[40%] lg:w-[35%] bg-white h-screen flex-col rounded-[2rem] shadow-2xl p-7 gap-2">
+        <div className="hidden h-fit md:flex md:w-[40%] lg:w-[35%] bg-white flex-col rounded-[2rem] shadow-2xl p-7 gap-2 mt-7 !pb-36">
           <Heading variant="h3" className="text-lightBlue">
             Account
           </Heading>
@@ -96,7 +98,7 @@ const UpdateProfileComponent = () => {
   const [checkImg, setcheckImg] = useState(null)
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    console.log(file); 
+
     if (file) {
       setSelectedImage(file);
     }
@@ -107,7 +109,6 @@ const UpdateProfileComponent = () => {
 
   const { data: fetchDataProfil } = useFetchDataUser();
   const dataUser = fetchDataProfil?.data;
-  console.log(dataUser, "dataUser");
 
   useEffect(() => {
     if (getdata && dataUser) {
@@ -163,11 +164,10 @@ const UpdateProfileComponent = () => {
     }
   };
 
-  console.log(selectedImage, "selectedImage");
   return (
     <div className="flex flex-col items-center w-full lg:w-1/2">
       <div className="w-20 h-20 rounded-full overflow-hidden mb-4">
-        <img
+      <img
           src={
             selectedImage instanceof File
               ? URL.createObjectURL(selectedImage)
@@ -204,7 +204,7 @@ const UpdateProfileComponent = () => {
             value={noTlpn}
             onChange={handleInput}
             id="noTlpn"
-            type="number"
+            type="tel"
             className="border rounded-lg p-2 w-full border-gray-200"
           />
         </div>
@@ -261,12 +261,20 @@ const UpdateProfileComponent = () => {
 };
 
 const PaymentHistoryComponent = () => {
-  // const { data: fetchDataTransaction } = useFetchDataTransactionUser();
-  // console.log("fetchDataTransaction", fetchDataTransaction);
+  const { data: fetchDataTransaction } = useFetchDataTransactionUser();
 
   return (
     <div>
-      <h2>Riwayat Pembayaran</h2>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 px-4 md:pl-10 lg:pl-10 lg:px-0 pb-8 ">
+      {fetchDataTransaction?.data.map((course) => (
+        <CourseCard
+          key={course.id}
+          course={course}
+          isPayment={true}
+          isHistory={true}
+        />
+      ))}
+    </div>
     </div>
   );
 };
@@ -422,7 +430,7 @@ const Sidebar = ({ activeTab, handleTabChange }) => {
   return (
     <div className="block md:hidden ">
       <div
-        className="flex items-center px-4 py-2 cursor-pointer"
+        className="flex items-center px-4 pt-4 cursor-pointer"
         onClick={openDrawer}
       >
         <span className="text-xl font-bold text-darkGrey">

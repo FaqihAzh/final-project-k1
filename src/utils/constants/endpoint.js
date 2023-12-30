@@ -98,7 +98,7 @@ export const API_ENDPOINT = {
 
   // TRANSACTIONS
   GET_TRANSACTION_USER: "/transactions/me",
-
+  GET_ALL_TRANSACTION_: '/transactions',
   // ADMIN
   ADMIN_LOGIN: "/auth/admin/login",
   GET_ADMIN: "/auth/admin/whoami",

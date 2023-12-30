@@ -1,9 +1,9 @@
-import React from "react";
-import { DeleteCourseAct } from "../redux/actions/Admin/DeleteCourse";
-import { useDispatch } from "react-redux";
-
-export const ModalDelete = ({ setDeleteModal, idCourse }) => {
-  const dispatch = useDispatch();
+import React from 'react';
+import { DeleteCourseAct } from '../redux/actions/Admin/DeleteCourse';
+import { useDispatch } from 'react-redux';
+import {ArchiveBoxXMarkIcon} from "@heroicons/react/24/solid"
+export const ModalDelete = ({ setDeleteModal, idCourse}) => {
+  const dispatch = useDispatch()
   const handleDelete = () => {
     dispatch(DeleteCourseAct(idCourse));
   };
@@ -15,9 +15,7 @@ export const ModalDelete = ({ setDeleteModal, idCourse }) => {
   const handleContinue = () => {
     handleDelete();
     setDeleteModal(false);
-    setTimeout(() => {
-      window.location.reload();
-    }, 1000);
+    // window.location.reload();
   };
 
   return (
@@ -39,7 +37,9 @@ export const ModalDelete = ({ setDeleteModal, idCourse }) => {
           <h1 className="text-lg font-bold">Hapus Kelas</h1>
         </div>
         <div className="body mt-4 border max-h-[25rem] overflow-auto p-2">
-          <div className="outline-dotted">Yakin dihapus?</div>
+        <div className=" flex justify-center items-center">
+        <ArchiveBoxXMarkIcon className='w-[3rem] text-red-400'/>
+          </div>
         </div>
         <div className="footer mt-6 flex justify-center">
           <button
@@ -49,7 +49,7 @@ export const ModalDelete = ({ setDeleteModal, idCourse }) => {
             Cancel
           </button>
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            className="bg-[#FFC27A] hover:bg-[#FFA337] text-white font-bold py-2 px-4 rounded"
             onClick={handleContinue}
           >
             Continue

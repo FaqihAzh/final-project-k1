@@ -6,7 +6,6 @@ import http from "../../utils/constants/http";
 const fetchActiveUsers = async ({queryKey}) => {
     const [_key, _params] = queryKey;
       const { data } = await http.get(_key, { params : _params})
-      console.log(data , "fetchActiveUsers")
       return data
   }
   export const useFetchActiveUsers = (options) => {
@@ -17,7 +16,6 @@ const fetchActiveUsers = async ({queryKey}) => {
   const fetchActiveClass = async ({queryKey}) => {
     const [_key, _params] = queryKey;
       const { data } = await http.get(_key, { params : _params})
-      console.log(data , "fetchActiveClass")
       return data
   }
   export const useFetchActiveClass = (options) => {
@@ -28,7 +26,6 @@ const fetchActiveUsers = async ({queryKey}) => {
   const fetchPremimumClass = async ({queryKey}) => {
     const [_key, _params] = queryKey;
       const { data } = await http.get(_key, { params : _params})
-      console.log(data , "fetchPremimumClass")
       return data
   }
   export const useFetchPremimumClass = (options) => {

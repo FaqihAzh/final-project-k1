@@ -8,17 +8,20 @@ import { useDispatch } from "react-redux";
 import { DeleteCourseAct } from "../redux/actions/Admin/DeleteCourse";
 import { ModalUpdate } from "./ModalUpdate";
 import { UpdateCourseACT } from "../redux/actions/Admin/UpdateCourse";
+import {MagnifyingGlassIcon} from "@heroicons/react/24/outline"
 
 export const TableAdminKelolaKelas = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalDelete, setmodalDelete] = useState(false);
   const [modalUpdate, setmodalUpdate] = useState(false)
   const [idCorse, setidCorse] = useState()
+  const [search, setsearch] = useState('')
   const [Page, setPage] = useState(1);
   const dispatch = useDispatch()
-  const { data: fetchData } = useFetchDataCourses({
+  const { data: fetchData,} = useFetchDataCourses({
     page: Page,
     limit: 10,
+    search : search
   });
 
 
@@ -30,16 +33,32 @@ export const TableAdminKelolaKelas = () => {
   
 
   
-  console.log(fetchData?.data?.courses, "inidata");
-  const datarender = fetchData?.data?.courses;
   
+  const datarender = search ? fetchData?.data : fetchData?.data?.courses
 
-  console.log(idCorse, "id")
+  const getCategoryNameById = (categoryId) => {
+    switch (categoryId) {
+      case 1:
+        return "UI/UX Design";
+      case 2:
+        return "Web Development";
+      case 3:
+        return "Android Development";
+      case 4:
+        return "Data Science";
+      case 5:
+        return "Business Intelligence";
+      default:
+        return "Unknown Category";
+    }
+  };
+
   return (
     <div className="">
-      <div className=" my-1 flex justify-between items-center px-[2rem]">
+      <div className=" my-1 flex justify-between items-center px-[0.5rem] md:px-[2rem]">
       <h2 className="font-bold text-[1.2rem]">Kelola Kelas</h2>
-        <button
+       <div className="flex space-x-3">
+       <button
           className="bg-[#FFC27A] hover:bg-[#FFA337] text-white font-bold py-2 px-4 rounded"
           onClick={() => {
             setModalOpen(true);
@@ -47,6 +66,16 @@ export const TableAdminKelolaKelas = () => {
         >
           Tambah Course
         </button>
+        <div className="relative flex items-center">
+      <input
+        type="text"
+        className='border border-[#FFC27A] rounded-3xl outline-none pl-4 pr-10 py-2 w-[10rem]' 
+        placeholder="Search..."
+        onChange={(e)=>{setsearch(e.target.value)}}
+      />
+      <MagnifyingGlassIcon className="absolute right-3 w-[1rem] top-1/2 transform -translate-y-1/2 text-gray-500" />
+    </div>
+       </div>
     
         {modalOpen && <ModalAddCourse setOpenModal={setModalOpen} />}
       </div>
@@ -65,18 +94,19 @@ export const TableAdminKelolaKelas = () => {
             </tr>
           </thead>
           <tbody>
-            {datarender?.map((value) => (
+            {Array.isArray(datarender) ? (
+              datarender.map((value) => (
               <tr
                 key={value.id}
                 className="bg-white dark:border-gray-700 dark:bg-gray-800 space-y-[0.8rem]"
               >
                 <td className="py-2 px-4 border-b">{value.id}</td>
-                <td className="py-2 px-4 border-b">{value.category_id}</td>
+                <td className="py-2 px-4 border-b">{getCategoryNameById(value.category_id)}</td>
                 <td className="py-2 px-4 border-b">{value.author}</td>
                 <td className="py-2 px-4 border-b">{value.title}</td>
                 <td className="py-2 px-4 border-b">{value.level}</td>
-                <td className="py-2 px-4 border-b">{value.price}</td>
-                <td className="py-2 px-4 border-b">{value.ratings}</td>
+                <td className="py-2 px-4 border-b">{value.price === 0 ? "Gratis" : value.price}</td>
+                <td className="py-2 px-4 border-b text-center">{value.averageRating}</td>
                 <td className="py-2 px-4 border-b space-x-3 flex">
                   <button className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"
                   onClick={()=> {
@@ -99,17 +129,30 @@ export const TableAdminKelolaKelas = () => {
                   </button>
                 </td>
               </tr>
-            ))}
+            ))
+          ): (
+            <tr>
+              <td colSpan="8">Tidak ada data</td>
+            </tr>
+          )}
           </tbody>
         </table>
             {modalDelete && <ModalDelete setDeleteModal={setmodalDelete}  idCourse={idCorse} Delete={handleDelete}/>}
             {modalUpdate && <ModalUpdate setUpdateModal={setmodalUpdate}  idCourse={idCorse}/>}
       </div>
-      <div className=" flex justify-center items-center space-x-10">
-        <button  onClick={() => {Page > 1 && setPage(Page -1)}}><BackwardIcon className="w-[2rem]"/></button>
-        <h2>{Page}</h2>
-        <button onClick={() => {setPage(Page + 1)}} ><ForwardIcon className="w-[2rem]"/></button>
-      </div>
+              <div className="flex justify-center items-center space-x-10">
+          {search === '' && (
+            <>
+              <button onClick={() => {Page > 1 && setPage(Page - 1)}}>
+                <BackwardIcon className="w-[2rem]" />
+              </button>
+              <h2>{Page}</h2>
+              <button onClick={() => {setPage(Page + 1)}}>
+                <ForwardIcon className="w-[2rem]" />
+              </button>
+            </>
+          )}
+        </div>
     </div>
   );
 };

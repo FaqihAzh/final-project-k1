@@ -3,19 +3,20 @@ import Button from "../Button";
 import FormInput from "../Form";
 import FadeIn from "../FadeIn";
 import { UseAdminLogin } from "../../services/auth/admin-login";
-import axios from "axios";
-import { API_ENDPOINT } from "../../utils/constants/endpoint";
 export const LoginAdmin = () => {
   const [inputid, setinputid] = useState("");
   const [InputPassword, setInputPassword] = useState("");
 
-  const { mutate: AdminLogin, isSuccess, isError } = UseAdminLogin();
+  const { mutate: AdminLogin, isSuccess, isError, isLoading } = UseAdminLogin();
 
   if (isSuccess) {
     console.log("berhasil");
   } else if (isError) {
     console.log("gagal");
+  } else if (isLoading){
+    <h2>loading</h2>
   }
+
 
   const handleinputId = (e) => {
     setinputid(e.target.value);
