@@ -35,9 +35,9 @@ export const Akun = () => {
   };
 
   return (
-    <div className="flex flex-col w-screen min-h-screen bg-softGrey">
-      <div className="flex flex-col md:flex-row pt-16 md:pt-24 md:pb-5 px-4 md:px-12 lg:px-24">
-        <div className="hidden h-fit md:flex md:w-[40%] lg:w-[35%] bg-white flex-col rounded-[2rem] shadow-2xl p-7 gap-2 mt-7 !pb-36">
+    <div className="flex flex-col w-screen min-h-screen overflow-x-hidden bg-softGrey">
+      <div className="flex flex-col md:flex-row pt-16 md:pt-24 md:pb-5 px-4 md:px-12 lg:px-24 overflow-x-hidden">
+        <div className="hidden h-fit md:flex md:w-[40%] lg:w-[35%] bg-white flex-col rounded-[2rem] shadow-lg p-7 gap-2 mt-7 !pb-36 overflow-x-hidden">
           <Heading variant="h3" className="text-lightBlue">
             Account
           </Heading>
@@ -121,7 +121,6 @@ const UpdateProfileComponent = () => {
   }, [getdata, dataUser]);
 
   useEffect(() => {
-    // Set selectedImage to profile picture URL when available
     if (dataUser && dataUser.profile_picture) {
       setSelectedImage(dataUser.profile_picture);
       setcheckImg(dataUser.profile_picture);

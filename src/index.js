@@ -30,7 +30,9 @@ root.render(
             draggable={false}
             bodyClassName={() => "!py-1 !flex !justify-center !items-center"}
           />
+          <div className="overflow-hidden">
           <App />
+          </div>
         </GoogleOAuthProvider>
       </QueryClientProvider>
     </Provider>
