@@ -15,8 +15,9 @@ import { Heading } from "./Typography";
 import Button from "./Button";
 import { Card, Drawer, List, ListItem } from "@material-tailwind/react";
 import ModalLogoutAkun from "./ModalLogoutAkun";
-import { useFetchDataTransactionUser } from "../services/user/getTransaction";
 import CourseCard from "./CourseCard";
+import { useDispatch } from "react-redux";
+import { courseTransactionsMeAct } from "../redux/actions/courseActions/courseTransactionsMe";
 
 export const Akun = () => {
   const [activeTab, setActiveTab] = useState("profile");
@@ -37,8 +38,8 @@ export const Akun = () => {
   return (
     <div className="flex flex-col w-screen min-h-screen overflow-x-hidden bg-softGrey">
       <div className="flex flex-col md:flex-row pt-16 md:pt-24 md:pb-5 px-4 md:px-12 lg:px-24 overflow-x-hidden">
-        <div className="hidden h-fit md:flex md:w-[40%] lg:w-[35%] bg-white flex-col rounded-[2rem] shadow-lg p-7 gap-2 mt-7 !pb-36 overflow-x-hidden">
-          <Heading variant="h3" className="text-lightBlue">
+        <div className="hidden h-fit md:flex md:w-[40%] lg:w-[35%] bg-white flex-col rounded-xl shadow-lg p-7 gap-2 mt-7 !pb-36 overflow-x-hidden">
+          <Heading variant="h3" className="text-darkGrey">
             Account
           </Heading>
           <button
@@ -46,21 +47,43 @@ export const Akun = () => {
             className="flex items-center space-x-2 h-[3rem] border-b-2 w-[100%]"
           >
             <PencilSquareIcon className="w-[2rem] text-[#6176F7]" />
-            <span>Profil</span>
+            <span
+              className={
+                activeTab === "profile" ? "text-[#6176F7]" : "text-[#21212F]"
+              }
+            >
+              Profil
+            </span>
           </button>
           <button
             onClick={() => handleTabChange("changePassword")}
             className="flex items-center space-x-2 h-[3rem] border-b-2 w-[100%]"
           >
             <Cog6ToothIcon className="w-[2rem] text-[#6176F7]" />
-            <span>Change Password</span>
+            <span
+              className={
+                activeTab === "changePassword"
+                  ? "text-[#6176F7]"
+                  : "text-[#21212F]"
+              }
+            >
+              Change Password
+            </span>
           </button>
           <button
             onClick={() => handleTabChange("paymentHistory")}
             className="flex items-center space-x-2 h-[3rem] border-b-2 w-[100%]"
           >
             <ShoppingCartIcon className="w-[2rem] text-[#6176F7]" />
-            <span>Payment History</span>
+            <span
+              className={
+                activeTab === "paymentHistory"
+                  ? "text-[#6176F7]"
+                  : "text-[#21212F]"
+              }
+            >
+              Payment History
+            </span>
           </button>
           <button
             onClick={openModal}
@@ -95,7 +118,7 @@ const UpdateProfileComponent = () => {
   const [kota, setkota] = useState("");
   const [getdata, setgetdata] = useState(true);
   const [isImageEnlarged, setIsImageEnlarged] = useState(false);
-  const [checkImg, setcheckImg] = useState(null)
+  const [checkImg, setcheckImg] = useState(null);
   const handleImageChange = (e) => {
     const file = e.target.files[0];
 
@@ -145,7 +168,7 @@ const UpdateProfileComponent = () => {
   const { mutate: updateProfil } = useUpdateDataUser();
 
   const handleSimpanProfil = () => {
-    if (selectedImage === checkImg ) {
+    if (selectedImage === checkImg) {
       updateProfil({
         phone_number: noTlpn,
         full_name: nama,
@@ -166,7 +189,7 @@ const UpdateProfileComponent = () => {
   return (
     <div className="flex flex-col items-center w-full lg:w-1/2">
       <div className="w-20 h-20 rounded-full overflow-hidden mb-4">
-      <img
+        <img
           src={
             selectedImage instanceof File
               ? URL.createObjectURL(selectedImage)
@@ -232,21 +255,21 @@ const UpdateProfileComponent = () => {
           />
         </div>
         {isImageEnlarged && (
-        <div className="fixed inset-0 overflow-hidden z-50 bg-black bg-opacity-75">
-          <div className="flex items-center justify-center h-full">
-            <img
-              src={
-                selectedImage instanceof File
-                  ? URL.createObjectURL(selectedImage)
-                  : selectedImage || "https://via.placeholder.com/150"
-              }
-              alt="Profil"
-              className="max-w-full max-h-full"
-              onClick={handleImageClick}
-            />
+          <div className="fixed inset-0 overflow-hidden z-50 bg-black bg-opacity-75">
+            <div className="flex items-center justify-center h-full">
+              <img
+                src={
+                  selectedImage instanceof File
+                    ? URL.createObjectURL(selectedImage)
+                    : selectedImage || "https://via.placeholder.com/150"
+                }
+                alt="Profil"
+                className="max-w-full max-h-full"
+                onClick={handleImageClick}
+              />
+            </div>
           </div>
-        </div>
-      )}
+        )}
         <Button
           isSolidBlue
           className="hover:scale-105 w-full font-semibold"
@@ -260,20 +283,32 @@ const UpdateProfileComponent = () => {
 };
 
 const PaymentHistoryComponent = () => {
-  const { data: fetchDataTransaction } = useFetchDataTransactionUser();
+  const dispatch = useDispatch();
+  const [historyData, setHistoryData] = useState([]);
+
+  useEffect(() => {
+    getCoursesTransactionsData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const getCoursesTransactionsData = async () => {
+    const data = await dispatch(courseTransactionsMeAct());
+    setHistoryData(data);
+  };
 
   return (
     <div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 px-4 md:pl-10 lg:pl-10 lg:px-0 pb-8 ">
-      {fetchDataTransaction?.data.map((course) => (
-        <CourseCard
-          key={course.id}
-          course={course}
-          isPayment={true}
-          isHistory={true}
-        />
-      ))}
-    </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 px-4 md:pl-10 lg:pl-10 lg:px-0 pb-8 ">
+        {historyData?.map((course) => (
+          <CourseCard
+            key={course.id}
+            course={course.course}
+            courseHistory={course}
+            isPayment={true}
+            isHistory={true}
+          />
+        ))}
+      </div>
     </div>
   );
 };

@@ -10,6 +10,7 @@ export const IsLoginProtected = ({ children }) => {
     if (data.token !== undefined || data.token === "") {
       navigate("/");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   return children;
@@ -23,6 +24,7 @@ export const IsLogOutProtected = ({ children }) => {
     if (data.token === undefined) {
       navigate("/login");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   return children;

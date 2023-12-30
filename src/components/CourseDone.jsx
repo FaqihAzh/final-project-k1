@@ -3,7 +3,7 @@ import FadeIn from "./FadeIn";
 import courseDone from "../../src/assets/images/courseDone.png";
 import { Heading, Paragraph } from "./Typography";
 import Button from "./Button";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import {
   courseAllCoursesAct,
@@ -22,7 +22,6 @@ import { inputRatingAct } from "../redux/actions/courseActions/courseRatings";
 const CourseDone = () => {
   const params = useParams();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const [detailCourse, setDetailCourse] = useState([]);
   const [dataAllCourse, setDataAllCourse] = useState([]);
@@ -37,6 +36,7 @@ const CourseDone = () => {
     dispatch(setIsProfile(false));
     getDetailCourseData();
     getCoursesData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.id]);
 
   const getDetailCourseData = async () => {
@@ -74,13 +74,6 @@ const CourseDone = () => {
       window.location.href = `/congrats/${params.id}`;
     }
   };
-  // const areAllModulesCompleted = detailCourse?.chapters?.every((chapter) =>
-  //   chapter.modules.every((module) => module.userCourseProgress.isCompleted)
-  // );
-
-  // if (!areAllModulesCompleted) {
-  //   return navigate(`/learning/${params.id}`);
-  // }
 
   return (
     <>

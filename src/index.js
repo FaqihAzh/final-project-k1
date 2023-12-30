@@ -31,7 +31,7 @@ root.render(
             bodyClassName={() => "!py-1 !flex !justify-center !items-center"}
           />
           <div className="overflow-hidden">
-          <App />
+            <App />
           </div>
         </GoogleOAuthProvider>
       </QueryClientProvider>

@@ -24,7 +24,13 @@ const categoryMap = {
   5: "Business Intelligence",
 };
 
-const CourseCard = ({ isMyClass, course, isPayment, isHistory }) => {
+const CourseCard = ({
+  isMyClass,
+  course,
+  isPayment,
+  isHistory,
+  courseHistory,
+}) => {
   const [detailCourse, setDetailCourse] = useState([]);
   const [myCourse, setmyCourseId] = useState([]);
   const [ratingsCourse, setRatingsCourse] = useState(1);
@@ -166,11 +172,13 @@ const CourseCard = ({ isMyClass, course, isPayment, isHistory }) => {
           {isMyClass ? (
             <div className="w-full flex outline outline-1 outline-softGrey rounded-full mt-2">
               <div
-                className={`w-[${String(progress)}%] ${
-                  progress === 0 && "bg-salmon"
-                } ${progress > 0 && progress < 100 && "bg-darkOrange"} ${
-                  progress === 100 && "bg-seaGreen"
-                } px-4 rounded-full `}
+                className={`${progress === 0 && "bg-salmon"} ${
+                  progress > 0 && progress < 100 && "bg-darkOrange"
+                } ${progress === 100 && "bg-seaGreen"} px-4 rounded-full `}
+                style={{
+                  width:
+                    progress === 0 ? "var(--progress-padding)" : `${progress}%`,
+                }}
               >
                 <Paragraph
                   className={`text-xs font-normal text-white ${
@@ -198,17 +206,17 @@ const CourseCard = ({ isMyClass, course, isPayment, isHistory }) => {
             <div className="w-full flex rounded-full mt-2">
               <div
                 className={`px-4 py-1 rounded-full w-fit ${
-                  course?.status === "paid" && "bg-seaGreen"
-                } ${course?.status === "Pending" && "bg-darkOrange"} ${
-                  course?.status !== "paid" &&
-                  course?.status !== "Pending" &&
+                  courseHistory?.status === "paid" && "bg-seaGreen"
+                } ${courseHistory?.status === "Pending" && "bg-darkOrange"} ${
+                  courseHistory?.status !== "paid" &&
+                  courseHistory?.status !== "Pending" &&
                   "bg-salmon"
                 }`}
               >
                 <Paragraph
                   className={`text-xs font-medium text-white tracking-wide capitalize`}
                 >
-                  {course.status}
+                  {courseHistory.status}
                 </Paragraph>
               </div>
             </div>
