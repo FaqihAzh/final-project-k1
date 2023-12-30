@@ -67,7 +67,7 @@ const Courses = () => {
           onClick={toggleDropdown}
         >
           {title ? title : "All"}{" "}
-          <span className="hidden md:flex ml-2 ">Course's</span>
+          <span className="hidden md:flex">Course's</span>
           <ChevronDownIcon className="w-5 h-5 mt-1" strokeWidth={2} />
         </Heading>
         <div className="col-span-1 flex gap-2">

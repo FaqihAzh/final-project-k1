@@ -7,21 +7,14 @@ import UserAuthLayout from "./Layout/UserAuthLayout";
 import ResetPasswordPage from "./pages/Auth/ResetPasswordPage";
 import RegisterPage from "./pages/Auth/RegisterPage";
 import ForgotPasswordPage from "./pages/Auth/ForgotPasswordPage";
-
 import OtpPage from "./pages/Auth/OtpPage";
 import { AccountPage } from "./pages/AccountPage";
-// import { ModalDelete } from "./components/ModalDelete";
 import MyCoursePage from "./pages/Course/MyCoursePage";
 import AllCoursePage from "./pages/Course/AllCoursePage";
 import HomePage from "./pages/HomePage";
-import {
-  IsLogOutProtected,
-  IsLoginProtected,
-} from "./components/Auth/Protected";
 import PaymentSuccessPage from "./pages/Course/PaymentSuccessPage";
 import NotificationPage from "./pages/NotificationPage";
 import PaymentPage from "./pages/Course/PaymentPage";
-
 import CourseDetailsPage from "./pages/Course/CourseDetailsPage";
 import CheckEmailPage from "./pages/Auth/CheckEmailPage";
 import Courses from "./components/Courses";
@@ -32,8 +25,11 @@ import ResendEmailCheck from "./components/Auth/ResendOtpCheck";
 import LoginPage from "./pages/Auth/LoginPage";
 import { AdminPromo } from "./pages/admin/AdminPromo";
 import LearningCoursePage from "./pages/Course/LearningCoursePage";
-import TestingPage from "./pages/TestingPage";
 import CourseDone from "./components/CourseDone";
+import {
+  IsLogOutProtected,
+  IsLoginProtected,
+} from "./components/Auth/Protected";
 
 const App = () => {
   return (
@@ -98,15 +94,41 @@ const App = () => {
                 </IsLogOutProtected>
               }
             />
-
-            <Route path="/learning/:id" element={<LearningCoursePage />} />
-            <Route path="/congrats/:id" element={<CourseDone />} />
+            <Route
+              path="/learning/:id"
+              element={
+                <IsLogOutProtected>
+                  <LearningCoursePage />
+                </IsLogOutProtected>
+              }
+            />
+            <Route
+              path="/congrats/:id"
+              element={
+                <IsLogOutProtected>
+                  <CourseDone />
+                </IsLogOutProtected>
+              }
+            />
+            <Route
+              path="/account"
+              element={
+                <IsLogOutProtected>
+                  <AccountPage />
+                </IsLogOutProtected>
+              }
+            />
+            <Route
+              path="/notification"
+              element={
+                <IsLogOutProtected>
+                  <NotificationPage />
+                </IsLogOutProtected>
+              }
+            />
             <Route path="/all/course" element={<AllCoursePage />} />
             <Route path="/course/category/:id" element={<Courses />} />
             <Route path="/search-results" element={<SearchResultsPage />} />
-            <Route path="/notification" element={<NotificationPage />} />
-            <Route path="/account" element={<AccountPage/>}/>
-            <Route path="/testing" element={<TestingPage />} />
           </Route>
 
           {/* Admin Start */}
@@ -114,14 +136,6 @@ const App = () => {
           <Route path="/admindashboard" element={<AdminDashboard />} />
           <Route path="/adminkelolakelas" element={<AdminKelolaKelas />} />
           <Route path="/adminpromo" element={<AdminPromo />} />
-          {/* <Route path="/delete/:id" element={<ModalDelete/>}/> */}
-
-          {/* admin */}
-          <Route path="/register" element={<RegisterPage />} />
-
-          {/* Buat yg gapake layout samsek bisa di taruh disini, ex: login, regist etc */}
-          
-          {/* Admin End */}
 
           <Route element={<AuthLayoutWithOutlet />}>
             <Route path="/login" element={<LoginPage />} />
