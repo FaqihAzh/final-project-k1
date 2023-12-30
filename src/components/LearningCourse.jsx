@@ -349,7 +349,7 @@ const LearningCourse = () => {
           </div>
         </div>
 
-        <div className="flex flex-col-reverse md:flex-row gap-4 justify-between">
+        <div className="flex flex-row justify-between">
           <div className="flex flex-row gap-2">
             <Button
               isGreenGradient

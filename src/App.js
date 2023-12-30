@@ -115,6 +115,12 @@ const App = () => {
           <Route path="/adminkelolakelas" element={<AdminKelolaKelas />} />
           <Route path="/adminpromo" element={<AdminPromo />} />
           {/* <Route path="/delete/:id" element={<ModalDelete/>}/> */}
+
+          {/* admin */}
+          <Route path="/register" element={<RegisterPage />} />
+
+          {/* Buat yg gapake layout samsek bisa di taruh disini, ex: login, regist etc */}
+          
           {/* Admin End */}
 
           <Route element={<AuthLayoutWithOutlet />}>

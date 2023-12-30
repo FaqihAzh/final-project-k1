@@ -23,7 +23,7 @@ const Footer = () => {
 
   return (
     <>
-      <footer className="flex flex-col md:flex-row gap-8 items-start justify-between bg-darkGrey px-4 md:px-12 lg:px-24 py-12">
+      <footer className="flex flex-col md:flex-row gap-8 items-start justify-between bg-darkGrey px-4 md:px-12 lg:px-24 py-12 overflow-hidden">
         <div className="flex flex-col gap-4 justify-start">
           <Button
             type="link"

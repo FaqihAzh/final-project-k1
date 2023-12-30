@@ -36,6 +36,7 @@ const CourseDetails = () => {
   useEffect(() => {
     getDetailCourseData();
     getRatingsData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.id]);
 
   const getDetailCourseData = async () => {
@@ -131,7 +132,7 @@ const CourseDetails = () => {
             </div>
           </div>
           <div className="flex flex-col gap-4 ">
-            <div className="overflow-hidden bg-darkGrey w-full h-[10rem] md:h-[20rem] rounded-2xl flex justify-center items-center">
+            <div className="overflow-hidden bg-darkGrey w-full h-[12rem] md:h-[20rem] rounded-2xl flex justify-center items-center">
               {currentModule ? (
                 <ReactPlayer
                   url={currentModule.url}
@@ -168,7 +169,7 @@ const CourseDetails = () => {
             >
               Requirements
             </Paragraph>
-            <div className="flex gap-2 mt-2">
+            <div className="flex gap-2 mt-2 flex-wrap">
               {detailCourse && detailCourse.requirements ? (
                 detailCourse.requirements.map((requirement, index) => (
                   <span

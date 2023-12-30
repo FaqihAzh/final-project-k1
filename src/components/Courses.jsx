@@ -37,6 +37,7 @@ const Courses = () => {
   useEffect(() => {
     getCategoriesData();
     getCoursesByCategoriesData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.id]);
 
   const dispatch = useDispatch();
@@ -62,10 +63,11 @@ const Courses = () => {
       <div className="grid grid-cols-3 items-center relative">
         <Heading
           variant="h3"
-          className="text-darkGrey col-span-2 flex gap-2 items-center cursor-pointer"
+          className="text-darkGrey col-span-2 flex w-[90%] gap-2 items-center cursor-pointer"
           onClick={toggleDropdown}
         >
-          {title ? title : "All"} Course's{" "}
+          {title ? title : "All"}{" "}
+          <span className="hidden md:flex ml-2 ">Course's</span>
           <ChevronDownIcon className="w-5 h-5 mt-1" strokeWidth={2} />
         </Heading>
         <div className="col-span-1 flex gap-2">
@@ -75,6 +77,7 @@ const Courses = () => {
                 <Button
                   type="link"
                   href={`/course/category/${category.id}`}
+                  onClick={() => setShowDropdown(false)}
                   className={`${
                     category.name_categories === title
                       ? "bg-darkOrange text-white"
