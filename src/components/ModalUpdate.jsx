@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { BackspaceIcon } from "@heroicons/react/24/outline";
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useDispatch } from "react-redux";
@@ -15,20 +14,16 @@ export const ModalUpdate = ({ setUpdateModal, idCourse }) => {
   const [category_id, setCategoryId] = useState(1);
   const [requirements, setrequirements] = useState([]);
   const [InputRequirment, setInputRequirment] = useState("");
-  const [grupTele, setgrupTele] = useState("")
+  const [grupTele, setgrupTele] = useState("");
   const [chapters, setChapters] = useState([]);
 
- 
-
-  
   const [selectedChapterIndex, setSelectedChapterIndex] = useState(0);
   const [selectedModuleIndex, setSelectedModuleIndex] = useState(0);
 
-  
   useEffect(() => {
     getDetailCourseData();
   }, []);
-  
+
   const dispatch = useDispatch();
 
   const getDetailCourseData = async () => {
@@ -38,7 +33,7 @@ export const ModalUpdate = ({ setUpdateModal, idCourse }) => {
     setPrice(result.price);
     setAuthor(result.author);
     setLevel(result.level);
-    setgrupTele(result.telegram_group)
+    setgrupTele(result.telegram_group);
     setCategoryId(result.category_id);
     setrequirements(result.requirements);
     setChapters(
@@ -62,7 +57,6 @@ export const ModalUpdate = ({ setUpdateModal, idCourse }) => {
     setChapters(updatedChapters);
   };
 
-
   const Post = () => {
     dispatch(
       UpdateCourseACT(idCourse, {
@@ -77,8 +71,6 @@ export const ModalUpdate = ({ setUpdateModal, idCourse }) => {
       })
     );
   };
-
-
 
   const addrequirements = () => {
     if (InputRequirment.trim() !== "") {
@@ -116,8 +108,6 @@ export const ModalUpdate = ({ setUpdateModal, idCourse }) => {
       setgrupTele(e.target.value);
     }
   };
-
-  
 
   return (
     <div className="fixed inset-0 overflow-y-auto flex items-center justify-center">
@@ -337,7 +327,7 @@ export const ModalUpdate = ({ setUpdateModal, idCourse }) => {
                           onChange={(e) =>
                             handleInputChange(
                               "duration",
-                              parseInt(e.target.value, 10), 
+                              parseInt(e.target.value, 10),
                               selectedChapterIndex,
                               selectedModuleIndex
                             )

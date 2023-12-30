@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useFetchDataCourses } from "../services/admin/get-courses";
 import { ModalAddCourse } from "./ModalAddCourse ";
 import { ModalDelete } from "./ModalDelete";
@@ -7,7 +7,6 @@ import { BackwardIcon } from "@heroicons/react/24/outline";
 import { useDispatch } from "react-redux";
 import { DeleteCourseAct } from "../redux/actions/Admin/DeleteCourse";
 import { ModalUpdate } from "./ModalUpdate";
-import { UpdateCourseACT } from "../redux/actions/Admin/UpdateCourse";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
 export const TableAdminKelolaKelas = () => {
@@ -71,7 +70,6 @@ export const TableAdminKelolaKelas = () => {
             />
             <MagnifyingGlassIcon className="absolute right-3 w-[1rem] top-1/2 transform -translate-y-1/2 text-gray-500" />
           </div>
-          
         </div>
 
         {modalOpen && <ModalAddCourse setOpenModal={setModalOpen} />}
