@@ -270,76 +270,100 @@ const LearningCourse = () => {
   }
 
   return (
-    <div className="flex flex-col-reverse lg:flex-row justify-center pt-24 px-4 lg:px-24 bg-softGrey pb-0 md:pb-6 gap-4 lg:gap-12 h-screen ">
-      <div className="w-full lg:w-[30%] bg-white rounded-b-none rounded-t-3xl md:rounded-3xl p-6 flex flex-col gap-5 overflow-y-scroll h-full relative">
-        <div className="flex items-center justify-between">
-          <Paragraph className="text-xl font-semibold text-darkGrey tracking-wide">
-            Course Material
-          </Paragraph>
-          <Paragraph className="text-base font-semibold text-darkGrey tracking-wide !flex !items-center">
-            <span className="flex items-center text-darkOrange">
-              {[...Array(rating)].map((_, index) => (
-                <StarIcon key={index} className="w-4 h-4" />
-              ))}
-            </span>
-          </Paragraph>
-        </div>
-        <hr className="-my-2" />
-        {detailCourse.chapters &&
-          detailCourse.chapters.map((chapter, chapterIndex) => (
-            <div key={chapter.id} className="flex flex-col gap-2">
-              <div className="flex flex-row gap-3 items-center justify-between">
-                <Paragraph className="capitalize text-base font-medium text-darkOrange tracking-wide truncate w-[70%] hover:whitespace-normal hover:overflow-visible hover:text-clip">
-                  {chapter.name}
-                </Paragraph>
-                <Paragraph className="capitalize text-sm font-medium text-darkOrange tracking-wide text-end">
-                  {chapter.modules && (
-                    <span>
-                      {chapter.modules.reduce(
-                        (totalDuration, module) =>
-                          totalDuration +
-                          (totalDurationPerModule[
-                            `${chapterIndex}_${module.title}`
-                          ] || 0),
-                        0
-                      )}{" "}
-                      mins
-                    </span>
-                  )}
-                </Paragraph>
-              </div>
-
-              {chapter.modules.map((module, subIndex) => (
-                <div
-                  key={subIndex}
-                  className="flex flex-row gap-3 items-center bg-cloudWhite py-3 px-4 rounded-xl cursor-pointer"
-                  onClick={() =>
-                    handleModuleClick(
-                      module.url,
-                      module.title,
-                      module.userCourseProgress.id
-                    )
-                  }
-                >
-                  <Paragraph className="text-sm font-normal text-darkGrey tracking-wide flex-1 truncate hover:whitespace-normal hover:overflow-visible hover:text-clip">
-                    {module.title}
+    <div className="flex flex-col-reverse lg:flex-row justify-center pt-24 px-4 md:px-12 lg:px-24 bg-softGrey pb-0 md:pb-6 gap-4 lg:gap-12">
+      <div className="w-full lg:w-[30%] flex flex-col gap-5 relative ">
+        <div className="w-full flex flex-col gap-5 bg-white p-6 rounded-3xl overflow-y-scroll h-96">
+          <div className="flex items-center justify-between">
+            <Paragraph className="text-xl font-semibold text-darkGrey tracking-wide">
+              Course Material
+            </Paragraph>
+            <Paragraph className="text-base font-semibold text-darkGrey tracking-wide !flex !items-center">
+              <span className="flex items-center text-darkOrange">
+                {[...Array(rating)].map((_, index) => (
+                  <StarIcon key={index} className="w-4 h-4" />
+                ))}
+              </span>
+            </Paragraph>
+          </div>
+          <hr className="-my-2" />
+          {detailCourse.chapters &&
+            detailCourse.chapters.map((chapter, chapterIndex) => (
+              <div key={chapter.id} className="flex flex-col gap-2">
+                <div className="flex flex-row gap-3 items-center justify-between">
+                  <Paragraph className="capitalize text-base font-medium text-darkOrange tracking-wide truncate w-[70%] hover:whitespace-normal hover:overflow-visible hover:text-clip">
+                    {chapter.name}
                   </Paragraph>
-                  {module.userCourseProgress.isCompleted &&
-                    module.userCourseProgress.id !== activeUserProgressId && (
-                      <CheckCircleIcon className={`w-6 h-6 text-seaGreen`} />
+                  <Paragraph className="capitalize text-sm font-medium text-darkOrange tracking-wide text-end">
+                    {chapter.modules && (
+                      <span>
+                        {chapter.modules.reduce(
+                          (totalDuration, module) =>
+                            totalDuration +
+                            (totalDurationPerModule[
+                              `${chapterIndex}_${module.title}`
+                            ] || 0),
+                          0
+                        )}{" "}
+                        mins
+                      </span>
                     )}
-                  {module.userCourseProgress.id === activeUserProgressId && (
-                    <PlayCircleIcon className={`w-6 h-6 text-lightBlue`} />
-                  )}{" "}
+                  </Paragraph>
                 </div>
+
+                {chapter.modules.map((module, subIndex) => (
+                  <div
+                    key={subIndex}
+                    className="flex flex-row gap-3 items-center bg-cloudWhite py-3 px-4 rounded-xl cursor-pointer"
+                    onClick={() =>
+                      handleModuleClick(
+                        module.url,
+                        module.title,
+                        module.userCourseProgress.id
+                      )
+                    }
+                  >
+                    <Paragraph className="capitalize text-sm font-normal text-darkGrey tracking-wide flex-1 truncate hover:whitespace-normal hover:overflow-visible hover:text-clip">
+                      {module.title}
+                    </Paragraph>
+                    {module.userCourseProgress.isCompleted &&
+                      module.userCourseProgress.id !== activeUserProgressId && (
+                        <CheckCircleIcon className={`w-6 h-6 text-seaGreen`} />
+                      )}
+                    {module.userCourseProgress.id === activeUserProgressId && (
+                      <PlayCircleIcon className={`w-6 h-6 text-lightBlue`} />
+                    )}{" "}
+                  </div>
+                ))}
+              </div>
+            ))}
+        </div>
+        <div>
+          <Paragraph
+            variant="large"
+            className="lg:flex hidden font-semibold text-darkGrey tracking-wide"
+          >
+            Requirements
+          </Paragraph>
+          <div className="lg:flex hidden gap-2 mt-2 flex-wrap">
+            {detailCourse &&
+              detailCourse.requirements &&
+              detailCourse.requirements.map((requirement, index) => (
+                <span
+                  key={index}
+                  className="text-sm bg-lightBlue text-cloudWhite px-4 py-2 rounded-full truncate"
+                >
+                  {requirement}
+                </span>
               ))}
-            </div>
-          ))}
+          </div>
+        </div>
       </div>
-      <div className="w-full lg:w-[70%] aspect-video flex flex-col gap-2">
-        <div className="w-full h-full flex flex-col gap-4">
-          <Heading variant="h3">{activeModuleTitle}</Heading>
-          <div className="h-full overflow-hidden rounded-2xl">
+      <div className="w-full lg:w-[70%] aspect-video flex flex-col gap-2 h-fit">
+        <div className="w-full flex flex-col gap-4">
+          <Heading variant="h3" className="capitalize">
+            {activeModuleTitle}
+          </Heading>
+          <div className="aspect-video overflow-hidden rounded-2xl">
             <ReactPlayer
               url={currentVideoUrl}
               controls
@@ -361,7 +385,7 @@ const LearningCourse = () => {
               }
               isExternal
               target="_blank"
-              className="hover:scale-105 !py-3"
+              className="hover:scale-105 !py-2 md:!py-3"
             >
               Join Telegram
             </Button>
@@ -370,7 +394,7 @@ const LearningCourse = () => {
             {incompleteModulesCount === 0 && !isUserRated && (
               <Button
                 isOrangeGradient
-                className="hover:scale-105 !py-3"
+                className="hover:scale-105 !py-2 md:!py-3"
                 type="link"
                 href={`/congrats/${params.id}`}
               >
@@ -383,14 +407,14 @@ const LearningCourse = () => {
                 <Button
                   onClick={handlePreviousModule}
                   isOrangeGradient
-                  className="hover:scale-105 !py-3"
+                  className="hover:scale-105 !py-2 md:!py-3"
                 >
                   Previous
                 </Button>
                 <Button
                   onClick={handleNextModule}
                   isOrangeGradient
-                  className="hover:scale-105 !py-3"
+                  className="hover:scale-105 !py-2 md:!py-3"
                 >
                   Next
                 </Button>
@@ -414,6 +438,26 @@ const LearningCourse = () => {
                 </Button>
               </>
             )}
+          </div>
+        </div>
+        <div>
+          <Paragraph
+            variant="large"
+            className="flex lg:hidden font-semibold text-darkGrey tracking-wide mt-2"
+          >
+            Requirements
+          </Paragraph>
+          <div className="flex lg:hidden gap-2 my-2 flex-wrap">
+            {detailCourse &&
+              detailCourse.requirements &&
+              detailCourse.requirements.map((requirement, index) => (
+                <span
+                  key={index}
+                  className="text-sm bg-lightBlue text-cloudWhite px-4 py-2 rounded-full truncate hover:whitespace-normal hover:overflow-visible hover:text-clip"
+                >
+                  {requirement}
+                </span>
+              ))}
           </div>
         </div>
       </div>
