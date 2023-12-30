@@ -153,18 +153,6 @@ export const ModalUpdate = ({ setUpdateModal, idCourse }) => {
               />
             </div>
             <div className="flex flex-col">
-              <label className="text-sm font-semibold">description</label>
-              <input
-                value={description}
-                className="rounded-lg border p-2 border-gray-300"
-                onChange={handleInput}
-                placeholder="description"
-                id="description"
-                type="text"
-              />
-            </div>
-            
-            <div className="flex flex-col">
               <label className="text-sm font-semibold">Harga</label>
               <input
                 value={price}
@@ -224,6 +212,17 @@ export const ModalUpdate = ({ setUpdateModal, idCourse }) => {
                   <option value="5">Business Intelligence</option>
                 </select>
               </div>
+            </div>
+            <div className="flex flex-col">
+              <label className="text-sm font-semibold">description</label>
+              <textarea
+                value={description}
+                className="rounded-lg border p-2 border-gray-300 resize-none h-[8rem]"
+                onChange={handleInput}
+                placeholder="description"
+                id="description"
+                type="text"
+              ></textarea>
             </div>
             <div>
               <h2 className="font-bold">requirements :</h2>

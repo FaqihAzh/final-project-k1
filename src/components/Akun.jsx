@@ -99,7 +99,6 @@ const UpdateProfileComponent = () => {
   }, [getdata, dataUser]);
 
   useEffect(() => {
-    // Set selectedImage to profile picture URL when available
     if (dataUser && dataUser.profile_picture) {
       setSelectedImage(dataUser.profile_picture);
       setcheckImg(dataUser.profile_picture);
@@ -184,7 +183,7 @@ const UpdateProfileComponent = () => {
           value={noTlpn}
           onChange={handleInput}
           id="noTlpn"
-          type="number"
+          type="tel"
           className="border rounded-lg h-[2.5rem] p-2 w-[80%] border-gray-200"
         />
       </div>

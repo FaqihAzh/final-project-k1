@@ -6,7 +6,6 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { UsepostDataCourses } from "../services/admin/post-courses";
 
 export const ModalAddCourse = ({ setOpenModal }) => {
-  // const [namaKelas, setnamaKelas] = useState('')
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState(null);
@@ -16,8 +15,8 @@ export const ModalAddCourse = ({ setOpenModal }) => {
   const [category_id, setCategoryId] = useState(1);
   const [requirements, setrequirements] = useState([]);
   const [InputRequirment, setInputRequirment] = useState("");
-  const [trailer, settrailer] = useState(false)
-  const [teleGrup, setteleGrup] = useState("")
+  const [trailer, settrailer] = useState(false);
+  const [teleGrup, setteleGrup] = useState("");
   const [chapters, setChapters] = useState([]);
 
   const [inputChapterName, setInputChapterName] = useState("");
@@ -64,7 +63,7 @@ export const ModalAddCourse = ({ setOpenModal }) => {
         title: inputModuleTitle,
         duration: parseInt(inputModuleDuration),
         url: inputModuleUrl,
-        isTrailer : trailer,
+        isTrailer: trailer,
       };
 
       const updatedChapters = [...chapters];
@@ -132,7 +131,7 @@ export const ModalAddCourse = ({ setOpenModal }) => {
       image: image,
       price: parseInt(price),
       author: author,
-      telegram_group:teleGrup,
+      telegram_group: teleGrup,
       level: level,
       category_id: parseInt(category_id),
       requirements: requirements,
@@ -277,39 +276,51 @@ export const ModalAddCourse = ({ setOpenModal }) => {
             <div className="border flex flex-col">
               <h1 className="font-semibold mb-2">Chapters dan Modules:</h1>
               {chapters.length === 0 ? (
-                <p className=" mb-[1rem]">
+                <p className="mb-4 text-gray-600">
                   Tidak ada data chapter saat ini. Silakan tambahkan chapter
                   baru.
                 </p>
               ) : (
-                <ul>
+                <ul className="list-disc pl-4">
                   {chapters.map((chapter, chapterIndex) => (
-                    <li key={chapterIndex}>
-                      <strong className="flex space-x-2">
-                        <h2 className="text-[1.2rem]">
+                    <li key={chapterIndex} className="mb-4">
+                      <div className="flex items-center justify-between">
+                        <h2 className="text-lg font-semibold">
                           Chapter: {chapter.name}
                         </h2>
                         <button onClick={() => removeChapter(chapterIndex)}>
-                          <BackspaceIcon className="w-[1.3rem] text-red-700 " />
+                          <BackspaceIcon className="w-5 h-5 text-red-700" />
                         </button>
-                      </strong>
-                      <ul className="">
+                      </div>
+                      <ul className="list-disc pl-8">
                         {chapter.modules.map((module, moduleIndex) => (
                           <li
                             key={moduleIndex}
-                            className="flex w-[100%] justify-between "
+                            className="flex items-center justify-between"
                           >
-                            <h2>
-                      
-                              {`Module: ${module.title}, Duration: ${module.duration}, URL: ${module.url}, Trailer: ${module.isTrailer}`}
-                            </h2>
+                            <div>
+                              <h2 className="text-base ">
+                                Module: {module.title}
+                              </h2>
+                              <p className="text-sm text-gray-500">
+                                Duration: {module.duration} minutes
+                              </p>
+                              <p className="text-sm text-gray-500">
+                                URL:{" "}
+                                <a href={module.url} className="text-blue-500">
+                                  {module.url}
+                                </a>
+                              </p>
+                              <p className="text-sm text-gray-500">
+                                Trailer: {module.isTrailer ? "True" : "False"}
+                              </p>
+                            </div>
                             <button
                               onClick={() =>
                                 removeModule(chapterIndex, moduleIndex)
                               }
-                              className=""
                             >
-                              <XMarkIcon className="w-[1.2rem] text-red-700" />
+                              <XMarkIcon className="w-4 h-4 text-red-700" />
                             </button>
                           </li>
                         ))}
@@ -341,7 +352,7 @@ export const ModalAddCourse = ({ setOpenModal }) => {
                     Pilih Chapter:{" "}
                   </label>
                   <select
-                  className="rounded-lg border p-2 border-gray-300  "
+                    className="rounded-lg border p-2 border-gray-300  "
                     value={selectedChapterIndex}
                     onChange={(e) =>
                       setSelectedChapterIndex(parseInt(e.target.value))
@@ -379,8 +390,8 @@ export const ModalAddCourse = ({ setOpenModal }) => {
                 value={inputModuleUrl}
                 onChange={(e) => setInputModuleUrl(e.target.value)}
               />
-               <div className="flex flex-col">
-                <label className="text-sm font-semibold"> level</label>
+              <div className="flex flex-col">
+                <label className="text-sm font-semibold"> Trailer</label>
                 <select
                   className="w-[10rem] border p-2 border-gray-300"
                   value={trailer}
