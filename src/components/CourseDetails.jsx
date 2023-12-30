@@ -80,7 +80,7 @@ const CourseDetails = () => {
 
   return (
     <>
-      <div className="w-full min-h-screen flex flex-col lg:flex-row pt-24 px-5 lg:px-24 bg-softGrey pb-5 gap-10 lg:gap-20">
+      <div className="w-full min-h-screen flex flex-col lg:flex-row pt-24 px-4 md:px-12 lg:px-24 bg-softGrey pb-5 mb-0 gap-10 lg:gap-20">
         <div className="w-full lg:w-3/5 flex flex-col gap-5">
           <div className="flex flex-col">
             <div className="flex justify-between items-center">
@@ -169,12 +169,12 @@ const CourseDetails = () => {
             >
               Requirements
             </Paragraph>
-            <div className="flex gap-2 mt-2 flex-wrap">
+            <div className="flex gap-2 mt-2 flex-wrap truncate -mb-4 lg:mb-4">
               {detailCourse && detailCourse.requirements ? (
                 detailCourse.requirements.map((requirement, index) => (
                   <span
                     key={index}
-                    className="bg-lightBlue text-cloudWhite px-5 py-3 rounded-full"
+                    className="bg-lightBlue text-cloudWhite px-4 py-2 lg:px-5 lg:py-3 rounded-full truncate"
                   >
                     {requirement}
                   </span>
