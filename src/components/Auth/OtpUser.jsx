@@ -39,7 +39,9 @@ const OtpUser = () => {
       <div className="grid grid-rows-1 grid-cols-1 md:grid-rows-2 lg:grid-cols-2 lg:grid-rows-1 w-screen h-screen bg-softGrey">
         <div className="hidden md:flex flex-1 flex-col justify-center lg:justify-end items-center gap-6">
           <FadeIn delay={0.4} direction="up">
-            <img src={logo} alt="CourseHub Logo" />
+            <Button type="link" href="/">
+              <img src={logo} alt="CourseHub Logo" />
+            </Button>{" "}
           </FadeIn>
           <FadeIn delay={0.4} direction="up">
             <div className="px-10 flex flex-col gap-3 text-center">
