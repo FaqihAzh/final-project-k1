@@ -18,7 +18,7 @@ export const ModalAddPromo = ({ setopenModal }) => {
   const handleCancel = () => {
     setopenModal(false);
   };
-  console.log(expiresAt, "expiresAt")
+ 
   return (
     <div className="fixed inset-0 overflow-y-auto flex items-center justify-center">
       {/* Overlay */}
