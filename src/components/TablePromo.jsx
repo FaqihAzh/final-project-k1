@@ -25,7 +25,7 @@ export const TablePromo = () => {
               setmodalAdd(true);
             }}
           >
-            Tambah Course
+            Tambah Promo
           </button>
         </div>
 
