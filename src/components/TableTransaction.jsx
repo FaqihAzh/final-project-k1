@@ -65,10 +65,10 @@ export const TableTransaction = () => {
                       className={`py-4 px-6 border-b ${
                         value.status === "paid"
                           ? "text-green-600"
-                          : "text-yellow-600"
+                          : "text-red-600"
                       }`}
                     >
-                      {value.status}
+                      {value.status === "Pending" ? "Failed" : value.status}
                     </td>
                     <td className="py-4 px-6 border-b">
                       {value.payment_type ?? "---"}
