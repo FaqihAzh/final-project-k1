@@ -59,8 +59,10 @@ export const TablePromo = () => {
               >
                 <td className="py-4 px-6 border-b">{value.id}</td>
                 <td className="py-4 px-6 border-b">{value.code_promo}</td>
-                <td className="py-4 px-6 border-b">{value.discount}</td>
-                <td className="py-4 px-6 border-b">{value.expiresAt}</td>
+                <td className="py-4 px-6 border-b">{value.discount}%</td>
+                <td className="py-4 px-6 border-b">{new Date(value.expiresAt).toISOString().split('T')[0]}</td>
+
+
                 <td className="py-4 px-6 border-b space-x-3 flex">
                   <button
                     className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"

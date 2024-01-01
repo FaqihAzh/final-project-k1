@@ -11,6 +11,7 @@ export const TableTransaction = () => {
     limit: 12,
   });
   const dataTransaction = fetchData?.data?.transactions;
+  // console.log(fetchData, "fetchData");
 
   return (
     <div>
@@ -26,7 +27,14 @@ export const TableTransaction = () => {
                   ID
                 </th>
                 <th className="py-3 px-6 border-b text-left font-semibold">
+                  User
+                </th>
+
+                <th className="py-3 px-6 border-b text-left font-semibold">
                   Category
+                </th>
+                <th className="py-3 px-6 border-b text-left font-semibold">
+                  Nama Kelas
                 </th>
                 <th className="py-3 px-6 border-b text-left font-semibold">
                   Status
@@ -48,8 +56,12 @@ export const TableTransaction = () => {
                   >
                     <td className="py-4 px-6 border-b">{value.id}</td>
                     <td className="py-4 px-6 border-b">
+                      {value.user.nickname}
+                    </td>
+                    <td className="py-4 px-6 border-b">
                       {value.course?.category?.name_categories}
                     </td>
+                    <td className="py-4 px-6 border-b">{value.course.title}</td>
                     <td
                       className={`py-4 px-6 border-b ${
                         value.status === "paid"

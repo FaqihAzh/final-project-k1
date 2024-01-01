@@ -14,7 +14,7 @@ export const SideBar = ({setSideBar, showSideBar}) => {
     const sideBarComp = () => {
       return(
         <div className="fixed top-auto   left-0 h-screen w-[15rem] flex  md:flex flex-col items-center bg-[#6176F7] ">
-         <h2 className="sm:mt-[5rem] md:my-[3rem] md:">
+         <h2 className="mt-[5rem] md:my-[3rem] md:">
             <img src={Logo} alt="Logo" />
           </h2>
     
@@ -51,11 +51,11 @@ export const SideBar = ({setSideBar, showSideBar}) => {
     }
   return (
    <>
-    <div className='sm:hidden md:flex'>
+    <div className='hidden md:flex'>
       {sideBarComp()}
     </div>
    <FadeIn delay={0.3} direction="right" >
-   {showSideBar && <div className='flex md:hidden relative ' >
+   {showSideBar && <div className='flex md:hidden relative z-50' >
       {sideBarComp()}
     </div>}
    </FadeIn>

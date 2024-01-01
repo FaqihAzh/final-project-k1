@@ -27,7 +27,7 @@ export const ModalAddCourse = ({ setOpenModal }) => {
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    console.log(file);
+    // console.log(file);
     if (file) {
       setImage(file);
     }
@@ -83,7 +83,8 @@ export const ModalAddCourse = ({ setOpenModal }) => {
     updatedChapters[chapterIndex].modules.splice(moduleIndex, 1);
     setChapters(updatedChapters);
   };
-  console.log(chapters, "chapters");
+  
+
 
   const { mutate: PostCourses } = UsepostDataCourses();
 
@@ -139,7 +140,6 @@ export const ModalAddCourse = ({ setOpenModal }) => {
     });
   };
 
-  console.log(requirements, "requirements");
 
   return (
     <div className="fixed inset-0 overflow-y-auto flex items-center justify-center">

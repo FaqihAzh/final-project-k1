@@ -26,7 +26,7 @@ export const AdminHeader = ({setSideBar, showSideBar}) => {
 
   return (
 <div className='space-y-10 flex flex-col items-center mb-5 ' >
-    <div className='bg-cyan-200 w-full h-[3rem] flex justify-between px-5 items-center sm:flex-row-reverse z-50'>
+    <div className='bg-cyan-200 w-full h-[3rem] flex justify-between px-5 items-center flex-row-reverse z-50'>
     <h1>Hi, {fetchAdmin?.data?.idAdmin}</h1>
     {/* <div  className='md:hidden' onClick={handleToggleSidebar}>  */}
     <div  onClick={handleToggleSidebar} className={`md:hidden transition-opacity duration-300 ${showSideBar ? 'opacity-100' : 'opacity-70'}`}>
@@ -43,7 +43,7 @@ export const AdminHeader = ({setSideBar, showSideBar}) => {
       )}
     </div>
     </div>
-        <div className=' flex w-[85%] h-[7rem] justify-between !mt-3 sm:hidden md:hidden lg:flex '>
+        <div className='  w-[85%] h-[7rem] justify-between !mt-3 hidden  lg:flex '>
             <div className='bg-[#6176F7] w-[30%] rounded-2xl flex justify-center items-center '>  
             <div className='w-[80%] h-[80%] flex items-center space-x-6'>
             <div >
