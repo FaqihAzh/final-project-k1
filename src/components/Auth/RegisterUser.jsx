@@ -71,7 +71,9 @@ const RegisterUser = () => {
               fullWidth
               className="flex justify-center"
             >
-              <img src={darkLogo} alt="darkLogo" className="mb-4" />
+              <Button type="link" href="/">
+                <img src={darkLogo} alt="darkLogo" className="mb-4" />
+              </Button>{" "}
             </FadeIn>
             <FadeIn delay={0.2} direction="down" fullWidth>
               <Heading variant="h1" className="text-darkGrey z-20 mb-1">

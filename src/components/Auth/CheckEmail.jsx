@@ -7,7 +7,7 @@ import check_email2 from "../../assets/images/checkEmailIllustration.png";
 const CheckEmail = () => {
   return (
     <>
-      <div className="bg-softGrey flex flex-col justify-center items-center w-screen h-screen px-4 md:px-12 lg:px-24">
+      <div className="bg-softGrey flex flex-col justify-center items-center w-screen min-h-screen px-4 md:px-12 lg:px-24 pb-8">
         <div className="flex flex-col justify-center items-center h-full w-full gap-4">
           <FadeIn
             delay={0.3}

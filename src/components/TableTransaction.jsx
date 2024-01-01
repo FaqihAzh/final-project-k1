@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useFetchDataTransaction } from "../services/admin/get-all-transactions";
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { ForwardIcon } from "@heroicons/react/24/outline";
 import { BackwardIcon } from "@heroicons/react/24/outline";
 

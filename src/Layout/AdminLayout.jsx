@@ -8,7 +8,7 @@ const [showSideBar, setshowSideBar] = useState(false)
   return (
     <div className=''>
       <SideBar setSideBar={setshowSideBar} showSideBar={showSideBar}/>
-      <div className='md:ml-[15rem]'>
+      <div className='md:ml-[15rem] min-h-screen'>
         <AdminHeader setSideBar={setshowSideBar} showSideBar={showSideBar} />
         {children}
       </div>

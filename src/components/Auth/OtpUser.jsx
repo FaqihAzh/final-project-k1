@@ -4,32 +4,17 @@ import { Heading, Paragraph } from "../Typography";
 import Button from "../Button";
 import otpIllustration from "../../assets/images/otpIllustration.png";
 import logo from "../../assets/images/darkLogo.svg";
-import FormInput from "../Form";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { authOtpUserAct } from "../../redux/actions/authActions/User/authOtpUser";
-import { EmailMasking } from "../../utils/constants/function";
 
 const OtpUser = () => {
-  // const otpEmail = useSelector((store) => store.authUser.registerEmail);
-  // const [formData, setFormData] = useState({
-  //   email: otpEmail,
-  //   otp: "",
-  // });
-
-  // const handleInputChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setFormData({ ...formData, [name]: value });
-  // };
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
 
   const [otp, setOtp] = useState("");
   const [token, setToken] = useState("");
-
-  console.log(otp, token, "Data OTP");
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
@@ -54,7 +39,9 @@ const OtpUser = () => {
       <div className="grid grid-rows-1 grid-cols-1 md:grid-rows-2 lg:grid-cols-2 lg:grid-rows-1 w-screen h-screen bg-softGrey">
         <div className="hidden md:flex flex-1 flex-col justify-center lg:justify-end items-center gap-6">
           <FadeIn delay={0.4} direction="up">
-            <img src={logo} alt="CourseHub Logo" />
+            <Button type="link" href="/">
+              <img src={logo} alt="CourseHub Logo" />
+            </Button>{" "}
           </FadeIn>
           <FadeIn delay={0.4} direction="up">
             <div className="px-10 flex flex-col gap-3 text-center">

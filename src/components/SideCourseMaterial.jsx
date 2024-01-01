@@ -63,8 +63,8 @@ const SideCourseMaterial = () => {
   };
 
   return (
-    <div className="flex flex-col-reverse lg:flex-col w-full lg:w-2/5 max-h-full gap-4 ">
-      <div className="rounded-2xl px-6 py-5 flex flex-col gap-4 bg-white shadow-xl h-1/2 overflow-y-auto">
+    <div className="flex flex-col-reverse lg:flex-col w-full lg:w-2/5 min-h-fit max-h-96 lg:max-h-screen gap-4 mt-2">
+      <div className="rounded-2xl px-6 py-5 flex flex-col gap-4 bg-white shadow-xl h-auto overflow-y-auto">
         <div className="flex items-center justify-between">
           <Paragraph
             variant="large"

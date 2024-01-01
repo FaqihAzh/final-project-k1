@@ -52,6 +52,7 @@ export function Payment() {
               transaction_time: result.transaction_time,
             })
           );
+          navigate("/payment/success") 
         },
         onPending: function (result) {
           dispatch(

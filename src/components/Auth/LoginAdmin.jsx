@@ -3,20 +3,16 @@ import Button from "../Button";
 import FormInput from "../Form";
 import FadeIn from "../FadeIn";
 import { UseAdminLogin } from "../../services/auth/admin-login";
+
 export const LoginAdmin = () => {
   const [inputid, setinputid] = useState("");
   const [InputPassword, setInputPassword] = useState("");
 
-  const { mutate: AdminLogin, isSuccess, isError, isLoading } = UseAdminLogin();
+  const { mutate: AdminLogin, isLoading } = UseAdminLogin();
 
-  if (isSuccess) {
-    console.log("berhasil");
-  } else if (isError) {
-    console.log("gagal");
-  } else if (isLoading){
-    <h2>loading</h2>
+  if (isLoading) {
+    <h2>Loading</h2>;
   }
-
 
   const handleinputId = (e) => {
     setinputid(e.target.value);
@@ -25,11 +21,8 @@ export const LoginAdmin = () => {
     setInputPassword(e.target.value);
   };
 
-  console.log(inputid);
-  console.log(InputPassword);
-  // console.log("sdasd")
   const handleEnterPress = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       login();
     }
   };
@@ -68,10 +61,10 @@ export const LoginAdmin = () => {
               id="adminPassword"
               value={InputPassword}
               onChange={hanleinputPassword}
-              onKeyPress={handleEnterPress} 
+              onKeyPress={handleEnterPress}
               type="password"
               text="black"
-              tabIndex="0" 
+              tabIndex="0"
             />
           </FadeIn>
         </div>

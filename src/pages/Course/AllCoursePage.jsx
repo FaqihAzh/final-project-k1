@@ -104,7 +104,7 @@ const AllCoursePage = () => {
 
   return (
     <>
-      <div className="w-screen min-h-screen pt-24 pb-12 px-4 md:px-12 lg:px-24 lg:pt-28 bg-softGrey flex flex-col gap-4">
+      <div className="w-screen min-h-screen pt-24 pb-12 px-4 md:px-12 lg:px-24 lg:pt-28 bg-softGrey flex flex-col gap-4 overflow-hidden">
         <div className="grid grid-cols-3 items-center relative">
           <Heading
             variant="h3"

@@ -3,7 +3,6 @@ import { useDataPromo } from "../services/promo/getPromo";
 import { ModalAddPromo } from "./ModalAddPromo";
 import { ModalDeletePromo } from "./ModalDeletePromo";
 import { ModalUpdatePromo } from "./ModalUpdatePromo";
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
 //
 
