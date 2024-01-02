@@ -24,15 +24,16 @@ const postPromo = async (input) => {
   return await http
     .post(API_ENDPOINT.PROMO, input)
     .then((result) => {
-      console.log(result, "post promo");
       toast(result.data.message, {
         position: "bottom-center",
         className: "custom-toast-success",
       });
     })
     .catch((err) => {
-      console.log(err, "ini eror");
-      alert("Gagal Cuy");
+      toast(err.response.data.error, {
+        position: toast.POSITION.BOTTOM_CENTER,
+        className: "custom-toast-error",
+      });
     });
 };
 const usePostPromo = () => {
