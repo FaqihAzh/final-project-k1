@@ -207,7 +207,7 @@ const CourseCard = ({
               <div
                 className={`px-4 py-1 rounded-full w-fit ${
                   courseHistory?.status === "paid" && "bg-seaGreen"
-                } ${courseHistory?.status === "Pending" && "bg-darkOrange"} ${
+                } ${courseHistory?.status === "Pending" && "bg-salmon"} ${
                   courseHistory?.status !== "paid" &&
                   courseHistory?.status !== "Pending" &&
                   "bg-salmon"
@@ -216,7 +216,7 @@ const CourseCard = ({
                 <Paragraph
                   className={`text-xs font-medium text-white tracking-wide capitalize`}
                 >
-                  {courseHistory.status}
+                  {courseHistory.status === "Pending" ? "Failed" : courseHistory.status}
                 </Paragraph>
               </div>
             </div>
