@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { toast } from "react-toastify";
 import { BackspaceIcon } from "@heroicons/react/24/outline";
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
 import { XMarkIcon } from "@heroicons/react/24/outline";
@@ -43,7 +43,10 @@ export const ModalAddCourse = ({ setOpenModal }) => {
       setChapters([...chapters, newChapter]);
       setInputChapterName("");
     } else {
-      alert("Nama Chapter tidak boleh kosong!");
+      toast("Nama Chapter tidak boleh kosong!", {
+        position: toast.POSITION.BOTTOM_CENTER,
+        className: "custom-toast-error",
+      });
     }
   };
 
@@ -74,7 +77,10 @@ export const ModalAddCourse = ({ setOpenModal }) => {
       setInputModuleDuration("");
       setInputModuleUrl("");
     } else {
-      alert("Semua input module harus diisi!");
+      toast("Semua input module harus diisi!", {
+        position: toast.POSITION.BOTTOM_CENTER,
+        className: "custom-toast-error",
+      });
     }
   };
 
