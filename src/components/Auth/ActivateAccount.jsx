@@ -131,7 +131,12 @@ const ActivateAccount = () => {
             </FadeIn>
           </div>
           <div className="hidden lg:flex relative flex-1 w-1/2 lg:w-full h-full">
-            <FadeIn delay={0.3} direction="up" fullWidth>
+            <FadeIn
+              delay={0.3}
+              direction="up"
+              fullWidth
+              className="flex justify-center"
+            >
               <img
                 src={forgotIllustration}
                 alt="registIllustration"

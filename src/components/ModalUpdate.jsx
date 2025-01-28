@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
 import { XMarkIcon } from "@heroicons/react/24/outline";
@@ -5,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { UpdateCourseACT } from "../redux/actions/Admin/UpdateCourse";
 import { courseDetailCourseAct } from "../redux/actions/courseActions/courseDetailCourse";
 export const ModalUpdate = ({ setUpdateModal, idCourse }) => {
+  // eslint-disable-next-line no-unused-vars
   const [detailCourse, setDetailCourse] = useState([]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");

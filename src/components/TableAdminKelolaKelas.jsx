@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useFetchDataCourses } from "../services/admin/get-courses";
 import { ModalAddCourse } from "./ModalAddCourse ";
 import { ModalDelete } from "./ModalDelete";
@@ -57,8 +57,6 @@ export const TableAdminKelolaKelas = () => {
         }),
   });
 
- 
-
   const handleDelete = () => {
     dispatch(DeleteCourseAct(datarender.id));
   };
@@ -67,7 +65,6 @@ export const TableAdminKelolaKelas = () => {
     search || selectedCategory || selectedLevel
       ? fetchData?.data
       : fetchData?.data?.courses;
-
 
   const getCategoryNameById = (categoryId) => {
     switch (categoryId) {

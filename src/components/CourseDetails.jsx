@@ -80,112 +80,114 @@ const CourseDetails = () => {
 
   return (
     <>
-      <div className="w-full min-h-screen flex flex-col lg:flex-row pt-24 px-4 md:px-12 lg:px-24 bg-softGrey pb-5 mb-0 gap-10 lg:gap-20">
-        <div className="w-full lg:w-3/5 flex flex-col gap-5">
-          <div className="flex flex-col">
-            <div className="flex justify-between items-center">
-              <Paragraph className=" font-normal text-lightGrey tracking-wide">
-                {category}
+      <div className="w-full min-h-screen bg-softGrey">
+        <div className="flex flex-col lg:flex-row pt-24 mt-0 md:mt-5 lg:mt-10 px-4 md:px-12 lg:px-24 pb-5 mb-0 gap-10 lg:gap-20 max-w-[1440px] mx-auto">
+          <div className="w-full lg:w-3/5 flex flex-col gap-5">
+            <div className="flex flex-col">
+              <div className="flex justify-between items-center">
+                <Paragraph className=" font-normal text-lightGrey tracking-wide">
+                  {category}
+                </Paragraph>
+                <span className="flex items-center text-darkOrange">
+                  {[...Array(rating)].map((_, index) => (
+                    <StarIcon key={index} className="w-4 h-4" />
+                  ))}
+                </span>
+              </div>
+              <Heading
+                variant="h3"
+                className="font-semibold text-darkGrey tracking-wide capitalize mt-1"
+              >
+                {detailCourse.title
+                  ? detailCourse.title
+                  : "Frontend Javascript Developer"}
+              </Heading>
+              <Paragraph
+                variant="small"
+                className=" font-normal text-lightGrey tracking-wide"
+              >
+                by {detailCourse.author}
               </Paragraph>
-              <span className="flex items-center text-darkOrange">
-                {[...Array(rating)].map((_, index) => (
-                  <StarIcon key={index} className="w-4 h-4" />
-                ))}
-              </span>
+              <div className="flex gap-4 flex-wrap my-2">
+                <span className="flex gap-1 items-center ">
+                  <ClockIcon
+                    className="w-4 h-4 text-darkOrange"
+                    strokeWidth="2"
+                  />
+                  <Paragraph className="text-sm font-normal text-lightGrey">
+                    {totalDuration} Menit
+                  </Paragraph>
+                </span>
+                <span className="flex gap-1 items-center text-darkOrange">
+                  <BookOpenIcon className="w-4 h-4" strokeWidth="2" />
+                  <Paragraph className="text-sm font-normal text-lightGrey">
+                    {totalModules} Modul
+                  </Paragraph>
+                </span>
+                <span className="flex gap-1 items-center text-darkOrange">
+                  <ChartBarIcon className="w-4 h-4" strokeWidth="2" />
+                  <Paragraph className="text-sm font-normal text-lightGrey capitalize">
+                    {detailCourse.level}
+                  </Paragraph>
+                </span>
+              </div>
             </div>
-            <Heading
-              variant="h3"
-              className="font-semibold text-darkGrey tracking-wide capitalize"
-            >
-              {detailCourse.title
-                ? detailCourse.title
-                : "Frontend Javascript Developer"}
-            </Heading>
-            <Paragraph
-              variant="small"
-              className=" font-normal text-lightGrey tracking-wide"
-            >
-              by {detailCourse.author}
-            </Paragraph>
-            <div className="flex gap-4 flex-wrap my-2">
-              <span className="flex gap-1 items-center ">
-                <ClockIcon
-                  className="w-4 h-4 text-darkOrange"
-                  strokeWidth="2"
-                />
-                <Paragraph className="text-sm font-normal text-lightGrey">
-                  {totalDuration} Menit
-                </Paragraph>
-              </span>
-              <span className="flex gap-1 items-center text-darkOrange">
-                <BookOpenIcon className="w-4 h-4" strokeWidth="2" />
-                <Paragraph className="text-sm font-normal text-lightGrey">
-                  {totalModules} Modul
-                </Paragraph>
-              </span>
-              <span className="flex gap-1 items-center text-darkOrange">
-                <ChartBarIcon className="w-4 h-4" strokeWidth="2" />
-                <Paragraph className="text-sm font-normal text-lightGrey capitalize">
-                  {detailCourse.level}
-                </Paragraph>
-              </span>
+            <div className="flex flex-col gap-4 ">
+              <div className="overflow-hidden bg-darkGrey w-full h-[12rem] md:h-[20rem] rounded-2xl flex justify-center items-center">
+                {currentModule ? (
+                  <ReactPlayer
+                    url={currentModule.url}
+                    controls
+                    width="100%"
+                    height="100%"
+                  />
+                ) : (
+                  <PlayCircleIcon
+                    className="w-16 h-16 text-darkOrange cursor-pointer"
+                    onClick={() =>
+                      handlePlayIconClick(detailCourse.chapters[0]?.modules[0])
+                    }
+                  />
+                )}
+              </div>
             </div>
-          </div>
-          <div className="flex flex-col gap-4 ">
-            <div className="overflow-hidden bg-darkGrey w-full h-[12rem] md:h-[20rem] rounded-2xl flex justify-center items-center">
-              {currentModule ? (
-                <ReactPlayer
-                  url={currentModule.url}
-                  controls
-                  width="100%"
-                  height="100%"
-                />
-              ) : (
-                <PlayCircleIcon
-                  className="w-16 h-16 text-darkOrange cursor-pointer"
-                  onClick={() =>
-                    handlePlayIconClick(detailCourse.chapters[0]?.modules[0])
-                  }
-                />
-              )}
+            <div>
+              <Paragraph
+                variant="large"
+                className=" font-semibold text-darkGrey tracking-wide"
+              >
+                {" "}
+                About Course
+              </Paragraph>
+              <Paragraph className="font-thin text-sm md:text-base text-lightGrey tracking-wide">
+                {detailCourse.description}
+              </Paragraph>
             </div>
-          </div>
-          <div>
-            <Paragraph
-              variant="large"
-              className=" font-semibold text-darkGrey tracking-wide"
-            >
-              {" "}
-              About Course
-            </Paragraph>
-            <Paragraph className="font-thin text-lightGrey tracking-wide">
-              {detailCourse.description}
-            </Paragraph>
-          </div>
-          <div>
-            <Paragraph
-              variant="large"
-              className=" font-semibold text-darkGrey tracking-wide"
-            >
-              Requirements
-            </Paragraph>
-            <div className="flex gap-2 mt-2 flex-wrap truncate -mb-4 lg:mb-4">
-              {detailCourse && detailCourse.requirements ? (
-                detailCourse.requirements.map((requirement, index) => (
-                  <span
-                    key={index}
-                    className="bg-lightBlue text-cloudWhite px-4 py-2 lg:px-5 lg:py-3 rounded-full truncate"
-                  >
-                    {requirement}
-                  </span>
-                ))
-              ) : (
-                <p>No requirements available</p>
-              )}
+            <div>
+              <Paragraph
+                variant="large"
+                className=" font-semibold text-darkGrey tracking-wide"
+              >
+                Requirements
+              </Paragraph>
+              <div className="flex gap-2 mt-2 flex-wrap truncate -mb-4 lg:mb-4">
+                {detailCourse && detailCourse.requirements ? (
+                  detailCourse.requirements.map((requirement, index) => (
+                    <span
+                      key={index}
+                      className="bg-lightBlue bg-opacity-90 text-cloudWhite text-sm px-4 py-2 rounded-full truncate"
+                    >
+                      {requirement}
+                    </span>
+                  ))
+                ) : (
+                  <p>No requirements available</p>
+                )}
+              </div>
             </div>
           </div>
+          <SideCourseMaterial />
         </div>
-        <SideCourseMaterial />
       </div>
     </>
   );

@@ -136,25 +136,30 @@ const LogoMoving = () => {
         isLogin && !length && "pt-12"
       } pb-16 flex flex-col gap-6 h-auto w-screen bg-softGrey`}
     >
-      <div className="flex flex-col mb-2 px-4 md:px-12 lg:px-24">
-        <FadeIn delay={0.2} direction="up">
-          <Heading
-            variant="h1"
-            className="text-darkGrey flex gap-2 justify-start items-center"
-          >
-            Our <span className="text-brightBlue ">Best Stack</span>
-          </Heading>
-        </FadeIn>
-        <FadeIn delay={0.2} direction="up">
-          <Paragraph variant="large" className=" text-lightGrey font-thin z-20">
-            The best and most comprehensive place to learn Information
-            Technology
-          </Paragraph>
-        </FadeIn>
+      <div className="w-full max-w-[1440px] mx-auto">
+        <div className="flex flex-col mb-2 px-4 md:px-12 lg:px-24">
+          <FadeIn delay={0.2} direction="up">
+            <Heading
+              variant="h1"
+              className="text-darkGrey flex gap-2 justify-start items-center"
+            >
+              Our <span className="text-brightBlue ">Best Stack</span>
+            </Heading>
+          </FadeIn>
+          <FadeIn delay={0.2} direction="up">
+            <Paragraph
+              variant="large"
+              className=" text-lightGrey font-thin z-20"
+            >
+              The best and most comprehensive place to learn Information
+              Technology
+            </Paragraph>
+          </FadeIn>
+        </div>
       </div>
       <FadeIn delay={0.3} direction="left">
         <div
-          className="scroller mx-4 md:mx-12 lg:mx-24 flex-1"
+          className="scroller mx-4 md:mx-12 lg:mx-4 flex-1"
           data-speed="slow"
         >
           <div className="tag-list scroller__inner flex gap-8 flex-wrap h-full items-center">
@@ -164,7 +169,7 @@ const LogoMoving = () => {
       </FadeIn>
       <FadeIn delay={0.3} direction="right">
         <div
-          className="scroller mx-4 md:mx-12 lg:mx-24 flex-1"
+          className="scroller mx-4 md:mx-12 lg:mx-4 flex-1"
           data-speed="fast"
           data-direction="right"
         >

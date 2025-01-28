@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { Heading, Paragraph } from "./Typography";
 import {
@@ -77,53 +78,55 @@ const Notification = () => {
 
   return (
     <>
-      <div className="bg-softGrey flex flex-col items-center py-20 md:py-32 px-4 md:px-12 lg:px-24 w-screen min-h-screen ">
-        <div className="flex flex-col rounded-xl w-full gap-4 pb-6">
-          <Heading className="text-darkGrey" variant="h2">
-            Notification
-          </Heading>
+      <div className="bg-softGrey  w-screen min-h-screen ">
+        <div className="flex flex-col items-center py-24 md:py-32 px-4 md:px-12 lg:px-24 max-w-[1440px] mx-auto">
+          <div className="flex flex-col rounded-xl w-full gap-4 pb-6">
+            <Heading className="text-darkGrey" variant="h2">
+              Notification
+            </Heading>
 
-          {Notification.map((notif) => (
-            <div
-              key={notif.id}
-              className="grid grid-cols-12 py-4 px-6 md:px-8 gap-2 rounded-2xl bg-white"
-            >
-              <div className="col-span-9 flex gap-4 items-center">
-                <div className="hidden md:flex">
-                  <BellAlertIcon className="w-7 h-7 p-1 bg-darkOrange rounded-full text-white" />
+            {Notification.map((notif) => (
+              <div
+                key={notif.id}
+                className="grid grid-cols-12 py-4 px-6 md:px-8 gap-2 rounded-2xl bg-white"
+              >
+                <div className="col-span-9 flex gap-4 items-center">
+                  <div className="hidden md:flex">
+                    <BellAlertIcon className="w-7 h-7 p-1 bg-darkOrange rounded-full text-white" />
+                  </div>
+
+                  <div className="flex flex-col justify-center">
+                    <Paragraph className="text-darkOrange font-semibold">
+                      {notif.title}
+                    </Paragraph>
+                    <Paragraph className="text-darkGrey font-light">
+                      {notif.body}
+                    </Paragraph>
+                    <Paragraph
+                      variant="small"
+                      className="text-lightGrey text-start mt-1 font-normal "
+                    >
+                      {formatUpdatedAt(notif.updatedAt)}
+                    </Paragraph>
+                  </div>
                 </div>
-
-                <div className="flex flex-col justify-center">
-                  <Paragraph className="text-darkOrange font-semibold">
-                    {notif.title}
-                  </Paragraph>
-                  <Paragraph className="text-darkGrey font-light">
-                    {notif.body}
-                  </Paragraph>
-                  <Paragraph
-                    variant="small"
-                    className="text-lightGrey text-start mt-1 font-normal "
-                  >
-                    {formatUpdatedAt(notif.updatedAt)}
-                  </Paragraph>
+                <div className="col-span-3 flex items-center justify-end">
+                  <div className="flex justify-end">
+                    {notif.isRead ? (
+                      <EnvelopeOpenIcon className="w-7 h-7 p-1 bg-lightGrey bg-opacity-70 rounded-full text-white" />
+                    ) : (
+                      <EnvelopeIcon
+                        onClick={() => {
+                          handleMark(notif.id);
+                        }}
+                        className="w-7 h-7 p-1 bg-seaGreen bg-opacity-70 rounded-full text-white cursor-pointer"
+                      />
+                    )}
+                  </div>
                 </div>
               </div>
-              <div className="col-span-3 flex items-center justify-end">
-                <div className="flex justify-end">
-                  {notif.isRead ? (
-                    <EnvelopeOpenIcon className="w-7 h-7 p-1 bg-lightGrey bg-opacity-70 rounded-full text-white" />
-                  ) : (
-                    <EnvelopeIcon
-                      onClick={() => {
-                        handleMark(notif.id);
-                      }}
-                      className="w-7 h-7 p-1 bg-seaGreen bg-opacity-70 rounded-full text-white cursor-pointer"
-                    />
-                  )}
-                </div>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </>

@@ -36,73 +36,75 @@ export const Akun = () => {
   };
 
   return (
-    <div className="flex flex-col w-screen min-h-screen overflow-x-hidden bg-softGrey">
-      <div className="flex flex-col md:flex-row pt-16 md:pt-24 md:pb-5 px-4 md:px-12 lg:px-24 overflow-x-hidden">
-        <div className="hidden h-fit md:flex md:w-[40%] lg:w-[35%] bg-white flex-col rounded-xl shadow-lg p-7 gap-2 mt-7 !pb-36 overflow-x-hidden">
-          <Heading variant="h3" className="text-darkGrey">
-            Account
-          </Heading>
-          <button
-            onClick={() => handleTabChange("profile")}
-            className="flex items-center space-x-2 h-[3rem] border-b-2 w-[100%]"
-          >
-            <PencilSquareIcon className="w-[2rem] text-[#6176F7]" />
-            <span
-              className={
-                activeTab === "profile" ? "text-[#6176F7]" : "text-[#21212F]"
-              }
+    <div className=" w-screen min-h-screen overflow-x-hidden bg-softGrey">
+      <div className="flex flex-col max-w-[1440px] mx-auto mt-0 md:mt-5">
+        <div className="flex flex-col md:flex-row pt-16 md:pt-24 md:pb-5 px-4 md:px-12 lg:px-24 overflow-x-hidden">
+          <div className="hidden h-fit md:flex md:w-[40%] lg:w-[35%] bg-white flex-col rounded-xl shadow-lg p-7 gap-2 mt-7 !pb-36 overflow-x-hidden">
+            <Heading variant="h3" className="text-darkGrey">
+              Account
+            </Heading>
+            <button
+              onClick={() => handleTabChange("profile")}
+              className="flex items-center space-x-2 h-[3rem] border-b-2 w-[100%]"
             >
-              Profil
-            </span>
-          </button>
-          <button
-            onClick={() => handleTabChange("changePassword")}
-            className="flex items-center space-x-2 h-[3rem] border-b-2 w-[100%]"
-          >
-            <Cog6ToothIcon className="w-[2rem] text-[#6176F7]" />
-            <span
-              className={
-                activeTab === "changePassword"
-                  ? "text-[#6176F7]"
-                  : "text-[#21212F]"
-              }
+              <PencilSquareIcon className="w-[2rem] text-[#6176F7]" />
+              <span
+                className={
+                  activeTab === "profile" ? "text-[#6176F7]" : "text-[#21212F]"
+                }
+              >
+                Profil
+              </span>
+            </button>
+            <button
+              onClick={() => handleTabChange("changePassword")}
+              className="flex items-center space-x-2 h-[3rem] border-b-2 w-[100%]"
             >
-              Change Password
-            </span>
-          </button>
-          <button
-            onClick={() => handleTabChange("paymentHistory")}
-            className="flex items-center space-x-2 h-[3rem] border-b-2 w-[100%]"
-          >
-            <ShoppingCartIcon className="w-[2rem] text-[#6176F7]" />
-            <span
-              className={
-                activeTab === "paymentHistory"
-                  ? "text-[#6176F7]"
-                  : "text-[#21212F]"
-              }
+              <Cog6ToothIcon className="w-[2rem] text-[#6176F7]" />
+              <span
+                className={
+                  activeTab === "changePassword"
+                    ? "text-[#6176F7]"
+                    : "text-[#21212F]"
+                }
+              >
+                Change Password
+              </span>
+            </button>
+            <button
+              onClick={() => handleTabChange("paymentHistory")}
+              className="flex items-center space-x-2 h-[3rem] border-b-2 w-[100%]"
             >
-              Payment History
-            </span>
-          </button>
-          <button
-            onClick={openModal}
-            className="flex items-center space-x-2 h-[3rem] border-b-2 w-[100%]"
-          >
-            <ArrowLeftOnRectangleIcon className="w-[2rem] text-[#6176F7]" />
-            <span>Logout</span>
-          </button>
-          {isLogoutModalOpen && (
-            <ModalLogoutAkun closeModal={closeLogoutModal} />
-          )}
-        </div>
+              <ShoppingCartIcon className="w-[2rem] text-[#6176F7]" />
+              <span
+                className={
+                  activeTab === "paymentHistory"
+                    ? "text-[#6176F7]"
+                    : "text-[#21212F]"
+                }
+              >
+                Payment History
+              </span>
+            </button>
+            <button
+              onClick={openModal}
+              className="flex items-center space-x-2 h-[3rem] border-b-2 w-[100%]"
+            >
+              <ArrowLeftOnRectangleIcon className="w-[2rem] text-[#6176F7]" />
+              <span>Logout</span>
+            </button>
+            {isLogoutModalOpen && (
+              <ModalLogoutAkun closeModal={closeLogoutModal} />
+            )}
+          </div>
 
-        <Sidebar activeTab={activeTab} handleTabChange={handleTabChange} />
+          <Sidebar activeTab={activeTab} handleTabChange={handleTabChange} />
 
-        <div className="flex flex-row justify-center w-full md:w-[60%] lg:w-[75%] pt-3">
-          {activeTab === "profile" && <UpdateProfileComponent />}
-          {activeTab === "paymentHistory" && <PaymentHistoryComponent />}
-          {activeTab === "changePassword" && <ChangePasswordComponent />}
+          <div className="flex flex-row justify-center w-full md:w-[60%] lg:w-[75%] pt-3">
+            {activeTab === "profile" && <UpdateProfileComponent />}
+            {activeTab === "paymentHistory" && <PaymentHistoryComponent />}
+            {activeTab === "changePassword" && <ChangePasswordComponent />}
+          </div>
         </div>
       </div>
     </div>

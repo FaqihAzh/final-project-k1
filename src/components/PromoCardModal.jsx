@@ -54,9 +54,9 @@ const PromoCardModal = ({
 
   return (
     <div className="px-4 h-screen w-full flex flex-col justify-center items-center fixed inset-0 bg-darkGrey bg-opacity-70">
-      <div className="bg-white rounded-3xl p-6 md:p-12 relative  w-full md:w-3/4 lg:w-1/2">
+      <div className="bg-white rounded-3xl p-6 md:p-12 relative  w-full md:w-3/4 lg:w-1/3">
         <XCircleIcon
-          className="text-darkGrey md:text-white hover:text-paleOrange w-10 h-10 top-3 right-3 md:-top-8 md:-right-8 absolute"
+          className="text-darkGrey md:text-white  w-10 h-10 top-3 right-3 md:-top-8 md:-right-8 absolute cursor-pointer"
           onClick={handleClosePromoModal}
         ></XCircleIcon>
         <div className="flex flex-col gap-4">
@@ -67,23 +67,30 @@ const PromoCardModal = ({
             {promosData.map((promo) => (
               <div
                 key={promo.id}
-                className={`flex flex-col gap-1 md:flex-row md:justify-between bg-softGrey p-2 md:p-4 rounded-2xl md:gap-4 items-center ${
-                  selectedPromo === promo ? "outline outline-darkOrange" : ""
+                className={`flex gap-1 flex-row justify-between py-3 px-4 md:!p-4 rounded-2xl md:gap-4 items-center cursor-pointer ${
+                  selectedPromo === promo
+                    ? "bg-darkOrange bg-opacity-90 text-white"
+                    : "bg-softGrey text-darkGrey hover:outline hover:outline-1 hover:outline-darkOrange"
                 }`}
-                onClick={() => setSelectedPromo(promo)}
+                onClick={() => {
+                  if (selectedPromo === promo) setSelectedPromo(null);
+                  else setSelectedPromo(promo);
+                }}
               >
                 <div className="flex gap-2">
                   <ReceiptPercentIcon className="w-6 h-6"></ReceiptPercentIcon>
-                  <Paragraph variant="large">{promo.code_promo}</Paragraph>
+                  <Paragraph className="text-base lg:text-lg">
+                    {promo.code_promo}
+                  </Paragraph>
                 </div>
-                <Paragraph variant="large">
+                <Paragraph className="text-base lg:text-lg">
                   Discount {promo.discount}%
                 </Paragraph>
               </div>
             ))}
           </div>
           <Button
-            className="px-5 py-3 bg-darkOrange text-white rounded-full hover:scale-105"
+            className="px-5 py-3 bg-darkOrange text-white rounded-full hover:scale-105 font-semibold"
             onClick={applyPromo}
           >
             Apply Promo

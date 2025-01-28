@@ -63,7 +63,7 @@ const RegisterUser = () => {
     <>
       <AuthHeader />
       <div className="grid grid-rows-1 grid-cols-1 md:grid-rows-2 lg:grid-cols-2 lg:grid-rows-1 w-screen h-screen bg-softGrey ">
-        <div className="overflow-hidden flex-1 hidden md:flex flex-col h-full items-center text-center px-4 md:px-16">
+        <div className="overflow-hidden flex-1 hidden md:flex flex-col h-full items-center text-center px-4 md:px-16 xl:px-32">
           <div className="flex flex-col items-center justify-center lg:justify-end text-center flex-1">
             <FadeIn
               delay={0.3}
@@ -77,11 +77,11 @@ const RegisterUser = () => {
             </FadeIn>
             <FadeIn delay={0.2} direction="down" fullWidth>
               <Heading variant="h1" className="text-darkGrey z-20 mb-1">
-                Join
+                Let's Join
                 <span className="text-darkOrange mx-2 z-20">
                   World's largest
                 </span>
-                learning platform today
+                Learning Platform!
               </Heading>
             </FadeIn>
             <FadeIn delay={0.2} direction="up" fullWidth>
@@ -101,7 +101,7 @@ const RegisterUser = () => {
           </div>
         </div>
         <div className="flex-1 rounded-none md:rounded-bl-none md:rounded-tl-[3rem] md:rounded-tr-[3rem] lg:rounded-bl-[3rem] lg:rounded-tl-[3rem] lg:rounded-tr-none bg-white shadow-lg h-full flex pt-20 md:pt-0 items-start md:items-center">
-          <div className="flex w-full py-4 px-4 md:px-24 lg:px-32 flex-col gap-4">
+          <div className="flex w-full py-4 px-4 md:px-24 lg:px-32 xl:px-40 3xl:px-48 flex-col gap-4">
             <FadeIn delay={0.2} direction="down" fullWidth>
               <Heading variant="h3" className="text-darkGrey">
                 Create Account
@@ -161,7 +161,10 @@ const RegisterUser = () => {
               </Paragraph>
             </FadeIn>
             <FadeIn delay={0.2} direction="up" fullWidth>
-              <Paragraph variant="small" className="text-darkGrey text-center">
+              <Paragraph
+                variant="small"
+                className="text-lightGrey text-center mt-4 -mb-2"
+              >
                 Already have an account?
                 <Button
                   type="link"
@@ -173,7 +176,7 @@ const RegisterUser = () => {
               </Paragraph>
             </FadeIn>
             <FadeIn delay={0.2} direction="up" className="flex justify-center">
-              <Paragraph variant="small">
+              <Paragraph variant="small" className="text-lightGrey">
                 Not activated yet?{" "}
                 <Button
                   type="link"
