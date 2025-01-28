@@ -39,84 +39,92 @@ const CourseSample = ({ allCourse }) => {
   return (
     <>
       {dataMap.length > 0 && (
-        <div className="py-12 px-4 md:px-12 lg:px-24 flex flex-col gap-4 w-screen bg-softGrey">
-          <div className="flex flex-col">
-            <FadeIn delay={0.2} direction="up">
-              {allCourse ? (
-                <Heading
-                  variant="h1"
-                  className="text-darkGrey flex gap-2 justify-start items-center"
-                >
-                  Our <span className="text-brightBlue "> Best Course's</span>
-                </Heading>
-              ) : (
-                <Heading
-                  variant="h1"
-                  className="text-darkGrey flex gap-2 justify-start items-center"
-                >
-                  Check My <span className="text-brightBlue "> Course's</span>
-                </Heading>
-              )}
-            </FadeIn>
-            <FadeIn delay={0.4} direction="up">
-              {allCourse ? (
-                <Paragraph
-                  variant="large"
-                  className=" text-lightGrey font-thin z-20"
-                >
-                  Let's start learning with us, find the best course for you.
-                </Paragraph>
-              ) : (
-                <Paragraph
-                  variant="large"
-                  className=" text-lightGrey font-thin z-20"
-                >
-                  Let's continue your struggle, just a little more to reach your
-                  dreams
-                </Paragraph>
-              )}
-            </FadeIn>
-          </div>
-          <div className="w-full h-full grid grid-cols-1">
-            <FadeIn
-              delay={0.2}
-              direction="left"
-              fullWidth
-              className="pb-8 h-full"
-            >
-              <Swiper
-                modules={[Grid, Autoplay]}
-                loop={true}
-                grabCursor={true}
-                spaceBetween={15}
-                slidesPerView={1}
-                autoplay={{ delay: 12000, disableOnInteraction: false }}
-                grid={{
-                  rows: 1,
-                  fill: "row",
-                }}
-                breakpoints={{
-                  768: {
-                    slidesPerView: 2.5,
-                  },
-                  1028: {
-                    slidesPerView: 3.5,
-                  },
-                }}
+        <div className=" w-screen bg-softGrey">
+          <div className="py-12 px-4 md:px-12 lg:px-24 flex flex-col gap-4 w-full max-w-[1440px] mx-auto">
+            <div className="flex flex-col">
+              <FadeIn delay={0.2} direction="up">
+                {allCourse ? (
+                  <Heading
+                    variant="h1"
+                    className="text-darkGrey flex gap-2 justify-start items-center"
+                  >
+                    Our <span className="text-brightBlue "> Best Course's</span>
+                  </Heading>
+                ) : (
+                  <Heading
+                    variant="h1"
+                    className="text-darkGrey flex gap-2 justify-start items-center"
+                  >
+                    Check My <span className="text-brightBlue "> Course's</span>
+                  </Heading>
+                )}
+              </FadeIn>
+              <FadeIn delay={0.4} direction="up">
+                {allCourse ? (
+                  <Paragraph
+                    variant="large"
+                    className=" text-lightGrey font-thin z-20"
+                  >
+                    Let's start learning with us, find the best course for you.
+                  </Paragraph>
+                ) : (
+                  <Paragraph
+                    variant="large"
+                    className=" text-lightGrey font-thin z-20"
+                  >
+                    Let's continue your struggle, just a little more to reach
+                    your dreams
+                  </Paragraph>
+                )}
+              </FadeIn>
+            </div>
+            <div className="w-full h-full grid grid-cols-1">
+              <FadeIn
+                delay={0.2}
+                direction="left"
+                fullWidth
+                className="pb-8 h-full"
               >
-                {dataMap.length > 0 &&
-                  dataMap.map((course) => (
-                    <SwiperSlide key={course.id}>
-                      <div className="pb-8 min-h-full" key={course.id}>
-                        <CourseCard
-                          course={course}
-                          isMyClass={allCourse ? false : true}
-                        />
-                      </div>
-                    </SwiperSlide>
-                  ))}
-              </Swiper>
-            </FadeIn>
+                <Swiper
+                  modules={[Grid, Autoplay]}
+                  loop={true}
+                  grabCursor={true}
+                  spaceBetween={15}
+                  slidesPerView={1}
+                  autoplay={{ delay: 12000, disableOnInteraction: false }}
+                  grid={{
+                    rows: 1,
+                    fill: "row",
+                  }}
+                  breakpoints={{
+                    768: {
+                      slidesPerView: 2.5,
+                    },
+                    1028: {
+                      slidesPerView: 3.5,
+                    },
+                    1440: {
+                      slidesPerView: 4,
+                    },
+                    2160: {
+                      slidesPerView: 5,
+                    },
+                  }}
+                >
+                  {dataMap.length > 0 &&
+                    dataMap.map((course) => (
+                      <SwiperSlide key={course.id}>
+                        <div className="pb-8 min-h-full" key={course.id}>
+                          <CourseCard
+                            course={course}
+                            isMyClass={allCourse ? false : true}
+                          />
+                        </div>
+                      </SwiperSlide>
+                    ))}
+                </Swiper>
+              </FadeIn>
+            </div>
           </div>
         </div>
       )}

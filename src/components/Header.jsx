@@ -185,8 +185,8 @@ const Header = () => {
 
   return (
     <header>
-      <div className="fixed w-screen top-0 left-0 z-50 bg-lightBlue px-4 md:px-12 lg:px-24 overflow-hidden">
-        <div className="flex items-center gap-4 py-4">
+      <div className="fixed w-screen top-0 left-0 z-50 bg-lightBlue overflow-hidden">
+        <div className="flex items-center gap-4 py-6 lg:py-8 max-w-[1440px] mx-auto px-4 md:px-12 lg:px-24">
           <div className="flex-1 flex items-center gap-2">
             <Button
               type="link"

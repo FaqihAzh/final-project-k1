@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import Button from "./Button";
 import { useNavigate, useParams } from "react-router-dom";
@@ -52,7 +53,7 @@ export function Payment() {
               transaction_time: result.transaction_time,
             })
           );
-          navigate("/payment/success") 
+          navigate("/payment/success");
         },
         onPending: function (result) {
           dispatch(
@@ -121,82 +122,90 @@ export function Payment() {
   };
 
   return (
-    <div className="bg-softGrey py-24 px-4 md:px-12 lg:px-24  min-h-screen">
-      <FadeIn delay={0.2} direction="down" fullWidth>
-        <Heading
-          variant="h1"
-          className="text-darkGrey flex gap-2 justify-start items-center mb-4"
-        >
-          Payment <span className="text-brightBlue "> Details's</span>
-        </Heading>
-      </FadeIn>
-      <FadeIn delay={0.3} direction="down" fullWidth>
-        <div className="grid grid-cols-1 grid-rows-2 md:grid-cols-3 md:grid-rows-1 gap-0 md:gap-8 bg-white p-8 rounded-xl shadow-xl w-full">
-          <div className="col-span-1 -mt-6">
-            <CourseCard course={cardCourse} isPayment={true} />
-          </div>
-          <div className="col-span-2 flex flex-col gap-5">
-            {cardCourse.price !== 0 ? (
-              <Button
-                className="w-full text-center bg-softGrey rounded-full px-5 py-3 mt-8 md:mt-0"
-                onClick={handlePromoModalClick}
-              >
-                {promoName ? promoName : "Click to Get Discount"}
-              </Button>
-            ) : (
-              <Button
-                className="w-full text-center bg-softGrey rounded-full px-5 py-3 mt-8 md:mt-0"
-                onClick={handlePromoFree}
-              >
-                Click to Get Discount
-              </Button>
-            )}
-            {isPromoModalOpen && (
-              <PromoCardModal
-                handleClose={handleClosePromoModal}
-                onApplyPromo={handleApplyPromo}
-                cardCourse={cardCourse}
-                setPromoName={setPromoName}
-              />
-            )}
-            <div className="flex flex-col gap-4">
-              <span className="font-semibold">Payment details</span>
-              <div className="flex flex-row justify-between">
-                <span className="text-darkGrey">Payment Method</span>
-                <span>Via Midtrans</span>
-              </div>
-              <div className="flex flex-row justify-between">
-                <span className="text-darkGrey">Course Pricing</span>
-                <span>{formatRupiah(cardCourse.price)}</span>
-              </div>
-              {cardCourse.price !== 0 ? (
-                <div className="flex flex-row justify-between">
-                  <span className="text-darkGrey">Discount {persent}%</span>
-                  <span>{formatRupiah(discountAmount)}</span>
-                </div>
-              ) : (
-                <div className="flex flex-row justify-between">
-                  <span className="text-darkGrey">Discount</span>
-                  <span>Free</span>
-                </div>
-              )}
-              <hr />
-              <div className="flex flex-row justify-between">
-                <span className="font-semibold">Total Pay</span>
-                <span className="font-semibold">{formatRupiah(totalPay)}</span>
-              </div>
+    <div className="bg-softGrey min-h-screen">
+      <div className="bg-softGrey py-24 px-4 md:px-12 lg:px-24  min-h-screen max-w-[1440px] mx-auto mt-0 md:mt-10">
+        <FadeIn delay={0.2} direction="down" fullWidth>
+          <Heading
+            variant="h1"
+            className="text-darkGrey flex gap-2 justify-start items-center mb-4"
+          >
+            Payment <span className="text-brightBlue "> Details</span>
+          </Heading>
+        </FadeIn>
+        <FadeIn delay={0.3} direction="down" fullWidth>
+          <div className="grid grid-cols-1 grid-rows-2 md:grid-cols-3 md:grid-rows-1 gap-0 md:gap-8 bg-white p-8 rounded-xl shadow-xl w-full">
+            <div className="col-span-1 -mt-6">
+              <CourseCard course={cardCourse} isPayment={true} />
             </div>
-            <Button
-              onClick={
-                cardCourse.price === 0 ? handleBuyCourseFree : handleBuyCourse
-              }
-              className="px-5 py-3 bg-darkOrange text-white rounded-full hover:scale-105"
-            >
-              Buy Now
-            </Button>
+            <div className="col-span-2 flex flex-col gap-5">
+              {cardCourse.price !== 0 ? (
+                <Button
+                  className="w-full text-center bg-softGrey font-medium rounded-full px-5 py-3 mt-8 md:mt-0"
+                  onClick={handlePromoModalClick}
+                >
+                  {promoName ? promoName : "Click to Get Discount"}
+                </Button>
+              ) : (
+                <Button
+                  className="w-full text-center bg-softGrey font-medium rounded-full px-5 py-3 mt-8 md:mt-0"
+                  onClick={handlePromoFree}
+                >
+                  Click to Get Discount
+                </Button>
+              )}
+              {isPromoModalOpen && (
+                <PromoCardModal
+                  handleClose={handleClosePromoModal}
+                  onApplyPromo={handleApplyPromo}
+                  cardCourse={cardCourse}
+                  setPromoName={setPromoName}
+                />
+              )}
+              <div className="flex flex-col gap-4">
+                <span className="font-semibold">Payment details</span>
+                <div className="flex flex-row justify-between">
+                  <span className="text-lightGrey">Payment Method</span>
+                  <span className="text-lightGrey">Via Midtrans</span>
+                </div>
+                <div className="flex flex-row justify-between">
+                  <span className="text-lightGrey">Course Pricing</span>
+                  <span className="text-lightGrey">
+                    {formatRupiah(cardCourse.price)}
+                  </span>
+                </div>
+                {cardCourse.price !== 0 ? (
+                  <div className="flex flex-row justify-between">
+                    <span className="text-lightGrey">Discount {persent}%</span>
+                    <span className="text-lightGrey">
+                      {formatRupiah(discountAmount)}
+                    </span>
+                  </div>
+                ) : (
+                  <div className="flex flex-row justify-between">
+                    <span className="text-lightGrey">Discount</span>
+                    <span className="text-lightGrey">Free</span>
+                  </div>
+                )}
+                <hr />
+                <div className="flex flex-row justify-between">
+                  <span className="font-semibold">Total</span>
+                  <span className="font-semibold">
+                    {formatRupiah(totalPay)}
+                  </span>
+                </div>
+              </div>
+              <Button
+                onClick={
+                  cardCourse.price === 0 ? handleBuyCourseFree : handleBuyCourse
+                }
+                className="px-5 py-3 bg-darkOrange text-white font-semibold rounded-full hover:scale-105"
+              >
+                Buy Now
+              </Button>
+            </div>
           </div>
-        </div>
-      </FadeIn>
+        </FadeIn>
+      </div>
     </div>
   );
 }

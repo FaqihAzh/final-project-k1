@@ -121,11 +121,10 @@ const LoginUser = () => {
             </Button>
           </FadeIn>
           <FadeIn delay={0.4} direction="up">
-            <div className="px-10 flex flex-col gap-3 text-center">
+            <div className="px-10 xl:px-32 3xl:px-40 flex flex-col gap-3 text-center">
               <Heading variant="h1">
                 Sign in to
-                <span className="text-darkOrange"> learn a New Skill</span>
-                <br />
+                <span className="text-darkOrange"> learn a New Skill </span>
                 Anytime, and Anywhere
               </Heading>
               <Paragraph className="font-thin text-lightGrey ">
@@ -144,12 +143,12 @@ const LoginUser = () => {
             <img
               src={loginIllustration}
               alt="LoginIllustration"
-              className="w-[50%] h-auto "
+              className="w-[35%] lg:w-[40%] 3xl:w-[50%] h-auto"
             />
           </FadeIn>
         </div>
         <div className="flex-1 bg-white rounded-t-[3rem] lg:rounded-l-[3rem] lg:rounded-tr-none shadow-[0px_2px_20px_#cbd1f5] flex justify-center items-start md:items-center pt-20 md:pt-0">
-          <div className="flex flex-col justify-center items-center gap-4 w-full px-4 md:px-12 lg:px-32">
+          <div className="flex flex-col justify-center items-center gap-4 w-full px-4 md:px-12 lg:px-32 xl:px-40 3xl:px-48">
             <FadeIn delay={0.2} direction="down" fullWidth>
               <Heading variant="h3" className="text-grey">
                 Sign in
@@ -242,8 +241,8 @@ const LoginUser = () => {
               </div>
             </FadeIn>
 
-            <FadeIn delay={0.2} direction="up">
-              <Paragraph variant="small">
+            <FadeIn delay={0.2} direction="up" className={"mt-4 -mb-2"}>
+              <Paragraph variant="small" className="text-lightGrey">
                 Don't have an account yet?{" "}
                 <Button
                   type="link"
@@ -255,7 +254,7 @@ const LoginUser = () => {
               </Paragraph>
             </FadeIn>
             <FadeIn delay={0.2} direction="up">
-              <Paragraph variant="small">
+              <Paragraph variant="small" className="text-lightGrey">
                 Not activated yet?{" "}
                 <Button
                   type="link"

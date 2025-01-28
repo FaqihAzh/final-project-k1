@@ -20,33 +20,38 @@ const Categories = () => {
   };
 
   return (
-    <div className="pt-4 pb-12 px-4 md:px-12 lg:px-24 flex flex-col gap-6 w-screen bg-softGrey">
-      <div className="flex flex-col mb-4">
-        <FadeIn delay={0.2} direction="up">
-          <Heading
-            variant="h1"
-            className="text-darkGrey flex gap-2 justify-start items-center"
-          >
-            Course <span className="text-brightBlue "> Categories</span>
-          </Heading>
-        </FadeIn>
-        <FadeIn delay={0.2} direction="up">
-          <Paragraph variant="large" className=" text-lightGrey font-thin z-20">
-            We provide some of the best categories to make your learning more
-            structured
-          </Paragraph>
-        </FadeIn>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {categoriesData.map((category) => (
-          <FadeIn
-            key={category.id}
-            delay={(category.id + 1) * 0.2}
-            direction="right"
-          >
-            <CategoryItem category={category} />
+    <div className=" w-screen bg-softGrey">
+      <div className="pt-4 pb-12 px-4 md:px-12 lg:px-24 flex flex-col gap-6 w-screen bg-softGrey max-w-[1440px] mx-auto">
+        <div className="flex flex-col mb-4">
+          <FadeIn delay={0.2} direction="up">
+            <Heading
+              variant="h1"
+              className="text-darkGrey flex gap-2 justify-start items-center"
+            >
+              Course <span className="text-brightBlue "> Categories</span>
+            </Heading>
           </FadeIn>
-        ))}
+          <FadeIn delay={0.2} direction="up">
+            <Paragraph
+              variant="large"
+              className=" text-lightGrey font-thin z-20"
+            >
+              We provide some of the best categories to make your learning more
+              structured
+            </Paragraph>
+          </FadeIn>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {categoriesData.map((category) => (
+            <FadeIn
+              key={category.id}
+              delay={(category.id + 1) * 0.2}
+              direction="right"
+            >
+              <CategoryItem category={category} />
+            </FadeIn>
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -1,5 +1,4 @@
 import { API_ENDPOINT } from "../../utils/constants/endpoint";
-import http from "../../utils/constants/http";
 import http2 from "../../utils/constants/http2";
 
 export const getDetailCourse = async (id) => {
